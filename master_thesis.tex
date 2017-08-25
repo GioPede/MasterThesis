@@ -1,0 +1,86 @@
+%% MAIN DOCUMENT FOR MASTER THESIS
+\documentclass[twoside,english, a4paper, 11pt]{shared/uiofysmaster}
+\usepackage[top=1.5in, bottom=1.5in, left=1in, right=1in]{geometry}
+
+%% TITLE
+\author{Giovanni Pederiva}
+\title{\bf{A Very Impressive and Fancy Tile for a Thesis}}
+\date{May 2018}
+
+%% LOAD PACKAGES
+\input{shared/preamble}
+
+%% MAIN DOCUMENT BEGINNING
+\begin{document}
+
+% LOAD COMMANDS
+\input{shared/custom_commands}
+
+\maketitle
+\clearpage
+
+\tableofcontents
+\clearpage
+
+%% ABSTRACT AND ACKNOWLEDGEMENTS
+\begin{abstract}
+	\input{preface/abstract}
+\end{abstract}
+\begin{acknowledgements}
+	\input{preface/acknowledgements}
+\end{acknowledgements}
+
+%% PART I: INTRODUCTORY STUFF
+\begin{part}{Introduction to QCD and Lattice Field Theories}
+	\label{part:intro}
+	\begin{chapter}{A Primer on QCD in the Continuum}
+		\label{chap:qcd_intro}
+  		\input{introduction/qcd_intro}
+	\end{chapter}
+
+	\begin{chapter}{QCD on the Lattice}
+		\label{chap:lattice_intro}
+	  	\input{introduction/lattice_intro}
+	\end{chapter}
+
+	\begin{chapter}{Pure Gauge Theories: a First Implementation}
+		\label{chap:puregauge_intro}
+	  	\input{introduction/puregauge_intro}
+	\end{chapter}
+\end{part}
+
+%% PART II: THE REAL PROBLEM
+\begin{part}{A QCD problem I should be considering}
+	\begin{chapter}{The nucleon EDMa?}
+  		%\label{chap:edm}
+  		%\input{edm}
+	\end{chapter}
+\end{part}
+
+%% PART III: CONCLUSIONS
+\begin{part}{Conclusion and Discussion}
+	\label{part:conclusion}
+	\begin{chapter}{Summary and Conclusion}
+		\label{chap:conclusion}
+		\input{conclusion/conclusion}
+	\end{chapter}
+	\begin{chapter}{Future Developements}
+		\label{chap:future}
+		\input{conclusion/future}
+	\end{chapter}
+\end{part}
+
+
+%% APPENDICES
+%\begin{part}{Appendices}
+%	\begin{appendices}
+%		\input{appendix?}
+%	\end{appendices}
+%\end{part}
+
+%% MAKE BIBLIOGRAPHY
+\bibliographystyle{unsrt}
+\bibliography{bibliography/master_thesis}
+
+%% AND SO WE END
+\end{document}
