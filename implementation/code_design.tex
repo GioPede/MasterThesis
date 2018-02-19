@@ -1,0 +1,19 @@
+One of the major focuses of this work has been a completely new implementation of a program to generate and analyse $SU(3)$ gauge fields. As it is common practice in Lattice QCD numerical implementations, the program is separated in two parts that are computationally intensive and one that is easier in that sense:
+\begin{itemize}
+    \item \textit{generation of gauge fields}: in this case it is done through a simple Metropolis algorithm using the standard Wilson action;
+    \item \textit{computation of observables}: this includes applying the gradient flow as well as computing the energy density and the topological charge at every flow-time;
+    \item \textit{computation of derived observables}: mainly post analysis, error analysis and model fits to data. 
+\end{itemize}
+Here we will present the main features of the first two steps, which are the most interesting ones. The programming language of choice is \cpp because of its high efficiency, high abstraction capabilities (the codebase is highly object oriented) and for the easiness of the \mpi integration. The analysis of data has been performed using \texttt{python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
+
+\section{Generating Pure Gauge Fields}
+The task of generating lattice field configurations is extremely demanding in terms of computation requirements. The case of QCD is much more demanding than that of a pure Yang-mills theory, but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requres $2^4$ more points in the global lattice. \\
+To get a better feeling of the algorithm we first have to look at what the basic object of the program is: the lattice. The number of double precision floating point numbers to be stored for a field configuration is given by
+\begin{equation}
+    \underbrace{N^3}_\text{spatial dimension} \times
+    \underbrace{N_t}_\text{time dimension} \times
+    \underbrace{4}_\text{links per site} \times
+    \underbrace{9}_\text{SU(3) matrix size} \times
+    \underbrace{2}_\text{real and imaginary part}
+\end{equation}
+this implies that, for example, if we choose $N=48,~N_t=96$ the resulting configuration is $6115295232~bytes$ large, that is $6~GBytes$. 

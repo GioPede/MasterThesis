@@ -22,7 +22,7 @@
 \tableofcontents
 \clearpage
 
-%% ABSTRACT AND ACKNOWLEDGEMENTS
+%% ABSTRACT AND ACKNOWLEDGMENTS
 \begin{abstract}
 	\input{preface/abstract}
 \end{abstract}
@@ -38,32 +38,58 @@
   		\input{introduction/qcd_intro}
 	\end{chapter}
 
-	\begin{chapter}{QCD on the Lattice}
+	\begin{chapter}{Lattice Field Theories and Lattice QCD}
 		\label{chap:lattice_intro}
 	  	\input{introduction/lattice_intro}
 	\end{chapter}
 
-	\begin{chapter}{Pure Gauge Theories: a First Implementation}
-		\label{chap:puregauge_intro}
-	  	\input{introduction/puregauge_intro}
+	\begin{chapter}{The Gradient Flow Method}
+		\label{chap:grad_intro}
+	  	\input{introduction/grad_intro}
+	\end{chapter}
+
+	\begin{chapter}{Discretization Effects in Lattice Yang-Mills Theories and Scale Fixing}
+		\label{chap:problem_intro}
+	  	\input{introduction/problem_intro}
 	\end{chapter}
 \end{part}
 
-%% PART II: THE REAL PROBLEM
-\begin{part}{A QCD problem I should be considering}
-	\begin{chapter}{The nucleon EDMa?}
-  		%\label{chap:edm}
-  		%\input{edm}
+
+%% PART II: IMPLEMENTATION
+\begin{part}{Implementation}
+	\begin{chapter}{Designing a Lattice $SU(3)$ Yang-Mills Theory Code}
+  		\label{chap:code_design}
+  		\input{implementation/code_design}
 	\end{chapter}
+
+	\begin{chapter}{Tests and Runs Description}
+		\label{chap:test_runs}
+		\input{implementation/test_runs}
+  \end{chapter}
 \end{part}
 
-%% PART III: CONCLUSIONS
+
+%% PART III: RESULTS
+\begin{part}{Data Analysis and Results}
+	\begin{chapter}{Raw Observables}
+  		\label{chap:obs_results}
+  		\input{results/obs_results}
+	\end{chapter}
+
+	\begin{chapter}{Running Coupling and Scale Fixing}
+		\label{chap:advance_results}
+		\input{results/advance_results}
+  	\end{chapter}
+\end{part}
+
+%% PART IV: CONCLUSIONS
 \begin{part}{Conclusion and Discussion}
 	\label{part:conclusion}
 	\begin{chapter}{Summary and Conclusion}
 		\label{chap:conclusion}
 		\input{conclusion/conclusion}
 	\end{chapter}
+	
 	\begin{chapter}{Future Developements}
 		\label{chap:future}
 		\input{conclusion/future}
@@ -72,11 +98,11 @@
 
 
 %% APPENDICES
-%\begin{part}{Appendices}
-%	\begin{appendices}
-%		\input{appendix?}
-%	\end{appendices}
-%\end{part}
+\begin{part}{Appendices}
+	\begin{appendices}
+		\input{appendix/resampling}
+	\end{appendices}
+\end{part}
 
 %% MAKE BIBLIOGRAPHY
 \bibliographystyle{unsrt}

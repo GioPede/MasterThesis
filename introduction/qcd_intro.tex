@@ -1,22 +1,78 @@
-Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory that describes the behaviour of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on a $SU(3)$ symmetry group. In this chapter we will discuss how the QCD lagrangian density is obtained, how it links with the Standard Model of particle physics ($SM$) and some of the major results of the thoery. \cite{peskin}
+Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory that describes the behavior of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on a $SU(3)$ symmetry group. In this chapter we will discuss how the QCD lagrangian density is obtained, how it links with the Standard Model of particle physics ($SM$) and some of the major results of the theory. \cite{peskin}
 
-\section{Derivation of the QCD Largangian}
-Starting from a complex fermion field $\psi(x)$ we can construct a vector of $N$ such fields. The case of the strong force is that of $N=3$:
+\section{The QCD Lagrangian}
+In quantum field theory the characterizing equation of a theory is its lagrangian density, because it contains all the information about the fields that are involved, their properties and most importantly, their interactions. The simplest form, which however has several problems, is based on the Yang-Mills Lagrangian, with a $SU(3)$ symmetry group:  
 \begin{equation}
-  \psi(x) = \begin{pmatrix}
+  \Lagr_{QCD} = -\frac{1}{4}(G_{\mu\nu}^a)^2 + \sum_{f=1}^{n_f}\bpsi_f(i\Dslash - m_f)\psi_f
+\end{equation}
+Here $\psi_f$ represents the complex-valued fermion field of flavor $f$, with mass $m_f$. These fields are the quark fields that come in six flavors: $u$ (up), $d$ (down), $s$ (strange), $c$ (charm), $b$ (bottom) and $t$ (top).  The second element in the lagrangian is the Gluon Field Strength Tensor, $G_{\mu\nu}^a$. The two indices $\mu$ and $\nu$ are Lorentz indices and $a$ is the index of the generators of the gauge group, $SU(3)$ in this case. Note that Einstein summing convention on repeated indices is applied, to when taking the square of the strength tensor three sums are applied. The definition of $G_{\mu\nu}^a$ is:
+\begin{equation}
+  G_{\mu\nu}^a = \partial_\mu A_\nu^a - \partial_\nu A_\mu^a + gf^{abc}A\mu^b A_\nu^c 
+\end{equation}
+in this equation $A_\mu^a $ is the gluon field, that carries a Lorentz index and a group generator index and $f^{abc}$ are the structure constants of $SU(3)$, which satisfy:
+\begin{equation}
+  [t^a, t^b] = if^{abc}t^c
+\end{equation} 
+with $t^a$ being the generators of the algebra $\mathfrak{su}(3)$. 
+
+\subsection{Feynman Rules of QCD in the Continuum}
+A key element that is needed to perform calculations in a quantum field theory are Feynman Rules. These are a set of equations that represent the propagation of fields and the interaction vertices f the theory. For the case of QCD, being a non-abelian gauge theory, some vertices represent interactions between gauge bosons only, as opposed to Quantum Electrodynamics, QED, that forbids photon-photon interactions. 
+
+First we define the quark and gluon propagators:
+\begin{center}
+  \vspace{-1cm}
+  \begin{tabular}{cl}      
+    \feynmandiagram [horizontal=a to b] {
+      a -- [fermion, momentum=\(k\)]  b,
+      }; & 
+    \(
+      = \frac{i \delta_{ij}}{\slashed{k}-m}
+    \)\\
+    \feynmandiagram [horizontal=a to b] {
+      a -- [gluon, momentum=\(k\)]  b,
+      }; & 
+    \(
+      = -\frac{i \delta_{ij}g^{\mu\nu}}{k^2}
+    \)\\
+  \end{tabular}
+\end{center}
+
+    
+
+
+\subsection{Derivation from Gauge Symmetry}
+Starting from a complex-valued Dirac field $\psi(x)$ we construct a vector of $N$ such fields and consider it as the base field of our theory. In the case of the strong force $N=3$:
+\begin{equation}
+  \psi = \begin{pmatrix}
       \psi_a(x)\\
       \psi_b(x)\\
       \psi_c(x)
   \end{pmatrix}
-\end{equation}
-We then construct a lagrangian density starting from Dirac's equation:
+\end{equation} 
+We introduce a global gauge transformation describing rotations in the inner space of the spinors:
 \begin{equation}
-  \Lagr = i\bpsi(\dslash - m )\psi
-\end{equation}asdaasdasd
-Finally we have configured everything...
-sfesrer and on and on...asdasdasddasd
-asdasdasdsdadyiuoytoiwueryt
-\begin{equation}
-  2+3=10000
+  \psi' \rightarrow \exp \lparen i \alpha^i t_i\rparen \psi
 \end{equation}
-sfesrer and on and on...asdasdasddasd
+Here $t_i$ are the generators of the algebra of $SU(N)$, $\alpha^i$ are some set of coefficients. Summation over repeated indices is implicit. If we now promote this transformation to be local, allowing the coefficients $\alpha^i$ to be space-time dependent we can define for simplicity:
+\begin{equation}
+  \psi'(x) \rightarrow V(x) \psi(x)  ~~~~~\text{where} ~~ V(x) = \exp \left( i \alpha^i(x) t_i\right)
+\end{equation}
+Now it is time to consider the free field equation, Dirac's equation:
+\begin{equation}
+  \Lagr_{Dirac} = \bpsi(i\dslash - m )\psi
+\end{equation} 
+It is easy to show that the lagrangian above is not gauge invariant under the above described symmetry. The solution is to introduce a 
+
+\section{General Properties of QCD}
+\subsection{Running Coupling}
+\subsection{Confinement}
+\subsection{Asymptotic Freedom}
+
+
+\section{Methods and Regimes of Chromodynamics}
+\subsection{Perturbative QCD}
+\subsection{Lattice Methods}
+\subsection{Effective Field Theories}
+
+\section{Experimental Tests of QCD} 
+
