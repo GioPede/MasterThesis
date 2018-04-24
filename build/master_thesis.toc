@@ -1,0 +1,54 @@
+\contentsline {part}{I\hspace {1em}Introduction to QCD and Lattice Field Theories}{5}{part.1}
+\contentsline {chapter}{\numberline {1}A Primer on QCD in the Continuum}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}The QCD Lagrangian}{8}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Feynman Rules of QCD}{9}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Gauge Symmetry of the Lagrangian}{10}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}General Properties of QCD}{11}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Running Coupling}{12}{subsection.1.2.1}
+\contentsline {subsubsection}{Asymptotic Freedom}{12}{section*.2}
+\contentsline {subsubsection}{Confinement}{13}{section*.3}
+\contentsline {section}{\numberline {1.3}Methods and Regimes of Chromodynamics}{14}{section.1.3}
+\contentsline {subsubsection}{Perturbative QCD}{14}{section*.4}
+\contentsline {subsubsection}{Lattice Methods}{14}{section*.5}
+\contentsline {subsubsection}{Effective Field Theories}{15}{section*.6}
+\contentsline {section}{\numberline {1.4}Experimental Tests of QCD}{15}{section.1.4}
+\contentsline {chapter}{\numberline {2}Lattice Field Theories and Lattice QCD}{17}{chapter.2}
+\contentsline {section}{\numberline {2.1}Discretizing QCD on the Lattice}{17}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Naive Discretization of Fermions}{18}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}The Gauge Transporter and the Wilson Loop}{19}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Lattice Fermions}{20}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Path Integrals on the Lattice}{20}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Pure Gauge Field Theory}{22}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Observables}{22}{subsection.2.2.2}
+\contentsline {subsubsection}{Plaquette}{22}{section*.7}
+\contentsline {subsubsection}{Energy Density}{23}{section*.8}
+\contentsline {subsubsection}{Topological Charge}{23}{section*.9}
+\contentsline {chapter}{\numberline {3}The Gradient Flow Method}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Perturbative Analysis of the Wilson Flow}{25}{section.3.1}
+\contentsline {chapter}{\numberline {4}Discretization Effects in Lattice Yang-Mills Theories and Scale Fixing}{27}{chapter.4}
+\contentsline {part}{II\hspace {1em}Implementation}{29}{part.2}
+\contentsline {chapter}{\numberline {5}Designing a Lattice $SU(3)$ Yang-Mills Theory Code}{31}{chapter.5}
+\contentsline {section}{\numberline {5.1}Generating Pure Gauge Fields}{31}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}The Metropolis Algorithm}{32}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Sampling the Configuration Space}{33}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Updates Strategies}{34}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}Parallelization Scheme}{34}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Summary of the Parameters}{35}{subsection.5.1.5}
+\contentsline {section}{\numberline {5.2}Wilson Flow of Gauge Configurations}{35}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}The Action Derivative}{35}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Exponential of a $\mathfrak {su}(3)$ Element}{36}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Parallelization Scheme}{36}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}Structure and Tools}{36}{section.5.3}
+\contentsline {chapter}{\numberline {6}Tests and Runs Description}{37}{chapter.6}
+\contentsline {section}{\numberline {6.1}Generated Ensembles}{37}{section.6.1}
+\contentsline {section}{\numberline {6.2}Test Runs}{38}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Strong and Weak Scaling}{38}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Autocorrelation of Observables}{39}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Production Runs and Timing}{39}{section.6.3}
+\contentsline {part}{III\hspace {1em}Data Analysis and Results}{41}{part.3}
+\contentsline {chapter}{\numberline {7}Raw Observables}{43}{chapter.7}
+\contentsline {chapter}{\numberline {8}Running Coupling and Scale Fixing}{45}{chapter.8}
+\contentsline {part}{IV\hspace {1em}Conclusion and Discussion}{47}{part.4}
+\contentsline {chapter}{\numberline {9}Summary and Conclusion}{49}{chapter.9}
+\contentsline {chapter}{\numberline {10}Future Developements}{51}{chapter.10}
+\contentsline {part}{V\hspace {1em}Appendices}{53}{part.5}

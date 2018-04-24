@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.wordWrap": "on",
+		"editor.minimap.enabled": false,
+		"latex-workshop.debug.showUpdateMessage": false,
+		"latex-workshop.message.update.show": false,
+
+	}
+}

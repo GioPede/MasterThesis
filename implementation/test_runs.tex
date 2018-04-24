@@ -1,0 +1,59 @@
+\section{Generated Ensembles}
+In order to study the scale parameter in the continuum limit, it has been necessary to choose a set of decreasing lattice spacings to then be able to take the continuum limit. The lattice spacing is linked to the coupling $g$ and $\beta$ by the known relation:
+\NOTE{SOMMER E LOG}
+We chose 4 values of $\beta$ that span lattice spacings from approximately $0.1$ fm to $0.05$ fm in approximately equal steps. \\
+For the calculation to be consistent however, the total volume of the lattice should be kept constant, so the choice of the lattice spacings also determined the number of lattice sites per dimension, having $L = aN\approx const$. The time dimension has been take to be twice as big as the space dimension.\\
+Table \LINK summarizes the physical properties of the ensembles that were generated.
+\begin{table}[!htb]
+    \begin{center}
+    \begin{tabular}{cccc}
+        $\beta$ & $a$ & $N^3\times T$ & $aL$ [fm]\\\hline
+        $6.00$ & $0.98$ & $24^3 \times 48$ & $2.2$\\
+        $6.10$ & $0.98$ & $28^3 \times 56$ & $2.2$\\
+        $6.20$ & $0.98$ & $32^3 \times 64$ & $2.2$\\
+        $6.45$ & $0.98$ & $48^3 \times 96$ & $2.2$\\
+    \end{tabular}
+    \label{runs:ensembles}
+    \capt{Physical properties of the ensembles used for this work.}
+    \end{center}
+\end{table}
+For each value of $\beta$ a statistical ensemble was needed. Ideally, one would take as many configurations as possible for each value and in principle one would have the same number of configurations for each of them. However it is clear from the discussion in chapter \LINK that the number of lattice sites affects computation times and the capability of storing the configurations dramatically. Moreover, as we will discuss in chapter \CIT the autocorrelation time of the observables has a non-trivial, power-law or exponential, behavior with the lattice spacing, making the generation of the larger $\beta$ ensembles even more time consuming.\\
+\NOTE{autocorr for topc at different beta}
+The following table summarizes the final values for the parameters of the Metropolis algorithm for the different ensembles.
+\begin{table}[!htb]
+    \begin{center}
+    \begin{tabular}{ccccc}
+        $\beta$ & $N_{conf}$ & $N_{corr}$ & MC Steps & $N_{hit}$ \\\hline
+        $6.0$ & $1000$ & $200$ & $200000$ & $30$
+    \end{tabular}
+    \label{runs:mcparams}
+    \capt{Physical properties of the ensembles used for this work.}
+    \end{center}
+\end{table}
+These values have been chosen after many tests, checks of the autocorrelation time and mainly in an empirical way. There are some parameters that are free in principle and no real reference study on their impact on the resulting ensemble. In the next section the trial and error approach that led to this decision will be briefly discussed.
+
+\section{Test Runs}
+Running some test calculations with a completely new code base is obviously necessary. First some benchmarks to check the expectation values of the observables, both on raw configurations as on flowed configurations. These benchmarks were made using 2 configurations generated with the CHROMA \CIT code base from USQCD for zero flow-time observables and one configuration flowed using an extension of CHROMA called FlowOps \CIT, built on QDP++, that applies the Wilson flow to configurations. Both types of test, once all the parameters were made equal, gave results equal to machine precision with the ones generated with the new code base.\\
+Checking the validity of expectation values of observables is a solid indication that the overall back-end of the new code-base has been implemented well, as the results are deterministic. Testing the Metropolis algorithm and assessing the quality of the generated ensembles is much harder, because it involves stochastic computations, hence no numerical check can be easily defined, one can only look at average properties of the ensemble. Unfortunately the generation of gauge field configuration as we saw in \LINK TABLE has 3 parameters that need to be set that do affect the statistical properties of the ensemble, mainly the autocorrelation. \\
+
+\subsection{Strong and Weak Scaling}
+First we can look at the scaling properties of the two sections of the code. We will distinguish the analysis in the two usual quantities used in High Performance Computing for parallel programs: strong and weak scaling. \\
+Strong scaling is the performance of a program measured in execution time as a function of the number of processors used. One would obviously expect the relation to be ideally inverse, with execution time dropping as $1/N_{procs}$, however given the overhead caused by parallelization this is seldomly the case. \\
+Weak scaling is the measure of the performance of a program as the size of the system increases but by keeping the total workload assigned to each processor constant. This measure is important to assess the quality of the parallelization scheme as it gives insights on how much time is spent in communication as more inter-processor messages are being sent.
+\FIGURE{PLOT SCALING}
+\NOTE{COMMENTI...}
+
+\subsection{Autocorrelation of Observables}
+The most important test has been the assessment of the autocorrelation time for different observables at various lattice spacings varying the parameters of the generation algorithm. The first test shows the integrated autocorrelation time for \NOTE{asdasd} at fixed $N_{corr}$ for different lattice spacings:
+
+\FIGURE{PLOT autocorr spacing}
+\NOTE{COMMENTI...}
+
+Next we looked at a single lattice spacing and tried to vary the parameters $N_{corr}$ and $N_{hits}$. The choice of the lattice spacing, motivated by the previous analysis, has been $\beta=6.45$.  
+
+\FIGURE{PLOT autocorr params}
+\NOTE{COMMENTI...}
+
+\section{Production Runs and Timing}
+All production runs were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
+The final ensembles were generated using the parameters in table \LINK, shows the computing resources used for the generation of all four ensembles. 

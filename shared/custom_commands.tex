@@ -1,11 +1,27 @@
 % Equations
-\newcommand{\bea}{\begin{eqnarray*}}
-\newcommand{\eea}{\end{eqnarray*}}
 \newcommand{\beq}{\begin{equation}}
 \newcommand{\eeq}{\end{equation}}
 \newcommand{\bpsi}{\bar{\psi}}
 \newcommand{\dslash}{\slashed{\partial}}
 \newcommand{\Dslash}{\slashed{D}}
 \newcommand{\Lagr}{\mathcal{L}}
-\newcommand{\cpp}{\texttt{C++} } 
-\newcommand{\mpi}{\texttt{MPI} } 
+\newcommand{\cpp}{\texttt{C++}} 
+\newcommand{\mpi}{\texttt{MPI}} 
+\newcommand{\CIT}{{\color{red}(CITATION NEEDED)}}
+\newcommand{\LINK}{{\color{red}(REFLINK NEEDED)}}
+\newcommand{\NOTE}[1]{{\color{red} #1 }}
+\newcommand{\FIGURE}[1]{{\color{red} FIG: #1 }}
+\newcommand{\capt}[1]{\caption{\footnotesize{ #1 }}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\fig}[4][1.0]{
+    \begin{figure}[!htp]
+        \begin{center}
+            \includegraphics[scale=#1]{#2}
+        \end{center}
+        \capt{#3}
+        \label{#4}
+    \end{figure}
+}
+\newcommand{\bea}{\begin{align*}}
+\newcommand{\eea}{\end{align*}}

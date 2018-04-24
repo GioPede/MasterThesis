@@ -1,16 +1,16 @@
-%% MAIN DOCUMENT FOR MASTER THESIS
+% MAIN DOCUMENT FOR MASTER THESIS
 \documentclass[twoside,english, a4paper, 11pt]{shared/uiofysmaster}
 \usepackage[top=1.5in, bottom=1.5in, left=1in, right=1in]{geometry}
 
-%% TITLE
+% TITLE
 \author{Giovanni Pederiva}
 \title{\bf{A Very Impressive and Fancy Title for a Thesis}}
 \date{May 2018}
 
-%% LOAD PACKAGES
+% LOAD PACKAGES 
 \input{shared/preamble}
 
-%% MAIN DOCUMENT BEGINNING
+% MAIN DOCUMENT BEGINNING
 \begin{document}
 
 % LOAD COMMANDS
@@ -22,7 +22,7 @@
 \tableofcontents
 \clearpage
 
-%% ABSTRACT AND ACKNOWLEDGMENTS
+% ABSTRACT AND ACKNOWLEDGMENTS
 \begin{abstract}
 	\input{preface/abstract}
 \end{abstract}
@@ -30,7 +30,7 @@
 	\input{preface/acknowledgements}
 \end{acknowledgements}
 
-%% PART I: INTRODUCTORY STUFF
+% PART I: INTRODUCTORY STUFF
 \begin{part}{Introduction to QCD and Lattice Field Theories}
 	\label{part:intro}
 	\begin{chapter}{A Primer on QCD in the Continuum}
@@ -55,7 +55,7 @@
 \end{part}
 
 
-%% PART II: IMPLEMENTATION
+% PART II: IMPLEMENTATION
 \begin{part}{Implementation}
 	\begin{chapter}{Designing a Lattice $SU(3)$ Yang-Mills Theory Code}
   		\label{chap:code_design}
@@ -69,7 +69,7 @@
 \end{part}
 
 
-%% PART III: RESULTS
+% PART III: RESULTS
 \begin{part}{Data Analysis and Results}
 	\begin{chapter}{Raw Observables}
   		\label{chap:obs_results}
@@ -82,7 +82,7 @@
   	\end{chapter}
 \end{part}
 
-%% PART IV: CONCLUSIONS
+% PART IV: CONCLUSIONS
 \begin{part}{Conclusion and Discussion}
 	\label{part:conclusion}
 	\begin{chapter}{Summary and Conclusion}
@@ -97,16 +97,16 @@
 \end{part}
 
 
-%% APPENDICES
+% APPENDICES
 \begin{part}{Appendices}
 	\begin{appendices}
 		\input{appendix/resampling}
 	\end{appendices}
 \end{part}
 
-%% MAKE BIBLIOGRAPHY
+% MAKE BIBLIOGRAPHY
 \bibliographystyle{unsrt}
 \bibliography{bibliography/master_thesis}
 
-%% AND SO WE END
+% AND SO WE END
 \end{document}
