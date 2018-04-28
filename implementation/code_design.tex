@@ -7,7 +7,7 @@ One of the major focuses of this work has been a completely new implementation o
 Here we will present the main features of the first two steps, which are the most interesting ones. The programming language of choice is \cpp because of its high efficiency, high abstraction capabilities (the code-base is highly object oriented) and for the easiness of the \mpi integration. The analysis of data has been performed using \texttt{python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
  
 \section{Generating Pure Gauge Fields}
-The task of generating lattice field configurations is extremely demanding in terms of computation requirements. The case of QCD is much more demanding than that of a pure Yang-mills theory, but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requires $2^4$ more points in the global lattice. \\
+The task of generating lattice field configurations is extremely demanding in terms of computation requirements. The case of QCD is much more demanding than that of a pure Yang-mills theory, but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $2^4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requires $16$ more points in the global lattice. \\
 To get a better feeling of the algorithm we first have to look at what the basic object of the program is: the lattice. The number of double precision floating point numbers to be stored for a field configuration is given by
 \begin{equation}
     \underbrace{N^3}_\text{spatial dimension} \times
@@ -16,19 +16,51 @@ To get a better feeling of the algorithm we first have to look at what the basic
     \underbrace{9}_\text{SU(3) matrix size} \times
     \underbrace{2}_\text{real and imaginary part}
 \end{equation}
-this implies that, for example, if we choose $N=48,~N_t=96$ the resulting configuration is $6115295232~bytes$ large, that is $6~GBytes$.  This limits greatly the possibility of simulating large systems \\
+this implies that, for example, if we choose $N=48,~N_t=96$ the resulting configuration is $6115295232~bytes$ large, that is $5.7~GBytes$.  This limits greatly the possibility of simulating large systems \\
 The basic element at each lattice site is a set of $4$ different $SU(3)$ matrices, one for each dimension. These links are to be intended as the integral of the gauge field from one site to the adjacent one along each dimension. A more formal description has been given in chapter 3.\\
 \subsection{The Metropolis Algorithm}
-The main algorithm that has been used to generate an ensemble of gauge field configurations is the Metropolis Algorithm. It is a widely popular Markov Chain Monte Carlo Method to generate a sequence of random samples from a probability distribution. In our case the probability distribution is the gluon Wilson Action and our random samples are the gauge configurations themselves. A simplified version of the algorithm is described below:
+The main algorithm that has been used to generate an ensemble of gauge field configurations is the Metropolis Algorithm. It is a widely popular Markov Chain Monte Carlo Method to generate a sequence of random samples from a probability distribution \cite{metropolis_equation_1953}. \\
+In general, a Markov Chain is a a sequence randomly chosen variables $X_1, X_2, \dots, X_t$, in our case a lattice field configuration, with the Markov Property: that is the probability of the step $t+1$ depends only on the variable $X_t$:
+\beq
+    P(X_{t+1} = x| X_1 = x_1, X_1 = x_2, \dots, X_t = x_t) = P(X_{t+1} = x|  X_t = x_t) 
+\eeq 
+In the case where the probabilities of moving from a state $X_i = i$ to a state $X_j = j$ is not known, the transition probability from the two states, $W(i\rightarrow j)$ can be split into two contributions: the probability $T(i \rightarrow j)$ for making the transition to state $j$ being in state $i$ and the the probability of accepting this transition $A(i \rightarrow j)$.
+\beq
+    W(i \rightarrow j) = A(i \rightarrow j)T(i \rightarrow j)
+\eeq  
+if a Probability Distribution Function (PDF) is known for the process, we can label the probability of a given state at a fixed time $w_i(t)$. The transition probability to a state $j$ at time $t+1$ is the sum of the transition probabilities of moving to state $j$ from state $i$ plus the probability of being in state $i$ at time $t$ and rejecting to move to any other state:
+\begin{align}
+    w_{j} (t+1) &= \sum_i \left[ w_i(t)T(i\rightarrow j)A(i\rightarrow j) + w_j(t)T(j\rightarrow i)\left(1-A(j\rightarrow i)\right)  \right]\\\nonumber
+    &=  w_j(t) + \sum_i \left[ w_i(t)T(i\rightarrow j)A(i\rightarrow j) -  w_j(t)T(j\rightarrow i)A(j\rightarrow i)  \right]
+\end{align}
+for large $t$, when the equilibrium is reached, we require that $w_{j} (t+1) = w_{j} (t) = w_j$, and thus we have:
+\beq
+    \sum_i w_iT(i\rightarrow j)A(i\rightarrow j) =  \sum_i w_jT(j\rightarrow i)A(j\rightarrow i) 
+\eeq 
+now, considering that the transition probability from a state $j$ to all other states must be normalized $\sum_i W(j\rightarrow i)  = \sum_i T(j\rightarrow i)A(j\rightarrow i) = 1$ we get:
+\beq
+    \sum_i w_iT(i\rightarrow j)A(i\rightarrow j) =  w_j
+\eeq 
+At this point, the further constrain of Detailed Balance is introduced, that is:
+\beq
+    w_iW(i\rightarrow j) =  w_j W(j\rightarrow i)
+\eeq 
+at equilibrium we then have:
+\beq
+    \frac{w_i}{w_j} = \frac{W(i\rightarrow j)}{W(j\rightarrow i)} = \frac{T(i\rightarrow j)A(i\rightarrow j)}{T(j\rightarrow i)A(j\rightarrow i)}
+\eeq
+Making the approximation that the transition probability between states is the same, $T(i\rightarrow j) = T(j\rightarrow i)$, the brute-force approach, we are left with the acceotance ratio of a move to 
+
+In our case the probability distribution is the exponential of gluon Wilson Action, as we can see from \LINK, and our random samples are the gauge configurations themselves. A simplified version of the algorithm is described below:
 \begin{algorithm}
     \caption{Metropolis Algorithm}\label{metropolis:algo}
     \begin{algorithmic}[1]
     \State $\textit{configuration} \gets \text{initial configuration}$
-    \For {$i < MonteCarloCycles$}
-        \State $newConfiguration  \gets \text{random move} + configuration$  
-        \State $\Delta S \gets \text{action} (newConfiguration) - \text{action} (configuration)$
+    \For {$i < \textit{MonteCarloCycles}$}
+        \State $\textit{newConfiguration}  \gets \text{random move} + \textit{configuration}$  
+        \State $\Delta S \gets \text{action} (\textit{newConfiguration}) - \text{action} (\textit{configuration})$
         \If {$\Delta S > random(0,1)$} 
-            \State $configuration \gets newConfiguration$
+            \State $\textit{configuration} \gets \textit{newConfiguration}$
         \EndIf
     \EndFor
     \end{algorithmic}
@@ -39,8 +71,8 @@ The actual implementation of this algorithm on a lattice is however not as trivi
 One configuration is saved, in the form of a simple binary containing all the data of the lattice, as an intermediate result every $N_C$ Monte Carlo updates. We need this in order to apply the gradient flow afterwards to the configurations and compute the observables we want. The choice of $N_C$ turned out to be crucial for the autocorrelation of some observables, in particular the topological charge.
 
 \subsection{Sampling the Configuration Space}
-To use Metropolis' algorithm we need to define what a random move is. Using the Wilson Action \LINK, which is defined on plaquettes, an update on a single link variable can be seen as a small unitary transformation. 
-In order to generate such transformation use three random $SU(2)$ matrices "close to unity". By this expression we mean that the real diagonal components are the dominant terms of the matrix. \CIT 
+To use Metropolis' algorithm we need to define what a random move is. Using the Wilson Action \cref{intro:lat_action}, which is defined on plaquettes, an update on a single link variable can be seen as a small unitary transformation. 
+In order to generate such transformation use three random $SU(2)$ matrices "close to unity". By this expression we mean that the real diagonal components are the dominant terms of the matrix. A recipe for generating these matrices is found in \cite{gattringer_quantum_2010}.
 \beq
     R_2 = \begin{pmatrix}
         r_{11} & r_{12} \\ r_{21} & r_{22} 
@@ -87,12 +119,73 @@ An additional element that we need to define is the action difference $\Delta S$
     \Delta S = S[U'_\mu(x)] - S[U_\mu(x)]  = -\frac{\beta}{N} \Re~ Tr [U'_\mu(x) - U_\mu(x)] A
 \eeq
 where $A$ is the sum of the "staples" of the link $U$. They are the constant three sides of the plaquettes that contain $U$:
-\beq
-    A = \sum_{\nu\neq\mu} \left[ U_{\nu}(x+\mu)U_{-\mu}(x+\mu+\nu)U_{-\nu}(x+\nu) +  U_{-\nu}(x+\mu)U_{-\mu}(x+\mu-\nu)U_{\nu}(x-\nu)  \right]
-\eeq 
-\NOTE{add simpler form}
+\begin{align}
+    A = \sum_{\nu\neq\mu} &\bigg[ U_{\nu}(x+\mu)U_{-\mu}(x+\mu+\nu)U_{-\nu}(x+\nu) \\\nonumber
+    +  &U_{-\nu}(x+\mu)U_{-\mu}(x+\mu-\nu)U_{\nu}(x-\nu)  \bigg]
+\end{align}
 
-\FIGURE{STAPLES AND LINKS}
+\begin{figure}[!htb]
+    \centering
+
+    \begin{tikzpicture}[scale=0.7]
+
+        \pgfmathsetmacro\len{1.2};
+        \pgfmathsetmacro\startx {-6};
+        \pgfmathsetmacro\startxx {-5};
+        \pgfmathsetmacro\startxxx {-3};
+        \pgfmathsetmacro\startxxxx {0};
+
+        \pgfmathsetmacro\starttxxxx {4.5};
+        \pgfmathsetmacro\starttx {4};
+        \pgfmathsetmacro\starttxx {4.8};
+        \pgfmathsetmacro\starttxxx {6.8};
+        \pgfmathsetmacro\starty {0};
+        \pgfmathsetmacro\startty {0};
+
+        \node [left] (a) at  (\startx, \starty) {$S[U_\mu] = \sum_{\nu\neq\mu}$}; 
+         
+        \draw (-5,-2) to [round left paren ] (-5,2);
+
+        % ++
+        \draw[->-=.7, >=latex] (\startxx,\starty) to (\startxx+\len,\starty);
+        \draw[->-=.7, >=latex] (\startxx+\len,\starty) to  (\startxx+\len,\starty+\len);
+        \draw[->-=.7, >=latex] (\startxx+\len,\starty+\len) to (\startxx,\starty+\len);
+        \draw[->-=.7, >=latex] (\startxx,\starty+\len) to (\startxx, \starty);
+ 
+        \node (b) at (-3.4, \starty) {$+$}; 
+        %+-
+        \draw[->-=.7, >=latex] (\startxxx,-\starty) to (\startxxx+\len,-\starty);
+        \draw[->-=.7, >=latex] (\startxxx+\len,-\starty) to  (\startxxx+\len,-\starty-\len);
+        \draw[->-=.7, >=latex] (\startxxx+\len,-\starty-\len) to (\startxxx,-\starty-\len);
+        \draw[->-=.7, >=latex] (\startxxx,-\starty-\len) to (\startxxx, -\starty);
+        \draw (-1.7,-2) to [round right paren ] (-1.7,2); 
+
+       \node (c) at  (-0.7, \starty) {$=$}; 
+
+        \draw[->-=.7, >=latex] (\startxxxx,\starty) to (\startxxxx+\len,\starty); 
+
+       \node [right](f) at  (1.4, \starty) {$\times \sum_{\nu\neq\mu} $}; 
+         
+        \draw (\starttxxxx,-2) to [round left paren ] (\starttxxxx,2);
+
+        % ++
+        \draw[->-=.7, >=latex] (\starttxx+\len,\startty) to  (\starttxx+\len,\startty+\len);
+        \draw[->-=.7, >=latex] (\starttxx+\len,\startty+\len) to (\starttxx,\startty+\len);
+        \draw[->-=.7, >=latex] (\starttxx,\startty+\len) to (\starttxx, \startty);
+ 
+        \node (d) at  (6.4, \startty) {$+$}; 
+        %+-
+        \draw[->-=.7, >=latex] (\starttxxx,-\startty-\len) to (\starttxxx,-\startty);
+        \draw[->-=.7, >=latex] (\starttxxx+\len,-\startty) to  (\starttxxx+\len,-\startty-\len);
+        \draw[->-=.7, >=latex] (\starttxxx+\len,-\startty-\len) to (\starttxxx,-\startty-\len);
+        \draw (8.2,-2) to [round right paren ] (8.2,2); 
+
+    \end{tikzpicture}
+
+    \capt{Schematic representation of the symmetric definition of action $S[U_\mu]$ expressed as a function of the staples .}
+    \label{fig:staples}
+\end{figure}
+
 
 \subsection{Updates Strategies}
 There is now some arbitrariness in what is defined as an update. In this work we call an update the following procedure:
@@ -112,13 +205,20 @@ There is now some arbitrariness in what is defined as an update. In this work we
 \end{algorithmic}
 \end{algorithm}
 
-These updates are the ones we consider when we refer to Monte Carlo cycles, autocorrelation times and so on. Note that each update includes a loop over all links on the lattice and that every link is "hit" $N_H$ times before moving to the next one. This is done for computational efficiency, because computing the staples is the most expensive part of the algorithm, once $A$ is computed for a link, the result is used to attempt multiple updates on the link. It can also be shown that if $N_H$ is sufficiently large the algorithm becomes equivalent to the heatbath algorithm. \CIT
+These updates are the ones we consider when we refer to Monte Carlo cycles, autocorrelation times and so on. Note that each update includes a loop over all links on the lattice and that every link is "hit" $N_H$ times before moving to the next one. This is done for computational efficiency, because computing the staples is the most expensive part of the algorithm, once $A$ is computed for a link, the result is used to attempt multiple updates on the link. It can also be shown that if $N_H$ is sufficiently large the algorithm becomes equivalent to the heatbath algorithm. 
 
-The order in which the links in the lattice are visited is also arbitrary. The simplest way, the ordered one, was adopted. This however might have impacted the autocorrelation of the system, not allowing significant modification to the system as an update depends on the neighbors. An alternative choice is a checkerboard pattern, which has potential benefits to the autocorrelation time of the observables as well as on the parallelization scheme.\NOTE{see discussion}. 
+The order in which the links in the lattice are visited is also arbitrary. The simplest way, the ordered one, was adopted. This however might have impacted the autocorrelation of the system, not allowing significant modification to the system as an update depends on the neighbors. An alternative choice is a checkerboard pattern, which has potential benefits to the autocorrelation time of the observables as well as on the parallelization scheme \cref{discussion}. 
 
 \subsection{Parallelization Scheme}
-Given the size of the lattice (from $V \approx 10^5$ to $V\approx 10^7$, the total number of lattice sites), it is necessary to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks and have each process handle its portion of the field alone. \FIGURE{blocks?} However, because of the dependence of the action difference of a link on its neighbors, when updating a link on the edge of of a sub-block information about another block is needed. Here is where the Message Passing Interface (MPI) comes in use. For this particular problem we decided to use a point to point communication scheme between the processors, the use of periodic boundary conditions allowed also for non-blocking communications to be used, in particular the collective geometry based scheme shown in \LINK has been implemented.
+\label{sec:para_gen}
+Given the size of the lattice (from $V \approx 10^5$ to $V\approx 10^7$, the total number of lattice sites), it is necessary to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks and have each process handle its portion of the field alone. 
+
+\FIGURE{blocks?} 
+
+However, because of the dependence of the action difference of a link on its neighbors, when updating a link on the edge of of a sub-block information about another block is needed. Here is where the Message Passing Interface (MPI) comes in use. For this particular problem we decided to use a point to point communication scheme between the processors, the use of periodic boundary conditions allowed also for non-blocking communications to be used, in particular the collective geometry based scheme shown in fig. \cref{discussion} has been implemented.
+
 \FIGURE{sendrecv}
+
 Note that the communication is relevant only for the computation of the staples, this is another argument in favor of performing multiple hits on a link at every update. It is clear to see that the algorithm can be affected by large communication overhead problems. If the sub-blocks are too small, then most of the time would be spent on sending and receiving links from the neighbors. This causes the execution time to depend not linearly on the number of processors, instead the relation flattens at some value given by the communication overhead.
 
 \subsection{Summary of the Parameters}
@@ -139,9 +239,27 @@ In total the algorithm need four parameters as inputs. Of these, only one define
 \end{table}
 
 \section{Wilson Flow of Gauge Configurations}
-To study the flow-time dependence of the observables a numeric implementation of \LINK is needed. The main challenges here are to define the derivative of the action at a given lattice site and the numerical exponentiation of an $\mathfrak{su}(3)$ element, which returns an $SU(3)$ element.
+To study the flow-time dependence of the observables a numeric implementation of \cref{lattice:flow} is needed. The main challenge that this problem poses is how to numerically integrate the flow equation on the lattice, because it is important to preserve the $SU(3)$ Lie Group structure of the field through the numerical procedure. The problem is solved by using the so called Structure-Preserving Runge-Kutta Methods, in particular the Runge-Kutta Munthe-Kaas method that is designed to integrate first order ODE on a manifold \cite{munthe-kaas_runge-kutta_1998,munthe-kaas_lie-butcher_1995,celledoni_introduction_2014}. The problem can be defined in a more general manner as:
+\beq
+    \dot{V}_t =  Z(V_t)V_t
+\eeq
+here $V_t$ is an element of a Lie group $\mathcal{G}$ and $Z(V_t)$ is a function with values in the associated algebra $\mathfrak{g}$. The general ansatz for the RKMK method is to write the integration step, with $\epsilon$ the integration step,  as:
+\beq
+    V_{t+\epsilon} =  \exp[\epsilon\Omega(V_t)] V_t
+\eeq
+where $\Omega(V_t)$ is a linear combination of $Z(V_t + \epsilon c_i)$, with $c_i$ the RK coefficients, and of their commutators. 
+Following the suggestion of \cite{luscher_properties_2010} and considering the analysis of \cite{ce_non-gaussianities_2015} that suggests that, for a fixed step size, an integrator of third order is sufficient. The integration scheme that has been used is the one found in L{\"u}scher's article:
+\begin{align}
+    \label{eq:integrator}
+    W_0 &= V_t\\\nonumber
+    W_1 &= \exp\left[ \frac{1}{4}Z_0 \right] W_0 \\\nonumber
+    W_2 &= \exp\left[ \frac{8}{9}Z_1 - \frac{17}{36}Z_0 \right] W_1\\\nonumber
+    V_{t+\epsilon} &= \exp\left[ \frac{3}{4}Z_2 - \frac{8}{9}Z_1 + \frac{17}{36}Z_0\right] W_2
+\end{align}
+where the shorthand notation $Z_i = \epsilon Z(W_i)$ has been introduced. The choice of the coefficients for the Butcher's tableu of the RK method is made in order to satisfy the requirements for a third order RK integrator and to cancel the commutator terms in $\Omega(V_t)$. \\
+What is then left to define are the derivative of the action at a given lattice site and the numerical exponentiation of an $\mathfrak{su}(3)$ element, which returns an $SU(3)$ element.
 \subsection{The Action Derivative}
-Following the procedure in \CIT we define the derivative of the action at a lattice site $U_\mu(x)$ to be:
+Following the procedure in \cite{morningstar_analytic_2004} we define the derivative of the action at a lattice site $U_\mu(x)$ to be:
 \beq
     \partial_\mu S[U_\mu(x)] = \frac{i}{2}\left(\Omega_\mu(x) - \frac{1}{3}\mathds{1}\Im~Tr[\Omega_\mu(x)]\right)
 \eeq
@@ -149,15 +267,45 @@ with
 \beq    
     \Omega_\mu(x) = U_\mu(x) A_\mu(x) - A^\dagger_\mu(x) U^\dagger_\mu(x)
 \eeq
-where $A_\mu(x)$ are the staples of the link. We can note that the derivative is always traceless anti-hermitean matrix \NOTE{check...}, thus an element of $\mathfrak{su}(3)$ as expected.
+where $A_\mu(x)$ are the staples of the link. We can note that the derivative is always traceless hermitean matrix, thus an element of $\mathfrak{su}(3)$ as expected.
 
 \subsection{Exponential of a $\mathfrak{su}(3)$ Element}
-Again following \CIT we provide a numerical recipe for taking the exponential function of a traceless anti-hermitean $3\times3$ matrix. The key idea is to use the Cayley-Hamilton theorem, 
-\NOTE{da fare...}
+Again following \cite{morningstar_analytic_2004} we provide a numerical recipe for taking the exponential function of a traceless hermitean $3\times3$ matrix. The key idea is to use the Cayley-Hamilton theorem, that states that every matrix is a zero of its characteristic polynomial:
+\beq
+    Q^3 - c_1 Q - c_0\mathds{1} = 0,~~~~~\text{with}~~c_0 = \det Q = \frac{1}{3}(Q^3),~~~c_1 =\frac{1}{2}(Q^2)
+\eeq
+The exponential of $iQ$ can then be written as:
+\beq    
+e^{iQ} = f_0\mathds{1} + f_1Q+f_2Q^2
+\eeq
+where the functions of the eigenvalues of $Q$, which in turn can be paramterized, because of the hermitianeity of $Q$ in terms of $c_0$ and $c_1$. Labeling the eigenvalues of $Q$ as $q_1, q_2, q_3$ and using the fact that the matrix is traceless they can be parametrized as:
+\beq
+    q_1 = 2u~~~~~~~q_2 = -u+w~~~~~~~q_3 = -u-w
+\eeq
+with:
+\beq
+    u = \sqrt{\frac{1}{3}c_1} \cos\left({\frac{1}{3}\theta}\right)~~~~~~~w = \sqrt{c_1} \sin\left({\frac{1}{3}\theta}\right)~~~~~~~\theta = \text{arccos}\left[\frac{c_0}{2}\left(\frac{3}{c_1}\right)^{3/2}\right]
+\eeq
+As shown in \cite{morningstar_analytic_2004} the coefficients $f_i$ can be written as:
+\beq
+    f_i = \frac{h_i}{9u^2 -w^2}
+\eeq
+with:
+\begin{align}
+    h_0 &= (u^2-w^2)e^{2iu} + e^{-iu}\bigg[ 8u^2 \cos(w) + 2iu(3u^2 + w^2)\frac{\sin(w)}{w} \bigg]\\\nonumber%
+    h_1 &= 2ue^{2iu} - e^{-iu} \bigg[ 2u \cos(w) - i(3u^2 - w^2) \bigg]\\\nonumber
+    h_2 &= e^{2iu} - e^{-iu} \bigg[ \cos(w) + 3iu\frac{\sin(w)}{w} \bigg]
+\end{align}
+This fairly complicated algorithm is the core of the gradient flow implementation, because fundamentally the integration of the flow equation is a series of matrix exponentials over every action derivative of the lattice.
 
 \subsection{Parallelization Scheme}
 Also this problem is very expensive in computational terms, so it is worth designing a parallelization scheme for it. The idea is still to split the lattice into sub-blocks and have each processor handle one of them.
-By looking at the \LINK we see that all operations can be defined on a lattice-wise scale and that they all depend on one previous state of the field, not on an intermediate one as was the case for the generation of gauge fields. This allows us to define a "shift" operation, that effectively creates an additional lattice that is the translation of the original along an axis. The huge advantage is that in order to perform this operation only one communication instance is needed (following the previous scheme in \LINK), but the message is now a whole shared cube between to processors. \FIGURE{cubes being shared} \NOTE{ADD ALGO...} This has to be implemented for the action derivative lattice and the gauge field itself. The massive reduction in communication overhead improves the scaling of the algorithm greatly, making this part of the problem much more efficient.
+By looking at \cref{{eq:integrator}} we see that all operations can be defined on a lattice-wise scale and that they all depend on one previous state of the field, not on an intermediate one as was the case for the generation of gauge fields. This allows us to define a "shift" operation, that effectively creates an additional lattice that is the translation of the original along an axis. The huge advantage is that in order to perform this operation only one communication instance is needed (following the previous scheme in \cref{sec:para_gen}), but the message is now a whole shared cube between to processors. 
+
+\FIGURE{cubes being shared} 
+\NOTE{ADD ALGO...} 
+
+This has to be implemented for the action derivative lattice and the gauge field itself. The massive reduction in communication overhead improves the scaling of the algorithm greatly, making this part of the problem much more efficient.
 
 \section{Structure and Tools}
 The full code can be found on the web under the link \NOTE{github...}, where both the code for the generation and the flow of gauge fields is hosted. The technical documentation is found at \NOTE{documentation...}. As already mentioned the language of choice was \cpp, mainly because of the high-performance and abstraction level it  provides. An object-oriented structure has been used, as can be seen in \FIGURE{scheme class}. 

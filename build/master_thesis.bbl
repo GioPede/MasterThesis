@@ -1,9 +1,26 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{_ux:_2013}
+{UX}: Standard model of the standard model.
 
 \bibitem{peskin}
 Schroder Peskin.
 \newblock {\em An Introduction to Quantum Field Theory}.
 \newblock Cambridge University Press, 1989.
+
+\bibitem{dar_neutron_2000}
+Shahida Dar.
+\newblock The neutron {EDM} in the {SM} : A review.
+
+\bibitem{coupling-Chaudhuri}
+A~Chaudhuri.
+\newblock A short course on relativistic heavy ion collisions.
+\newblock 07 2012.
+
+\bibitem{dissertori_9._2016}
+G~Dissertori.
+\newblock 9. {QUANTUM} {CHROMODYNAMICS}.
+\newblock page~50.
 
 \bibitem{Gross-Wilczek}
 David~J. Gross and Frank Wilczek.
@@ -15,9 +32,132 @@ H.~David Politzer.
 \newblock Reliable perturbative results for strong interactions?
 \newblock {\em Phys. Rev. Lett.}, 30:1346--1349, Jun 1973.
 
-\bibitem{coupling-Chaudhuri}
-A~Chaudhuri.
-\newblock A short course on relativistic heavy ion collisions.
-\newblock 07 2012.
+\bibitem{dainese_infn_2016}
+A~Dainese, E~Scomparin, G~Usai, P~Antonioli, R~Arnaldi, Andrea Beraudo,
+  E~Bruna, G~E.~Bruno, S~Bufalino, P~Di~Nezza, M~Lombardo, R~Nania, F~Noferini,
+  C~Oppedisano, S~Piano, F~Prino, Alessandro Rossi, Michelangelo Agnello, Wanda
+  Alberico, and C~Zampolli.
+\newblock {INFN} what next: Ultra-relativistic heavy-ion collisions.
+
+\bibitem{machleidt_chiral_2016}
+R~Machleidt and F~Sammarruca.
+\newblock Chiral {EFT} based nuclear forces: achievements and challenges.
+\newblock 91(8):083007.
+
+\bibitem{bogner_low-momentum_2010}
+S.K. Bogner, R.J. Furnstahl, and A.~Schwenk.
+\newblock From low-momentum interactions to nuclear structure.
+\newblock 65(1):94--147.
+
+\bibitem{wilson_confinement_1974}
+Kenneth~G. Wilson.
+\newblock Confinement of quarks.
+\newblock 10(8):2445--2459.
+
+\bibitem{gattringer_quantum_2010}
+Christof Gattringer and Christian~B. Lang.
+\newblock {\em Quantum Chromodynamics on the Lattice}, volume 788 of {\em
+  Lecture Notes in Physics}.
+\newblock Springer Berlin Heidelberg.
+
+\bibitem{gupta_introduction_1998}
+Rajan Gupta.
+\newblock Introduction to lattice {QCD}.
+
+\bibitem{witten_current_1979}
+E.~Witten.
+\newblock Current algebra theorems for the u(1) “goldstone boson”.
+\newblock 156(2):269--283.
+
+\bibitem{di_giacomo_topology_1997}
+Adriano Di~Giacomo.
+\newblock Topology in lattice {QCD}.
+
+\bibitem{alexandrou_comparison_2017}
+Constantia Alexandrou, Andreas Athenodorou, Krzysztof Cichy, Arthur Dromard,
+  Elena Garcia-Ramos, Karl Jansen, Urs Wenger, and Falk Zimmermann.
+\newblock Comparison of topological charge definitions in lattice {QCD}.
+
+\bibitem{gross_qcd_1981}
+David~J. Gross, Robert~D. Pisarski, and Laurence~G. Yaffe.
+\newblock {QCD} and instantons at finite temperature.
+\newblock 53(1):43--80.
+
+\bibitem{sommer_new_1994}
+R.~Sommer.
+\newblock A new way to set the energy scale in lattice gauge theories and its
+  application to the static force and \${\textbackslash}alpha\_s\$ in {SU}(2)
+  yang--mills theory.
+\newblock 411(2):839--854.
+
+\bibitem{guagnelli_precision_1998}
+M.~Guagnelli, R.~Sommer, and H.~Wittig.
+\newblock Precision computation of a low-energy reference scale in quenched
+  lattice {QCD}.
+\newblock 535(1):389--402.
+
+\bibitem{luscher_properties_2010}
+Martin Lüscher.
+\newblock Properties and uses of the wilson flow in lattice {QCD}.
+\newblock 2010(8).
+
+\bibitem{luscher_perturbative_2011}
+Martin Lüscher and Peter Weisz.
+\newblock Perturbative analysis of the gradient flow in non-abelian gauge
+  theories.
+\newblock 2011(2).
+
+\bibitem{luscher_chiral_2013}
+Martin Lüscher.
+\newblock Chiral symmetry and the yang--mills gradient flow.
+\newblock 2013(4).
+
+\bibitem{luscher_erratum:_2014}
+Martin Lüscher.
+\newblock Erratum: Properties and uses of the wilson flow in lattice {QCD}.
+\newblock 2014(3).
+
+\bibitem{dissertori_9._2016-1}
+G~Dissertori.
+\newblock 9. {QUANTUM} {CHROMODYNAMICS}.
+\newblock page~50.
+
+\bibitem{van_ritbergen_four-loop_1997}
+T.~van Ritbergen, J.~A.~M. Vermaseren, and S.~A. Larin.
+\newblock The four-loop beta-function in quantum chromodynamics.
+\newblock 400(3):379--384.
+
+\bibitem{metropolis_equation_1953}
+Nicholas Metropolis, Arianna~W. Rosenbluth, Marshall~N. Rosenbluth, Augusta~H.
+  Teller, and Edward Teller.
+\newblock Equation of state calculations by fast computing machines.
+\newblock 21(6):1087--1092.
+
+\bibitem{munthe-kaas_runge-kutta_1998}
+Hans Munthe-Kaas.
+\newblock Runge-kutta methods on lie groups.
+\newblock 38(1):92--111.
+
+\bibitem{munthe-kaas_lie-butcher_1995}
+Hans Munthe-Kaas.
+\newblock Lie-butcher theory for runge-kutta methods.
+\newblock 35(4):572--587.
+
+\bibitem{celledoni_introduction_2014}
+Elena Celledoni, Håkon Marthinsen, and Brynjulf Owren.
+\newblock An introduction to lie group integrators – basics, new developments
+  and applications.
+\newblock 257:1040--1061.
+
+\bibitem{ce_non-gaussianities_2015}
+Marco Cè, Cristian Consonni, Georg~P. Engel, and Leonardo Giusti.
+\newblock Non-gaussianities in the topological charge distribution of the
+  {SU}(3) yang-mills theory.
+\newblock 92(7).
+
+\bibitem{morningstar_analytic_2004}
+Colin Morningstar and Mike Peardon.
+\newblock Analytic smearing of {SU} ( 3 ) link variables in lattice {QCD}.
+\newblock 69(5).
 
 \end{thebibliography}

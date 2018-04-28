@@ -1,7 +1,15 @@
 
-Lattice QCD is one of the main Lattice Field Theories. It deals with the strong force in a numerical way. The idea of discretizing space-time in a lattice and perform calculations of field theories in such a model is attributed to Wilson \CIT. It has proven to be the most systematic approach to non-perturbative theories like Yang-Mills theory and QCD. In this chapter we will describe briefly how this discretization procedure is performed and some of the main computational strategies that are involved.
+Lattice QCD is one of the main Lattice Field Theories. It deals with the strong force in a numerical way. The idea of discretizing space-time in a lattice and perform calculations of field theories was proposed by Wilson in 1974 \cite{wilson_confinement_1974} as an alternative method to explain confinement. It has proven to be the most systematic approach to non-perturbative theories like QCD. In this chapter we will describe briefly how this discretization procedure is performed and some of the main computational strategies that are involved.
 
-\section{Discretizing QCD on the Lattice}
+\section{Discretizing Field Theories}
+
+
+
+
+
+
+
+
 The starting point for Lattice QCD is Feynman's path-integral formalism, but expressed in Euclidean space-time, through a Wick rotation. An observable of some field $\phi$ is then given by:
 \beq
 	\braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]}
@@ -14,14 +22,17 @@ and $S[\phi]$ is the classical action of the field. Evaluating path-integrals is
 \beq
     \phi(x) \xrightarrow{discretization} \phi(an)
 \eeq
+\subsection{The Harmonic Oscillaor Example}
+
+\section{Discretization of QCD on the Lattice}
 In the case of QCD there are two types of field at play, the gluon gauge field $A$ and the $n_f$ fermionic quark fields $\psi$. 
 
-\subsection{Naive Discretization of Fermions}
-We will now follow the fermion discretization procedure found in \CIT gattringer, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The starting point is the fermionic euclidean action in the continuum:
+\subsection{Na{\"i}ve Discretization of Fermions}
+In this section the fermion discretization procedure found in \cite{gattringer_quantum_2010} is followed, but also some elements from \cite{gupta_introduction_1998}, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The starting point is the fermionic euclidean action in the continuum:
 \beq
     S_F [\psi,\bar\psi] = \int dx^4 \bpsi(x)(\gamma_\mu\partial^\mu + m)\psi(x)
 \eeq 
-now we discretize the euclidean space-time on a lattice $\Lambda$ of spacing $a$, each point will be denoted with $n$. The partial derivative can be turned into the central finite difference between neighborintg points along the direction of the derivative:
+now we discretize the euclidean space-time on a lattice $\Lambda$ of spacing $a$, each point will be denoted with $n$. The partial derivative can be turned into the central finite difference between neighboring points along the direction of the derivative:
 \beq
     \partial_\mu\psi(x) \rightarrow \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a}
 \eeq 
@@ -33,7 +44,11 @@ As we did in section \ref{intro:symmetry} we try to apply a local gauge transfor
 \beq
     \bpsi(n)\psi(n\pm\hat\mu) \rightarrow \bpsi(n)\Omega^\dagger(n)\Omega(n\pm\hat\mu)\psi(n\pm\hat\mu)
 \eeq
-The problem is in the way the derivative was discretized, it also removed one Lorentz index so it had to be wrong, and the solution is the introduction of an additional field as in \ref{intro:symmetry} that has the correct transformation laws. This field must connect the values of the fermion field at two different lattice sites and because of this it is denoted "link variables" and by convention it is denoted as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the direction along the dimension $\mu$ in a simple way, $U(n, n-\hat\mu) \equiv U_\mu(n-\hat\mu)^\dagger = U_{-\mu}(n)$. In particular, we want it to transform as:
+The problem is in the way the derivative was discretized, it also removed one Lorentz index so it had to be wrong, and the solution is the introduction of an additional field as in \ref{intro:symmetry} that has the correct transformation laws. This field must connect the values of the fermion field at two different lattice sites and because of this it is denoted "link variables" and by convention it is denoted as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the orientation along the $\mu$ direction in a simple way:
+\beq
+U(n, n-\hat\mu) \equiv  U_{-\mu}(n) = U_\mu(n-\hat\mu)^\dagger 
+\eeq
+In particular, we want it to transform as:
 \begin{align}
     \bpsi(n)U_\mu(n)\psi(n+\hat\mu) &\rightarrow \bpsi(n)\Omega^\dagger(n)U'_\mu(n)\Omega(n+\hat\mu)\psi(n\pm\hat\mu)\\\nonumber
     \bpsi(n)U_{-\mu}(n)\psi(n-\hat\mu) &\rightarrow \bpsi(n)\Omega^\dagger(n)U'_{-\mu}(n)\Omega(n+\hat\mu)\psi(n\pm\hat\mu)
@@ -43,7 +58,43 @@ from which we infer that:
     U_\mu(n)    &\rightarrow U'_\mu(n) = \Omega(n)U_\mu(n)\Omega^\dagger(n+\hat\mu)\label{link_transformation}\\\nonumber
     U_{-\mu}(n) &\rightarrow U'_{-\mu}(n) = \Omega(n)U_{-\mu}(n)\Omega^\dagger(n-\hat\mu)
 \end{align}
-the field $U_\mu(n)$ which we identify with the link variables depends on the direction of the move along the $\mu$ direction. In particular the relation is simply . \FIGURE{links...} With this results we can write a gauge invariant lattice fermion action as:
+the field $U_\mu(n)$ which we identify with the link variables depends on the direction of the move along the $\mu$ direction. A visual representation is given in \cref{fig:links}, 
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[node distance=1cm] 
+    % arrows
+    \draw[->-=.55, line width=1.5pt, >=latex] (2.5,0) to (6.5,0);
+    \draw[->-=.55, line width=1.5pt, >=latex] (-2.5,0) to  (-6.5,0);
+    
+    \draw (6.5, 0.3) -- (6.5, -0.3);
+    \draw (2.5, 0.3) -- (2.5, -0.3);
+    \draw (-2.5, 0.3) -- (-2.5, -0.3);
+    \draw (-6.5, 0.3) -- (-6.5, -0.3);
+
+    \draw (6.5, 0) -- (6.8, 0);
+    \draw (2.5, 0) -- (2.2, 0);
+    \draw (-2.5, 0) -- (-2.2, 0);
+    \draw (-6.5, 0) -- (-6.8, 0);
+
+    \filldraw (6.5, 0) circle (0.05);
+    \filldraw (2.5, 0) circle (0.05);
+    \filldraw (-2.5, 0) circle (0.05);
+    \filldraw (-6.5, 0) circle (0.05); 
+
+    \node [above right] (A) at (6.5, 0) {$n+\hat\mu$};
+    \node [above left] (B) at (2.5, 0) {$n$};
+    \node [above right] (D) at (-2.5, 0) {$n$};
+    \node [above left] (C) at (-6.5, 0) {$n-\hat\mu$};
+
+    \node (E) at (-4.5, -0.7) {$U_{-\mu}(n) \equiv U_\mu^\dagger(n-\hat\mu)$};
+    \node (F) at (4.5, -0.7) {$U_{\mu}(n)$};
+\end{tikzpicture}
+\capt{Schematic representation of the link variables $U_{\mu}(n)$ and$U_{-\mu}(n)$ on the lattice.}
+\label{fig:links}
+\end{figure}
+ 
+With this results we can write a gauge invariant lattice fermion action as:
 \beq
     S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{U_\mu(n)\psi(n+\hat\mu) - U_{-\mu}(n)\psi(n-\hat\mu)}{2a} + m \psi(n) \right]
     \label{intro:lat_action}
@@ -58,15 +109,61 @@ An important thing to note now is that link variables belong to the gauge group,
 \beq
     U(n, n-\hat\mu) = U_{-\mu}(n) = U^\dagger_\mu(n)
 \eeq
-\NOTE{wilson loop from peskin...}
-On the lattice the minimal Wilson loop is just a square:
+In the continuum case it can be shown, in \cite{peskin} for example, that the trace of a gauge transporter that has the same start and final point, a Wilson Loop, is gauge invariant. On the lattice the minimal Wilson loop is just a square:
 \begin{align}
 P_{\mu\nu}(n) &= U_\mu(n) U_\nu(n+\hat\mu) U_{-\mu}(n+\hat\mu+\hat\nu) U_-{\nu}(n+\hat\nu)  \\\nonumber
               &= U_\mu(n) U_\nu(n+\hat\mu) U^\dagger_\mu(n+\hat\nu) U^\dagger_\nu(n)
 \label{plaquette}
 \end{align}
-a pictorial representation is given in figure% \ref{fig:plaq}.
-\FIGURE{PLAQUETTE}
+a pictorial representation is given in \cref{fig:plaq}.
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}[node distance=1cm, remember picture] 
+
+        \pgfmathsetmacro\xcoord{2.5};
+        \pgfmathsetmacro\tiplen{0.4};
+        % arrows
+        \draw[->-=.55, line width=1.5pt, >=latex] (\xcoord,\xcoord) to (-\xcoord,\xcoord);
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\xcoord,\xcoord) to  (-\xcoord,-\xcoord);
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\xcoord,-\xcoord) to (\xcoord,-\xcoord);
+        \draw[->-=.55, line width=1.5pt, >=latex] (\xcoord,-\xcoord) to  (\xcoord,\xcoord);
+
+        \node (A) at (0, 3.1) {};%{$U_{-\mu}(n+\hat\mu+\hat\nu) = U^\dagger_{\mu}(n+\hat\nu)$};
+        \node (B) at (-2.7, 0) {};%{$U_{-\nu}(n+\hat\mu) = U^\dagger_{\nu}(n+\hat\nu)$};
+        \node (D) at (0, -3.1) {};%{$U_{\mu}(n)$};
+        \node (C) at (2.7, 0) {};%{$U_{\nu}(n+\hat\mu) $};
+
+        \draw (\xcoord, \xcoord) -- (\xcoord, \xcoord+\tiplen);
+        \draw (\xcoord, \xcoord) -- (\xcoord+\tiplen, \xcoord);
+        \draw (\xcoord, -\xcoord) -- (\xcoord, -\xcoord-\tiplen);
+        \draw (\xcoord, -\xcoord) -- (\xcoord+\tiplen, -\xcoord);
+        \draw (-\xcoord, -\xcoord) -- (-\xcoord, -\xcoord-\tiplen);
+        \draw (-\xcoord, -\xcoord) -- (-\xcoord-\tiplen, -\xcoord);
+        \draw (-\xcoord, \xcoord) -- (-\xcoord, \xcoord+\tiplen);
+        \draw (-\xcoord, \xcoord) -- (-\xcoord-\tiplen, \xcoord);
+        
+        \filldraw (\xcoord, \xcoord) circle (0.05);
+        \filldraw (\xcoord, -\xcoord) circle (0.05);
+        \filldraw (-\xcoord, -\xcoord) circle (0.05);
+        \filldraw (-\xcoord, \xcoord) circle (0.05); 
+    \end{tikzpicture}
+
+    \begin{tikzpicture}[node distance=1cm, remember picture, overlay] 
+        \draw (A) node {$U_{-\mu}(n+\hat\mu+\hat\nu) = U^\dagger_{\mu}(n+\hat\nu)$};
+        \draw [left](B)  node {$U_{-\nu}(n+\hat\mu) = U^\dagger_{\nu}(n+\hat\nu)$};
+        \draw (D) node {$U_{\mu}(n)$};
+        \draw [right](C) node {$U_{\nu}(n+\hat\mu) $};
+
+        \draw[->, >=latex] (-5.7,1.1) to (-5.7,2.6);
+        \draw[->, >=latex] (-5.7,1.1) to (-4.1,1.1);
+
+        \node [left] (E) at (-5.7,2.6) {$x_\nu$};
+        \node [below] (F) at  (-4.1,1.1) {$x_\mu$};
+    \end{tikzpicture}
+    \capt{The Plaquette, as defined on the lattice, it terms of the oriented product of the link variables of a minimal square in the plane $\mu\nu$.}
+    \label{fig:plaq}
+\end{figure}
+
 Up to order $\mathcal{O}(a)$ the integral on the straight line connecting two points on the lattice can be approximated with $aA_\mu(n)$, giving us $U_\mu (n) = \exp(iaA_\mu(n))$. This allows us to write using the Baker-Campbell-Hausdorff formula:
 \begin{align}
 P_{\mu\nu}(n) &=\exp\bigg[iaA_\mu(n) + iaA_\nu(n+\hat\mu) -iaA_\mu(n+\hat\nu) -iaA^\dagger_\nu(n) - \frac{a^2}{2}[A_\mu(n), A_\mu(n+\hat\mu)] \\\nonumber
@@ -79,6 +176,7 @@ Now the terms that are shifted from the site $n$ are expanded as:
 \eeq
 and with this substitution most terms cancel and we are left with:
 \begin{align}
+    \label{plaq:expanded}
     P_{\mu\nu}(n) &=\exp\left[ ia^2(\partial_\mu A_\nu(n) - \partial_\nu A_\mu(n) + i[A_\mu(n),A_\nu(n)]) + \mathcal{O}(a^3)  \right]\\\nonumber
                   &=\exp\left[ ia^2F_{\mu\nu}(n) + \mathcal{O}(a^3)  \right]
 \end{align}
@@ -110,7 +208,7 @@ In order to calculate the inverse of the propagator in real space we need to inv
 \beq
 \tilde M(p)^{-1}\bigg\rvert_{m=0} =  \frac{-ia\sum_{\mu}\gamma_\mu\sin(p_\mu a)}{\sum_{\mu}\sin^2(p_\mu a)}
 \eeq
-the problem vanishes for $a\rightarrow 0$, the continuum case, returning just one fermion type, but on the lattice multiple fermions. This is known as the "doubling problem". The solution, proposed by Wilson, is to modify the propagator adding some terms that make the poles in the inverse of the Fourier transformed propagator vanish. The final form of the Wilson Fermion Action is:
+the problem vanishes for $a\rightarrow 0$, the continuum case, returning just one fermion type, but on the lattice multiple fermions. This is known as the ``doubling problem''. The solution, proposed by Wilson, is to modify the propagator adding some terms that make the poles in the inverse of the Fourier transformed propagator vanish. The final form of the Wilson Fermion Action is:
 \beq
     S_F [\psi,\bar\psi] = \sum_{n\in\Lambda} \bpsi(x)M^W_{xy}[U]\psi(y)
     \label{intro:ferm_action}
@@ -144,7 +242,7 @@ This result is very different from what one would get in the real case, $(2\pi)^
     \int \D\Theta^*\D\Theta \theta_a^*\theta_b e^{-\Theta K \Theta } &= \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\theta_i^* K_{ij} \theta_j } =  \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\sum_i\theta_i^* k_i \theta_i } \\\nonumber
     &=  (\det B ) (B^{-1})_{ab}
 \end{align}
-This last result is crucial for computing fermion propagators for example, for a given "source" $\bpsi(x)$ and a ``sink'' $\psi(y)$ the propagator between the two can be computed via path integrals, but it requires inverting the fermion action matrix. \\
+This last result is crucial for computing fermion propagators for example, for a given ``source'' $\bpsi(x)$ and a ``sink'' $\psi(y)$ the propagator between the two can be computed via path integrals, but it requires inverting the fermion action matrix. \\
 With the result of \ref{lattice:grassman} we can simplify greatly the partition function:
 \beq
 	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  = \int \D U e^{-S_G[U] } \det M[U] 
@@ -166,7 +264,7 @@ The choice of the set $\mathcal{U}$ is the interesting part, and it starts from 
 The integral is then evaluated using Monte Carlo integration, where the different configurations are chosen in the most widely accepted solution via a Markov chains. Given a field configuration $U_i$ one chooses the following configuration $U_{i+1}$ only based on properties of $U_i$. Later we will see how the Metropolis algorithm, one of the simplest Markov Chain Monte Carlo methods has been implemented. 
 
 \subsection{Pure Gauge Field Theory}
-Computing full QCD on the lattice is computationally expensive, mainly due to the integration of fermions via the determinant. From a numerical point of view, the determinant need to be computed at every step of the Markov chain that is used to evaluate the path-integral and this operation affects the time cost of sampling the configuration space dramatically. A first approach is to neglect the determinant completely, considering it constant. This is effectively removing dynamical fermions, freezing them to the lattice sites. This approximation is usually referred to as "quenched QCD", or QQCD. The properties of this theory, that is then reduced to a simple Yang-Mills theory are still interesting to study and have played historically a very important role, being the only accessible simulation until sufficient computing power became available.
+Computing full QCD on the lattice is computationally expensive, mainly due to the integration of fermions via the determinant. From a numerical point of view, the determinant need to be computed at every step of the Markov chain that is used to evaluate the path-integral and this operation affects the time cost of sampling the configuration space dramatically. A first approach is to neglect the determinant completely, considering it constant. This is effectively removing dynamical fermions, freezing them to the lattice sites. This approximation is usually referred to as ``quenched QCD'', or QQCD. The properties of this theory, that is then reduced to a simple Yang-Mills theory are still interesting to study and have played historically a very important role, being the only accessible simulation until sufficient computing power became available.
 
 \subsection{Observables}
 On the lattice, given the transformation \ref{link_transformation}, any product of link variables that starts and end at the same lattice-site, a closed loop, is gauge invariant. The average values of these objects over the whole lattice can be linked to physical observables, for example the field tensor. In a more general form any observable $L[U]$ defined as
@@ -180,29 +278,105 @@ The simplest observable, which we have already encountered upon defining the Wil
 \beq
     P[U] = \frac{1}{6|\Lambda|}\sum_{n\in\Lambda}\sum_{\mu<\nu}P_{\mu\nu}(n)
 \eeq
-where $P_{\mu\nu}(n)$ is the one defined in \ref{plaquette}. As a side note, in actual calculations at every lattice site only the positive sign link variables are stored, so the second line of \ref{plaquette} is the one that is actually used in simulations.
+where $P_{\mu\nu}(n)$ is the one defined in \cref{plaquette}. As a side note, in actual calculations at every lattice site only the positive sign link variables are stored, so the second line of \ref{plaquette} is the one that is actually used in simulations.
 
 \subsubsection{Energy Density}
 The energy of the field is proportional to the square of the field tensor, in particular:
 \beq
-    E[U] = -\frac{1}{4|\Lambda|}G_{\mu\nu}G^{\mu\nu}
+    E[U] = -\frac{1}{4|\Lambda|}\Re\Tr(G_{\mu\nu}G^{\mu\nu})
+    \label{eq:energy}
 \eeq
-In order to estimate this quantity, one has to compute the field tensor at every lattice site, square it and sum over the whole space. It is then usually normalized by the lattice volume (the number of sites), to get the density. The simplest definition of the field tensor is $E_p = \mathds{1} - P_{\mu\nu}$ but this is not very accurate. A more symmetric definition can be obtained by the "clover", that is summing all the plaquettes of a same plane that start from a given lattice site. 
-\NOTE{Expression for the clover lattice calc}
-\FIGURE{clover}
+In order to estimate this quantity, one has to compute the field tensor at every lattice site, square it and sum over the whole space. It is then usually normalized by the lattice volume (the number of sites), to get the density. The simplest definition of the field tensor is $G_{\mu\nu}^{(plaq)} = \mathds{1} - P_{\mu\nu}$ but this is not very accurate. A more symmetric definition can be obtained by the ``clover'', that is summing all the plaquettes of a same plane $\mu\nu$ that start from a given lattice site. 
+
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}[node distance=1cm, remember picture] 
+
+        \pgfmathsetmacro\len{2.5};
+        \pgfmathsetmacro\start {0.2};
+
+        % ++
+        \draw[->-=.55, line width=1.5pt, >=latex] (\start,\start) to (\start+\len,\start);
+        \draw[->-=.55, line width=1.5pt, >=latex] (\start+\len,\start) to  (\start+\len,\start+\len);
+        \draw[->-=.55, line width=1.5pt, >=latex] (\start+\len,\start+\len) to (\start,\start+\len);
+        \draw[->-=.55, line width=1.5pt, >=latex] (\start,\start+\len) to (\start, \start);
+
+        %+-
+        \draw[-<-=.55, line width=1.5pt, >=latex] (\start,-\start) to (\start+\len,-\start);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (\start+\len,-\start) to  (\start+\len,-\start-\len);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (\start+\len,-\start-\len) to (\start,-\start-\len);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (\start,-\start-\len) to (\start, -\start);
+
+        %--
+        \draw[-<-=.55, line width=1.5pt, >=latex] (-\start,-\start) to (-\start,-\start-\len);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (-\start,-\start-\len) to  (-\start-\len,-\start-\len);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (-\start-\len,-\start-\len) to (-\start-\len,-\start);
+        \draw[-<-=.55, line width=1.5pt, >=latex] (-\start-\len,-\start) to (-\start, -\start);
+
+        %-+
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\start,\start) to (-\start,\start+\len);
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\start,\start+\len) to  (-\start-\len,\start+\len);
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\start-\len,\start+\len) to (-\start-\len,\start);
+        \draw[->-=.55, line width=1.5pt, >=latex] (-\start-\len,\start) to (-\start, \start);
+
+        \filldraw (0,0) circle (0.1);
+    \end{tikzpicture}
+
+
+    \begin{tikzpicture}[node distance=1cm, remember picture, overlay] 
+        \pgfmathsetmacro\lenarrow{1.2};
+        \pgfmathsetmacro\startarrowx{-5.7};
+        \pgfmathsetmacro\startarrowy{0.5};
+        \draw[->, >=latex] (\startarrowx, \startarrowy) to (\startarrowx, \startarrowy+\lenarrow);
+        \draw[->, >=latex] (\startarrowx, \startarrowy) to  (\startarrowx+\lenarrow, \startarrowy);
+
+        \node [left] (E) at  (\startarrowx, \startarrowy+\lenarrow) {$x_\nu$};
+        \node [below] (F) at (\startarrowx+\lenarrow, \startarrowy) {$x_\mu$};
+    \end{tikzpicture}
+    \capt{Schematic representation of the symmetric definition of the cloger term $G_{\mu\nu}^{(clover)}$ on the lattice.}
+    \label{fig:clover}
+\end{figure}
+
+In terms of link variables this is equal to:
+\begin{align}
+    G_{\mu\nu}^{(clover)}(n)=\frac{1}{4}\bigg[  &U_\mu(n)U_\nu(n+\hat\mu)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n)\\\nonumber
+    - &U_\nu(n)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n-\hat\mu)U_\mu(n-\hat\mu)\\\nonumber
+    + &U^\dagger_\mu(n-\hat\mu)U^\dagger_\nu(n-\hat\mu-\hat\nu)U_\mu(n-\hat\mu-\hat\nu)U_\nu(n-\hat\nu)\\\nonumber
+    - &U^\dagger_\nu(n-\hat\nu)U_\mu(n-\hat\nu)U_\nu(n+\hat\mu-\hat\nu)U^\dagger_\mu(n) \bigg]
+\end{align}
+
 
 \subsubsection{Topological Charge}
-The gauge fields in QCD exhibit particular topological properties that are believed to have important physical implications. One example, which will be discussed more thoroughly in section \LINK, is the relation to the mass of the $\eta'$ meson, the flavor-singlet meson \CIT. The topological charge is an integer quantum number of the field in the continuum, but on the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \CIT. In the continuum topological sectors, regions of space with same charge, are separated from each other, on the lattice through discretization effects the behavior is different, with instantons that allow tunneling between sectors \CIT.\\ 
+The gauge fields in QCD exhibit particular topological properties that are believed to have important physical implications \cite{witten_current_1979}\cite{di_giacomo_topology_1997}. The topological charge is an integer quantum number of the field in the continuum, but on the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \cite{alexandrou_comparison_2017}. In the continuum topological sectors, regions of space with same charge, are separated from each other, on the lattice through discretization effects the behavior is different, with instantons that allow tunneling between sectors \cite{gross_qcd_1981}.\\ 
 The topological charge is the integral over all space-time of the topological charge density:
 \beq
     Q = \int d^4xq(x)
 \eeq
 where
 \beq 
-    q(x)=\frac{1}{32\pi^2}\epsilon_{\mu\nu\rho\sigma}\Tr(F_{\mu\nu}F_{\mu\nu}) 
-\eeq
-this can be estimated on the lattice, in the simplest way, by using the same definition of the energy tensor we used before, the clover:
+    q(x)=\frac{1}{64\pi^2}\Tr(F_{\mu\nu}\tilde F^{\mu\nu}) 
+\eeq 
+with $\tilde F^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\rho\sigma} F^{\rho\sigma}$. This can be estimated on the lattice, in the simplest way, by using the same definition of the field strength tensor we used before for the energy density, the clover:
 \beq
-    Q[U]=\frac{a^4}{32\pi^2} \sum_{n\in\Lambda}\sum_{\mu<\nu}\epsilon_{\mu\nu\rho\sigma}\Tr[G_{\mu\nu}(n)G_{\mu\nu}(n)]
+    Q[U]=\frac{1}{64\pi^2} \sum_{n\in\Lambda}\sum_{\mu<\nu}\epsilon^{\mu\nu\rho\sigma}\Tr[G_{\mu\nu}^{(clover)}(n)G_{\rho\sigma}^{(clover)}(n)]
 \eeq
-As the lattice spacing is reduced, approaching the continuum, the topological sectors get more and more separated, preventing tunneling between them. This makes the Markov chain used to generate the ensemble less efficient in terms of growing autocorrelation times, as will be shown in \LINK.
+As the lattice spacing is reduced, approaching the continuum, the topological sectors get more and more separated, preventing tunneling between them. This makes the Markov chain used to generate the ensemble less efficient in terms of growing autocorrelation times, as will be shown in \cref{sec:testautocorr}.\\
+A derived quantity of great interest is the topological susceptibility $\chi$, that is proportional to the expectation value of the square of the topological charge:
+\beq
+    \chi = \frac{\hbar c}{a^4|\Lambda|}\langle Q^2 \rangle
+\eeq
+This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula to the mass of the $\eta'$.
+
+\section{Modern Lattice QCD Calculations}
+\NOTE{motlo vaga...\\}
+The state of the art calculations in Lattice QCD involve improved fermion and gluon actions. For the gluon sector the improvements are based on finding linear combinations of gauge invariant loops, such as $2\times 1$, $2\times 2$ and $3\times 1$ rectangles to systematically remove the higher order in the right-hand side of \cref{plaq:expanded}. For fermions the improvements consist on actions that preserve certain symmetries more than others, like chiral fermion actions or staggered fermions.\\
+On the algorithm side, the currently most used method to generate gauge field configuration is the Hybrid Monte Carlo method, which combines stochastic sampling with hamiltonian dynamic updates in the  gauge field space. Other interesting algorithmic problems regard the calculation of fermion determinants, which typically involve very large sparse matrix diagonalization.\\
+A fundamental concept in Lattice calculations is to recover the continuum limit in a controlled manner at the end of the analysis. The error sources that come into play when discretizing space-time on a fixed lattice are:
+\begin{itemize}
+    \item Finite Volume Effects: caused by the non infinite domain of the simulation. Usually periodic boundary conditions are implemented to simulate infinite space, but one should always check if the total lattice volume is large enough, especially when dealing with large systems such as multiple baryons.
+    \item State Isolation and Signal to Noise: when computing correlators between two points on the lattice it is possible to extract energy  states of hadrons by looking at the exponential decay of the correlator in eucledian time. However this problem is largely affect by random noise making it hard to extract even the ground state most of the times; excited states are rarely considered.
+    \item Chiral Limit: by which is intended the limit for which the masses of the quarks, and consequently of the computed hadrons, on the lattice approach the physical masses. One might question why this is even the case and that calculations should be performed at the physical masses only. However, the fermion propagator matrix becomes more and more sparse the lower he mass of the quark is, making the numerical algorithms that should diagonalize it slower to converge. The usual approach is to perform calculations on a set of pion masses (this is the usual reference for this problem) and afterwards the limit for $m_\pi^{(lat)} \rightarrow m_\pi^{(phys)}$ is taken to reproduce the physical observables.
+    \item Continuum Limit: perhaps the most obvious thing to do to improve Lattice QCD calculations is to take finer and finer lattice spacings, to approach the continuum case. It should be noted however that this procedure has two downsides. First the lattice spacing in physical units is fixed by the quark masses, and as we previously mentioned, this affects the feasibility of the numerical simulation itself. Secondly, as the lattice approaches the continuum case the autocorrelation of observables in a given ensemble increases rapidly. This behavior, known as ``critical slow-down'' depends on the observable itself, some are more affected then others  The integrated autocorrelatio time for the topological charge for example is believed to have either  power-law with a large exponent or even an exponential relation to the lattice spacing. 
+\end{itemize}
+As one can notice, Lattice QCD is still an open field of research in many aspects: the algorithmic/numerical, the extraction and improvement of the measurement of of obervables and the theoretical model itself. 
+
