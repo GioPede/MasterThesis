@@ -3,13 +3,6 @@ Lattice QCD is one of the main Lattice Field Theories. It deals with the strong 
 
 \section{Discretizing Field Theories}
 
-
-
-
-
-
-
-
 The starting point for Lattice QCD is Feynman's path-integral formalism, but expressed in Euclidean space-time, through a Wick rotation. An observable of some field $\phi$ is then given by:
 \beq
 	\braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]}
@@ -23,6 +16,7 @@ and $S[\phi]$ is the classical action of the field. Evaluating path-integrals is
     \phi(x) \xrightarrow{discretization} \phi(an)
 \eeq
 \subsection{The Harmonic Oscillaor Example}
+\NOTE{Should I include this?}
 
 \section{Discretization of QCD on the Lattice}
 In the case of QCD there are two types of field at play, the gluon gauge field $A$ and the $n_f$ fermionic quark fields $\psi$. 
@@ -222,6 +216,7 @@ Now that all the needed information about the action and the fields is set, main
 
 
 \section{Path Integrals on the Lattice}
+\label{sec:pathintegral}
 To express expectation values and correlators on the lattice, path integral formalism is used. The partition function, as we have seen earlier, is the path integral of the fields over the whole space of the action. For the case of QCD the fields are $U$, $\psi$ and $\bpsi$:
 \beq
 	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  
@@ -363,7 +358,7 @@ with $\tilde F^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\rho\sigma} F^{\rho\sigma}$
 As the lattice spacing is reduced, approaching the continuum, the topological sectors get more and more separated, preventing tunneling between them. This makes the Markov chain used to generate the ensemble less efficient in terms of growing autocorrelation times, as will be shown in \cref{sec:testautocorr}.\\
 A derived quantity of great interest is the topological susceptibility $\chi$, that is proportional to the expectation value of the square of the topological charge:
 \beq
-    \chi = \frac{\hbar c}{a^4|\Lambda|}\langle Q^2 \rangle
+    \chi = \frac{(\hbar c)^4}{a^4|\Lambda|}\langle Q^2 \rangle
 \eeq
 This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula to the mass of the $\eta'$.
 

@@ -1,0 +1,32 @@
+In \cref{sec:pert_flow} the perturbative behavior of the expectation value of $t_f^2\langle E \rangle$ was introduced. In this chapter the same quantity is studied from the data generated from our ensembles of lattice gauge field configurations, for which the code-base was developed. The matching between the perturbative and lattice results will also be discussed.
+
+\section{Discretization Effects on $t_f^2\langle E \rangle$}
+Plotting the data for the average value of the energy as a function of the dimensionless quantity $t_f/r_0^2$ ($r_0=0.5$ is the Sommer parameter, described in \cref{sec:scale_fixing} and has unit of length) many interesting properties can be observed.
+\fig[0.7]{results/t2E.pdf}{$t_f^2\langle E \rangle$ computed on the four ensembles that were generated (\cref{MC:params}) as a function of the flow-time in units of $r_0^2$. The solid line is for $t_f^2\langle E \rangle = 0.3$}{fig:t2E}
+Firstly, the data suggests that for $t_f > 0.05r_0$ is lattice spacing independent, and so coupling independent since they are related. This allows, as it was suggested by \cite{luscher_properties_2010} that this quantity can be used to set the reference scale of the lattice, similarly to $r_0$. By selecting a value for $t_f^2\langle E \rangle$ one can create a reference scale. It was proposed to use the value of $0.3$, which from the plot we can see that is in the region of best matching between the different data series.\\
+In an operative way one finds the value of the flow-time $t_0$ for which:
+\beq
+    t_0\langle E \rangle = 0.3
+\eeq
+This value, in this work, is found by selecting the 20 points, for each data series corresponding to a different $\beta$ value, and fitting a straight line through them. By inverse regression the value of $t_0$ and its uncertainty are found.\\
+We can then to check the validity of the assumptions, plot the analog of \cref{luscher:tsquareE} in which the ratio of $\sqrt{8t_0}/r_0$, that is the rate of the tentative scale based on the gradient flow and the Sommer parameter. If this ratio is independent from the lattice spacing then $\sqrt{8t_0}$ can be used as a reference scale $r_0$.
+\fig[0.7]{results/EnergyContLimit.pdf}{Continuum limit extrapolation of the ratio $\sqrt{8t_0}/r_0$. The solid line is the linear fit of the data points, each representing a different $\beta$ value. The errorband is the $1\sigma$ confidence interval and the black point is the extrapolated continuum point.}{fig:energy_cont}
+With this procedure we fix a value of $\sqrt{8t_0}/r_0$ to be:
+\beq
+\sqrt{8t_0}/r_0 = 0.9499(8)
+\eeq 
+which is compatible with the values found in \CIT.
+
+\section{Matching Perturbative and Lattice Results}
+When focusing on the low flow-time section of the $t_f^2\langle E \rangle$ plot, one can study the matching between the perturbative expansion of the observable, performed in \cite{luscher_properties_2010}, and the lattice results that we generated. \\
+The greatest challenge however is that the flow-time interval in which this matching happens is unknown. Certainly for large $t_f$ perturbation theory fails to describe the system: any perturbative expansion in $\alpha_s(q)$ becomes meaningless, as $q=1/\sqrt{8t_f}$ becomes small the coupling grows and approaches one. For small flow-times the lattice results become unreliable, in the region where the smearing radius is much smaller than the lattice spacing; this is clear by looking at a zoomed version of \cref{fig:t2E}. Both of these two bounds, no matter how intuitive they appear, are also not clearly defined and so no unique procedure can be found to constrain the matching region.
+\fig[0.7]{results/t2EZoom.pdf}{Detail of \cref{fig:t2E} for small flow-times.}{fig:t2EZoom} 
+
+\subsection{Strategy fot the Estimation of the Scale Energy $\Lambda$}
+The problem we are interested to solve is to extract the value of the scale energy of Yang-Mills theory from the lattice data. The only link between the two is \cref{energy_flow}. If the equation is rewritten as:
+\beq
+t_f^2\langle E \rangle = \frac{3}{4\pi } \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075×N_f
+    \label{energy_flow}
+\eeq  
+one can compute the left hand side on the lattice and fit it to the analytical expression on the right hand side from perturbation theory. \\
+As mentioned earlier the problem is to determine matching region, which now affects the fit range. This must be done carefully in order to prevent possible biases and to assess the error on $\Lambda$ properly.

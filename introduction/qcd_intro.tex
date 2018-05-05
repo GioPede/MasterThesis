@@ -1,4 +1,4 @@
-The Standard Model of particle physics (SM) is the theory of fundamental particles and their interactions. Three of the four known fundamental forces are described by it, the exception is gravity, so all phenomena regarding the Electromagnetic, Weak and Strong forces are included within the theory. The SM describes quantized fields defined on all space-time whose excitations are commonly identified with particles. There are two categories of particles, depending on the spin statistic they can be: fermions, quarks or leptons in the SM, which are the constituents of matter;or bosons, which mediate the interactions between particles.\\
+The Standard Model of particle physics (SM) is the theory of fundamental particles and their interactions. Three of the four known fundamental forces are described by it, the exception is gravity, so all phenomena regarding the Electromagnetic, Weak and Strong forces are included within the theory. The SM describes quantized fields defined on all space-time whose excitations are commonly identified with particles. There are two categories of particles, depending on the spin statistic they can be: fermions, quarks or leptons in the SM, which are the constituents of matter; or bosons, which mediate the interactions between particles.\\
 \begin{center}
 \input{introduction/SM}  
 \end{center}
@@ -6,11 +6,11 @@ From a group theory point of view, the SM is the composition of three different 
 \beq
     SU(3)_C \times \underbrace{SU(2)_L \times U(1)_Y}_{broken~to~~ SU(2)_W \times U(1)_{Q}}
 \eeq
-The $U(1)_{Q}$ symmetry group is associated with the electromagnetic interaction and $SU(2)_{W}$ is the weak interaction. They both derives from the spontaneously broken, through the Higgs mechanism, symmetry $SU(2)_L \times U(1)_{Y}$ that defines the unified electroweak theory. \\ 
-Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory, contained in the SM, that describes the behavior of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on a $SU(3)$ symmetry group. The associated quantum number is called ``color charge'' which pictorially can assume the values of \textit{red} ($r$), \textit{green} ($g$), \textit{blue} ($b$), \textit{anti-red} ($\bar r$), \textit{anti-green} ($\bar g$) or \textit{anti-blue} ($\bar b$). In this chapter we will discuss the QCD lagrangian density, its properties and some of the major results of the theory. Some intermediate knowledge of Quantum Field Theory is assumed and derivations and proofs mainly follow the reasoning found in \cite{peskin}. 
+The $U(1)_{Q}$ symmetry group is associated with the electromagnetic interaction and $SU(2)_{W}$ is the weak interaction. They both derive from the spontaneously broken, through the Higgs mechanism, symmetry $SU(2)_L \times U(1)_{Y}$ that defines the unified electroweak theory. \\ 
+Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory, contained in the SM, that describes the behavior of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on a $SU(3)$ symmetry group. The associated quantum number is called ``color charge'' which pictorially can assume the values of \textit{red} ($r$), \textit{green} ($g$), \textit{blue} ($b$), \textit{anti-red} ($\bar r$), \textit{anti-green} ($\bar g$) or \textit{anti-blue} ($\bar b$). In this chapter, we will discuss the QCD lagrangian density, its properties and some of the major results of the theory. Some intermediate knowledge of Quantum Field Theory is assumed and derivations and proofs mainly follow the reasoning found in \cite{peskin}. 
 
 \section{The QCD Lagrangian} 
-In Quantum Field Theory (QFT) the characterizing equation of a theory is its \textit{lagrangian density}, because it contains all the information about the fields that are involved, their properties and most importantly, their interactions. For QCD the simplest form is based on the Yang-Mills Lagrangian, with a $SU(3)$ local gauge symmetry group:  
+In Quantum Field Theory (QFT) the characterizing equation of a theory is its \textit{lagrangian density} because it contains all the information about the fields that are involved, their properties and most importantly, their interactions. For QCD the simplest form is based on the Yang-Mills Lagrangian, with a $SU(3)$ local gauge symmetry group:  
 \beq
   \Lagr_{QCD} = -\frac{1}{4}(G_{\mu\nu}^a)^2 + \sum_{f=1}^{N_f}\bpsi_f(i\Dslash - m_f)\psi_f
   \label{lagr:qcd}
@@ -27,7 +27,7 @@ with $t^a$ being the generators of the algebra $\mathfrak{su}(3)$. The covariant
 \beq
     \Dslash = \gamma^\mu \partial_\mu  - ig_0\gamma^\mu t_aA_\mu^a
 \eeq
-With the information contained in the lagrangian density the behavior and the interactions of all particles are set.
+With the information contained in the lagrangian density, the behavior and the interactions of all particles are set.
 
 
 \subsection{Feynman Rules of QCD}
@@ -44,7 +44,7 @@ To begin with, we need to write out all of the terms of the lagrangian density i
     &~~~+ \bpsi(i\gamma^\mu\partial_\mu - m)\psi
 \end{align}
 
-First we define the gluon and quark propagators, which can be obtained from the first and last terms respectively:
+First, we define the gluon and quark propagators, which can be obtained from the first and last terms respectively:
 
 \begin{minipage}{0.4\textwidth}
 \begin{center}
@@ -114,7 +114,7 @@ Finally we have the gluon-quark interaction vertex:
     \end{minipage}
 \end{center}
 Note that the lagrangian we considered, and the resulting Feynman rules, is over-simplified: the ``full'' lagrangian contains terms from Faddeev-Popov ghosts and counter-terms from the renormalization procedure. Nevertheless, interesting qualitative features can be inferred from the Feynman rules: the fact that gluons interact with each other through the three- and four-gluon vertices; the non flavor-changing interaction between gluons and quarks, which decouples completely different quark flavors; the ``color-changing nature'' of the quark-gluon interaction, given by the $t^a$ matrix in the vertex term that shows how the color state of a fermion is changed by the absorption or emission of a gluon.\\
-
+ 
 
 \subsection{Gauge Symmetry of the Lagrangian}
 \label{intro:symmetry}
@@ -149,7 +149,7 @@ this is clearly gauge invariant since it is commutator of covariant derivatives 
 The theta term is usually neglected because there is no experimental evidence of it, but in principle it cannot be excluded. It is the simplest $CP$ violating term that can be added to the QCD lagrangian and for this is of particular interest in the study of $\cancel{CP}$ phenomena, like the nucleon electric dipole moment (EDM)\cite{dar_neutron_2000}. 
 
 \section{General Properties of QCD}
-Quantum Chromodynamics exhibits a set of features as a theory that are common to all non-abelian gauge theories. We have already seen one, that is the direct interaction of the gauge bosons, something that is not allowed in abelian theories as QED. Other interesting properties emerge when trying to renormalize the theory and are in general linked to the fixing of the scale, which leads to the concept of running coupling. In the particular case of QCD the coupling constant at in a low-energy regime leads to Confinement, while in the high-energy limit Asymptotic Freedom emerges. 
+Quantum Chromodynamics exhibits a set of features as a theory that is common to all non-abelian gauge theories. We have already seen one, that is the direct interaction of the gauge bosons, something that is not allowed in abelian theories as QED. Other interesting properties emerge when trying to renormalize the theory and are in general linked to the fixing of the scale, which leads to the concept of running coupling. In the particular case of QCD, the coupling constant at in a low-energy regime leads to Confinement, while in the high-energy limit Asymptotic Freedom emerges. 
 
 \subsection{Running Coupling} 
 \label{sec:running_coupling}
@@ -188,19 +188,19 @@ In \cref{sec:4loop} we will show a more precise result, correct up to order 4, o
 Our main goal for this thesis is to find a simple and not expensive way to estimate the mass scale parameter $\Lambda$ from lattice calculations, in this work on pure Yang-Mills theory, that means with no fermion flavors, and in prospect for QCD with $2$ or $2+1$ dynamical fermions.
 
 \subsubsection{Asymptotic Freedom}
-Equation (\ref{alpha:1loop}) is a clear indication that QCD at high energies has a small coupling. Asymptotic freedom is the property of gauge theories, QCD is usually the example for it, that causes the interactions between the fields do become weaker as the energy scale increases. This is for example one of the basis on which unification theories are based on, the fact that there exists an energy scale at which the strong force has a coupling equivalent to the one of the electroweak interaction.  
-The discovery of asymptotic freedom by Gross, Wilczek  and Politzer \cite{Gross-Wilczek}\cite{Politzer},  was used as an indication that QCD is indeed the correct theory of the strong interaction in the late Seventies, when the fundamental theory was still debated.\\
-Asymptotically free theories, can be analyzed perturbatively at sufficiently large energies and are believed to be consistent up to any energy scale.
+Equation (\ref{alpha:1loop}) is a clear indication that QCD at high energies has a small coupling. Asymptotic freedom is the property of gauge theories, QCD is usually the example of it, that causes the interactions between the fields do become weaker as the energy scale increases. This is, for example, one of the bases on which unification theories are based on, the fact that there exists an energy scale at which the strong force has a coupling equivalent to the one of the electroweak interaction.  
+The discovery of asymptotic freedom by Gross, Wilczek and Politzer \cite{Gross-Wilczek}\cite{Politzer},  was used as an indication that QCD is indeed the correct theory of the strong interaction in the late Seventies, when the fundamental theory was still debated.\\
+Asymptotically free theories can be analyzed perturbatively at sufficiently large energies and are believed to be consistent up to any energy scale.
 
 \subsubsection{Confinement}
 At low energy scales from \cref{alpha:1loop} we can infer that the coupling constant increases exponentially and approaches 1. This is the reason for the fundamentally different nature of the strong force compared to the other forces, no perturbative expansion can be made at low energies. The exact proof of how this links with the color confinement of QCD is yet not known, but qualitatively it can be explained by the fact that the gauge bosons of the theory, the gluons, carry color charge just like the quarks.\\Lambda
 One can also look at the inverse of the momentum scale and find that the interactions between color charges become strong at a distance $1/\Lambda \approx 1$ fm, which of the order of the radius of the light hadrons.
-In general color charged particles cannot be isolated, so that quarks and gluons are not detectable alone, but always in the from of hadrons: colorless objects formed of multiple quarks, mesons (quark-anti-quark) and hadrons (three quarks or three anti-quarks). Also glueballs, combinations of gluons such that the total is colorless, are in principle allowed, but have not been observed yet. Confinement is the phenomenon for which it is not possible to isolate a color charge, single quarks or gluons, from a hadron without producing other new hadrons. Single colored particle in a very small time scale undergo hadronization, the process of spawning new quarks or anti-quarks from the vacuum to balance the total color charge and produce colorless matter. \\
+In general, color charged particles cannot be isolated, so that quarks and gluons are not detectable alone, but always in the form of hadrons: colorless objects formed of multiple quarks, mesons (quark-antiquark) and hadrons (three quarks or three anti-quarks). Glueballs, combinations of gluons such that the total is colorless, are also in principle allowed, but have not been observed yet. Confinement is the phenomenon for which it is not possible to isolate a color charge, single quarks or gluons, from a hadron without producing other new hadrons. Single colored particles in a very small time scale undergo hadronization, the process of spawning new quarks or anti-quarks from the vacuum to balance the total color charge and produce colorless matter. \\
 The other usual picture is to consider the gluons being exchanged by two quarks to from flux-tubes that, if stretched by separating the quark sources, eventually store enough energy to make a quark-anti-quark pair energetically favorable, as depicted in \cref{intro:flux-tubes}
 \fig[0.1]{introduction/confinement.jpg}{Representation of confinement using flux-tubes . As two color sources are pulled apart, the energy stored in the color field between the sources increases so much that a $q\bar q$ pair is formed from the vacuum energy.}{intro:flux-tubes}
 
 \section{Methods and Regimes of Chromodynamics}
-Given the very different behaviors of the strong force at different energy scales, QCD needs to be dealt with in various ways depending on the scale of interest. At high energies perturbation theory can be applied safely, but at low energies no expansion in the coupling constant can be made. 
+Given the very different behaviors of the strong force at different energy scales, QCD needs to be dealt with in various ways depending on the scale of interest. At high energies, perturbation theory can be applied safely, but at low ones no expansion in the coupling constant can be made. 
 
 \subsubsection{Perturbative QCD}
 At high energies, like the scale of the large particle accelerators that are colliders currently available, the QCD coupling constant is sufficiently small to allow analytical calculations of Feynman diagrams to be meaningful. Hadronization is neglected as the time scale is small enough to consider it a post-collision process. 
@@ -208,11 +208,11 @@ For example, at a scale where the strong force is comparable to the electroweak 
 \fig[0.4]{introduction/e+e-_to_hadrons.png}{Ratio of the experimental cross section of $e^+e^-\rightarrow \text{hadrons}$ and $e^+e^-\rightarrow \mu^+\mu^-$; pQCD results are also shown to agree well to experiment in non resonant regions of the energy spectrum. \cite{dainese_infn_2016}}{fig:ee_hadrons}
 
 \subsubsection{Lattice Methods}
-To deal with the non-perturbative sector of the strong interaction the most widespread approach is to use numerical simulations, in particular lattice methods, so it is common to refer to it as Lattice QCD. The main idea, which will be expressed more in detail in Chapter \ref{chap:lattice_intro}, is to discretize space-time and evaluate the field only at fixed sites on a hyper-cubic lattice, physical quantities are then computed stochastically on ensembles of such gauge fields. This approach however is very expensive from a computational point of view and so far no calculation at physical quark masses with a sufficiently small lattice spacing, in principle closer to the continuum theory, have been performed.
+To deal with the non-perturbative sector of the strong interaction the most widespread approach is to use numerical simulations, in particular, lattice methods, so it is common to refer to it as Lattice QCD. The main idea, which will be expressed more in detail in Chapter \ref{chap:lattice_intro}, is to discretize space-time and evaluate the field only at fixed sites on a hypercubic lattice, physical quantities are then computed stochastically on ensembles of such gauge fields. This approach, however, is very expensive from a computational point of view and so far no calculation at physical quark masses with a sufficiently small lattice spacing, in principle closer to the continuum theory, have been performed.
 
 \subsubsection{Effective Field Theories}
-An interesting problem is to link QCD directly with nuclear forces, that are long range remnants of the strong interaction at a hadron level. The problem is of high interest because there is yet no fundamental theory of nuclear interactions from first principles. The most common approach is to define an Effective Field Theory, starting from a low energy approximation of chromodynamics, that preserves most of the symmetries of the underlying theory. \\
-Chiral EFT ($\chi EFT$) is on of the most popular approaches, it starts from considering nucleons as a fundamental $SU(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective lagrangian, with nucleons as the fermion fields and pions as Nambu-Goldstone bosons of the theory. Its lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons:
+An interesting problem is to link QCD directly with nuclear forces, that are long-range remnants of the strong interaction at a hadron level. The problem is of high interest because there is yet no fundamental theory of nuclear interactions from first principles. The most common approach is to define an Effective Field Theory, starting from a low energy approximation of chromodynamics, that preserves most of the symmetries of the underlying theory. \\
+Chiral EFT ($\chi EFT$) is one of the most popular approaches, it starts from considering nucleons as a fundamental $SU(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective lagrangian, with nucleons as the fermion fields and pions as Nambu-Goldstone bosons of the theory. Its lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons:
 \beq
     \Lagr_{\chi EFT} = \Lagr_{\pi\pi} +  \Lagr_{\pi N} + \Lagr_{NN} + ~\text{(three hadron terms)} ~+\dots
 \eeq 

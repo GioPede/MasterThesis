@@ -49,24 +49,41 @@ at equilibrium we then have:
 \beq
     \frac{w_i}{w_j} = \frac{W(i\rightarrow j)}{W(j\rightarrow i)} = \frac{T(i\rightarrow j)A(i\rightarrow j)}{T(j\rightarrow i)A(j\rightarrow i)}
 \eeq
-Making the approximation that the transition probability between states is the same, $T(i\rightarrow j) = T(j\rightarrow i)$, the brute-force approach, we are left with the acceotance ratio of a move to 
+Making the approximation that the transition probability between states is the same, $T(i\rightarrow j) = T(j\rightarrow i)$, the brute-force approach, we are left with the acceptance ratio of a move to an new state to be the ratio of the PDFs.  
 
-In our case the probability distribution is the exponential of gluon Wilson Action, as we can see from \LINK, and our random samples are the gauge configurations themselves. A simplified version of the algorithm is described below:
-\begin{algorithm}
-    \caption{Metropolis Algorithm}\label{metropolis:algo}
-    \begin{algorithmic}[1]
-    \State $\textit{configuration} \gets \text{initial configuration}$
-    \For {$i < \textit{MonteCarloCycles}$}
-        \State $\textit{newConfiguration}  \gets \text{random move} + \textit{configuration}$  
-        \State $\Delta S \gets \text{action} (\textit{newConfiguration}) - \text{action} (\textit{configuration})$
-        \If {$\Delta S > random(0,1)$} 
-            \State $\textit{configuration} \gets \textit{newConfiguration}$
-        \EndIf
-    \EndFor
-    \end{algorithmic}
-\end{algorithm}
+In our case the probability distribution of the gauge field configurations, labeled $U$ is:
+\beq
+\label{eq:PDF}
+    P(U) = \frac{e^{S_G[U]}}{Z} = \frac{e^{S_G[U]}}{\int \D ~U e^{S_G[U]} }
+\eeq
+that is the exponential of gluon Wilson Action over the path integral of the same quantity over all space, the partition function. Luckily, we only need ratios of this quantity so the normalization part is not to be ever computed. We can rewrite any expectation value of an operator on the lattice as:
+\beq
+    \langle O \rangle = \frac{\int \D U ~O[U] e^{S_G[U]}}{\int \D ~U e^{S_G[U]} } = \int  \D U ~ P(U) O[U]
+\eeq
+which numerically becomes:
+\beq
+\langle O \rangle \approx \frac{1}{N} \sum_{i=1}^N O(U_i)
+\eeq
+where, as described in section \cref{sec:pathintegral} $U_i$ is a set of configurations chosen with the PDF in \cref{eq:PDF}. \\
+Noting that, since we only care about rations in the PDF and that the PDF is an exponential, a huge simplification is to modify an initial guess for a field configuration only locally and check the local action difference.
+A simplified version of the algorithm is described below:
+% \begin{algorithm}
+%     \caption{Metropolis Algorithm}\label{metropolis:algo}
+%     \begin{algorithmic}[1]
+%     \State $\textit{configuration} \gets \text{initial configuration}$
+%     \For {$i < \textit{MonteCarloCycles}$}
+%         \For {$U in \textit{Lattice}$}
+%             \State $\textit{newConfiguration}  \gets \text{random_move}(U) + \textit{configuration}$  
+%             \State $\Delta S \gets \text{action} (\textit{newConfiguration}) - \text{action} (\textit{configuration})$
+%             \If {$\Delta S > random(0,1)$} 
+%                 \State $\textit{configuration} \gets \textit{newConfiguration}$
+%             \EndIf
+%         \EndFor
+%     \EndFor
+%     \end{algorithmic}  
+% \end{algorithm}
 
-The actual implementation of this algorithm on a lattice is however not as trivial as it seems, because we are dealing with a lattice gauge configuration, so we need to define what is a random move and what is the action difference for our specific case.
+The actual implementation of this algorithm on discretized space-time is however not as trivial as it seems, because we are dealing with a lattice gauge configuration, so we need to define what is a random move and what is the action difference for our specific case.
 
 One configuration is saved, in the form of a simple binary containing all the data of the lattice, as an intermediate result every $N_C$ Monte Carlo updates. We need this in order to apply the gradient flow afterwards to the configurations and compute the observables we want. The choice of $N_C$ turned out to be crucial for the autocorrelation of some observables, in particular the topological charge.
 
@@ -211,18 +228,20 @@ The order in which the links in the lattice are visited is also arbitrary. The s
 
 \subsection{Parallelization Scheme}
 \label{sec:para_gen}
-Given the size of the lattice (from $V \approx 10^5$ to $V\approx 10^7$, the total number of lattice sites), it is necessary to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks and have each process handle its portion of the field alone. 
+Given the size of the lattice (from $V \approx 10^5$ to $V\approx 10^7$, the total number of lattice sites), it is necessary to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks and have each process handle its portion of the field alone. \\
+In an operative way, given a lattice of size $(n_x, n_y, n_z, n_t)$ each space-time dimension is split into even portions, of size $(s_x, s_y, s_z, s_t)$ and mapped on $N_{procs}$ processors, having that:
+\beq
+N_{procs} = \frac{s_x}{n_x} \times \frac{s_y}{n_y} \times \frac{s_z}{n_z}  \times \frac{s_t}{n_t}
+\eeq 
+A unique mapping can be performed from the ``local'' coordinates of the sub-block and the unique identifier of the processor that is given by the parallelization library. This way one can manage the distribution of the total lattice into $N_{procs}$ sub-lattices. The usual periodic boundary conditions that are used in the calculations are changed into periodic communication patterns between the processors.
 
-\FIGURE{blocks?} 
+\input{implementation/sub-blocks}
 
-However, because of the dependence of the action difference of a link on its neighbors, when updating a link on the edge of of a sub-block information about another block is needed. Here is where the Message Passing Interface (MPI) comes in use. For this particular problem we decided to use a point to point communication scheme between the processors, the use of periodic boundary conditions allowed also for non-blocking communications to be used, in particular the collective geometry based scheme shown in fig. \cref{discussion} has been implemented.
-
-\FIGURE{sendrecv}
-
+However, because of the dependence of the action difference of a link on its neighbors, when updating a link on the edge of of a sub-block information about another block is needed. Here is where the Message Passing Interface (MPI) comes in use. For this particular problem we decided to use a point to point communication scheme between the processors, the use of periodic boundary conditions allowed also for non-blocking communications to be used, in particular the collective geometry based scheme shown in \cref{fig:subblocks} has been implemented. When computing the staples, two links need to be fetched from the neighbor in the positive direction and, since all processors are synchronized, at the same time two links are requested from the neighbor in the negative direction. The \texttt{SendRecv} function of MPI is exactly what is needed.\\ 
 Note that the communication is relevant only for the computation of the staples, this is another argument in favor of performing multiple hits on a link at every update. It is clear to see that the algorithm can be affected by large communication overhead problems. If the sub-blocks are too small, then most of the time would be spent on sending and receiving links from the neighbors. This causes the execution time to depend not linearly on the number of processors, instead the relation flattens at some value given by the communication overhead.
 
 \subsection{Summary of the Parameters}
-In total the algorithm need four parameters as inputs. Of these, only one defines the physics of the system, the others have to be set and optimized in order to improve the acceptance ratio of the metropolis test and the autocorrelation of the observables computed on the generated configurations.
+In total the algorithm needs four parameters as inputs. Of these, only one defines the physics of the system, the others have to be set and optimized in order to improve the acceptance ratio of the metropolis test and the autocorrelation of the observables computed on the generated configurations.
 
 \begin{table}[!htb]
 \begin{center}
@@ -299,14 +318,20 @@ with:
 This fairly complicated algorithm is the core of the gradient flow implementation, because fundamentally the integration of the flow equation is a series of matrix exponentials over every action derivative of the lattice.
 
 \subsection{Parallelization Scheme}
-Also this problem is very expensive in computational terms, so it is worth designing a parallelization scheme for it. The idea is still to split the lattice into sub-blocks and have each processor handle one of them.
-By looking at \cref{{eq:integrator}} we see that all operations can be defined on a lattice-wise scale and that they all depend on one previous state of the field, not on an intermediate one as was the case for the generation of gauge fields. This allows us to define a "shift" operation, that effectively creates an additional lattice that is the translation of the original along an axis. The huge advantage is that in order to perform this operation only one communication instance is needed (following the previous scheme in \cref{sec:para_gen}), but the message is now a whole shared cube between to processors. 
+Also this problem is very expensive in computational terms, so it is worth designing a parallelization scheme for it. The idea is still to split the lattice into sub-blocks as in \cref{sec:para_gen} and have each processor handle one of them.
+By looking at \cref{{eq:integrator}} we see that all operations can be defined on a lattice-wise scale and that they all depend on one previous state of the field, not on an intermediate one as was the case for the generation of gauge fields. This allows us to define a "shift" operation, that effectively creates an additional lattice that is the translation of the original along an axis. The huge advantage is that in order to perform this operation only one communication instance is needed (following the previous scheme in \cref{sec:para_gen}), but the message is now a whole shared cube between to processors. \\
+An intuitive 2D representation of the shift operation is drawn in \cref{fig:shift}
+\input{implementation/shift}
 
-\FIGURE{cubes being shared} 
-\NOTE{ADD ALGO...} 
+The data to be shifted is on the order of hundreds of kilobytes, which takes some time to be sent by MPI. An optimization that has been implemented is then to rewrite the algorithm in order to use non-blocking communications, first sending the data non-blockingly, then shifting the inner points of the sublattice (which do not require links from the neighbors), receiving the data from the neighbor and placing it in the buffer space.
+\NOTE{ADD ALGO?}
 
-This has to be implemented for the action derivative lattice and the gauge field itself. The massive reduction in communication overhead improves the scaling of the algorithm greatly, making this part of the problem much more efficient.
+This has to be implemented for the action derivative lattice and the gauge field itself. The massive reduction in communication overhead, compared to the single link exchange in \cref{sec:para_gen}, improves the scaling of the algorithm greatly, making this part of the problem much more efficient.
+
 
 \section{Structure and Tools}
-The full code can be found on the web under the link \NOTE{github...}, where both the code for the generation and the flow of gauge fields is hosted. The technical documentation is found at \NOTE{documentation...}. As already mentioned the language of choice was \cpp, mainly because of the high-performance and abstraction level it  provides. An object-oriented structure has been used, as can be seen in \FIGURE{scheme class}. 
-Notable tools that have been used that deserve a mention are \mpi, nlhoman json (used for easy input parameters handling via json files), cmake (for building the project) and valgrind for funcition and memory profiling.
+The full code can be found on the web under the link \url{https://github.com/GioPede}, where both the code for the generation and the flow of gauge fields are hosted. The technical documentation is found at \url{https://giopede.github.io/LatticeYangMills/html/index.html} and \url{https://giopede.github.io/LatticeFlow/html/index.html}. As already mentioned the language of choice was \cpp, mainly because of the high-performance and abstraction level it  provides. An object-oriented structure has been used, as can be seen in 
+
+\FIGURE{scheme class}. 
+
+Notable tools that have been used that deserve a mention are \mpi, nlhoman/json \cite{noauthor_json/index.md_nodate} (used for easy input parameters handling via json files), CMake (for building the project) and Valgrind for funcition and memory profiling. 
