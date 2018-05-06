@@ -67,24 +67,24 @@ which numerically becomes:
 where, as described in section \cref{sec:pathintegral} $U_i$ is a set of configurations chosen with the PDF in \cref{eq:PDF}. \\
 Noting that, since we only care about rations in the PDF and that the PDF is an exponential, a huge simplification is to modify an initial guess for a field configuration only locally and check the local action difference.
 A simplified version of the algorithm is described below:
-% \begin{algorithm}
-%     \caption{Metropolis Algorithm}\label{metropolis:algo}
-%     \begin{algorithmic}[1]
-%     \State $\textit{configuration} \gets \text{initial configuration}$
-%     \For {$i < \textit{MonteCarloCycles}$}
-%         \For {$U in \textit{Lattice}$}
-%             \State $\textit{newConfiguration}  \gets \text{random_move}(U) + \textit{configuration}$  
-%             \State $\Delta S \gets \text{action} (\textit{newConfiguration}) - \text{action} (\textit{configuration})$
-%             \If {$\Delta S > random(0,1)$} 
-%                 \State $\textit{configuration} \gets \textit{newConfiguration}$
-%             \EndIf
-%         \EndFor
-%     \EndFor
-%     \end{algorithmic}  
-% \end{algorithm}
+\begin{algorithm} 
+    \caption{Metropolis Algorithm}\label{metropolis:algo}
+    \begin{algorithmic}[1]
+    \State $\textit{configuration} \gets \text{initial configuration}$
+    \For {$i < \textit{MonteCarloCycles}$}
+        \For {$U$ in \textit{Lattice}}
+            \State $\textit{newConfiguration}  \gets \text{randomMove}(U) + \textit{configuration}$  
+            \State $\Delta S \gets \text{action} (\textit{newConfiguration}) - \text{action} (\textit{configuration})$
+            \If {$\Delta S > random(0,1)$} 
+                \State $\textit{configuration} \gets \textit{newConfiguration}$
+            \EndIf
+        \EndFor
+    \EndFor
+    \end{algorithmic}  
+\end{algorithm} 
 
 The actual implementation of this algorithm on discretized space-time is however not as trivial as it seems, because we are dealing with a lattice gauge configuration, so we need to define what is a random move and what is the action difference for our specific case.
-
+ 
 One configuration is saved, in the form of a simple binary containing all the data of the lattice, as an intermediate result every $N_C$ Monte Carlo updates. We need this in order to apply the gradient flow afterwards to the configurations and compute the observables we want. The choice of $N_C$ turned out to be crucial for the autocorrelation of some observables, in particular the topological charge.
 
 \subsection{Sampling the Configuration Space}
