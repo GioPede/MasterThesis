@@ -15,7 +15,7 @@ and $S[\phi]$ is the classical action of the field. Evaluating path-integrals is
 \beq
     \phi(x) \xrightarrow{discretization} \phi(an)
 \eeq
-\subsection{The Harmonic Oscillaor Example}
+\subsection{The Harmonic Oscillator Example}
 \NOTE{Should I include this?}
 
 \section{Discretization of QCD on the Lattice}
@@ -212,7 +212,7 @@ with $m^W_{xy}[U]$ being the Wilson propagator:
 M^W_{xy}[U]= \frac{1}{2a}\sum_{\mu=\pm1}^{\pm4}(\mathds{1} -\gamma_\mu) U_\mu(x)\delta_{x,(y-\hat\mu)} + \left(m +\frac{4}{a}\right)\delta_{x,y} 
 \eeq
 the shorthand notation $\gamma_{-\mu} = -\gamma_\mu$ has been introduced. \\
-Now that all the needed information about the action and the fields is set, mainly through equations \ref{intro:lat_action} and \ref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovski space-time to an euclidean space-time lattice.
+Now that all the needed information about the action and the fields is set, mainly through equations \ref{intro:lat_action} and \ref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovskian space-time to an euclidean space-time lattice.
 
 
 \section{Path Integrals on the Lattice}
@@ -369,9 +369,9 @@ On the algorithm side, the currently most used method to generate gauge field co
 A fundamental concept in Lattice calculations is to recover the continuum limit in a controlled manner at the end of the analysis. The error sources that come into play when discretizing space-time on a fixed lattice are:
 \begin{itemize}
     \item Finite Volume Effects: caused by the non infinite domain of the simulation. Usually periodic boundary conditions are implemented to simulate infinite space, but one should always check if the total lattice volume is large enough, especially when dealing with large systems such as multiple baryons.
-    \item State Isolation and Signal to Noise: when computing correlators between two points on the lattice it is possible to extract energy  states of hadrons by looking at the exponential decay of the correlator in eucledian time. However this problem is largely affect by random noise making it hard to extract even the ground state most of the times; excited states are rarely considered.
+    \item State Isolation and Signal to Noise: when computing correlators between two points on the lattice it is possible to extract energy  states of hadrons by looking at the exponential decay of the correlator in euclidean time. However this problem is largely affect by random noise making it hard to extract even the ground state most of the times; excited states are rarely considered.
     \item Chiral Limit: by which is intended the limit for which the masses of the quarks, and consequently of the computed hadrons, on the lattice approach the physical masses. One might question why this is even the case and that calculations should be performed at the physical masses only. However, the fermion propagator matrix becomes more and more sparse the lower he mass of the quark is, making the numerical algorithms that should diagonalize it slower to converge. The usual approach is to perform calculations on a set of pion masses (this is the usual reference for this problem) and afterwards the limit for $m_\pi^{(lat)} \rightarrow m_\pi^{(phys)}$ is taken to reproduce the physical observables.
-    \item Continuum Limit: perhaps the most obvious thing to do to improve Lattice QCD calculations is to take finer and finer lattice spacings, to approach the continuum case. It should be noted however that this procedure has two downsides. First the lattice spacing in physical units is fixed by the quark masses, and as we previously mentioned, this affects the feasibility of the numerical simulation itself. Secondly, as the lattice approaches the continuum case the autocorrelation of observables in a given ensemble increases rapidly. This behavior, known as ``critical slow-down'' depends on the observable itself, some are more affected then others  The integrated autocorrelatio time for the topological charge for example is believed to have either  power-law with a large exponent or even an exponential relation to the lattice spacing. 
+    \item Continuum Limit: perhaps the most obvious thing to do to improve Lattice QCD calculations is to take finer and finer lattice spacings, to approach the continuum case. It should be noted however that this procedure has two downsides. First the lattice spacing in physical units is fixed by the quark masses, and as we previously mentioned, this affects the feasibility of the numerical simulation itself. Secondly, as the lattice approaches the continuum case the autocorrelation of observables in a given ensemble increases rapidly. This behavior, known as ``critical slow-down'' depends on the observable itself, some are more affected then others  The integrated autocorrelation time for the topological charge for example is believed to have either  power-law with a large exponent or even an exponential relation to the lattice spacing. 
 \end{itemize}
-As one can notice, Lattice QCD is still an open field of research in many aspects: the algorithmic/numerical, the extraction and improvement of the measurement of of obervables and the theoretical model itself. 
+As one can notice, Lattice QCD is still an open field of research in many aspects: the algorithmic/numerical, the extraction and improvement of the measurement of of observables and the theoretical model itself. 
 

@@ -22,11 +22,11 @@ When focusing on the low flow-time section of the $t_f^2\langle E \rangle$ plot,
 The greatest challenge however is that the flow-time interval in which this matching happens is unknown. Certainly for large $t_f$ perturbation theory fails to describe the system: any perturbative expansion in $\alpha_s(q)$ becomes meaningless, as $q=1/\sqrt{8t_f}$ becomes small the coupling grows and approaches one. For small flow-times the lattice results become unreliable, in the region where the smearing radius is much smaller than the lattice spacing; this is clear by looking at a zoomed version of \cref{fig:t2E}. Both of these two bounds, no matter how intuitive they appear, are also not clearly defined and so no unique procedure can be found to constrain the matching region.
 \fig[0.7]{results/t2EZoom.pdf}{Detail of \cref{fig:t2E} for small flow-times.}{fig:t2EZoom} 
 
-\subsection{Strategy fot the Estimation of the Scale Energy $\Lambda$}
+\subsection{Strategy for the Estimation of the Scale Energy $\Lambda$}
 The problem we are interested to solve is to extract the value of the scale energy of Yang-Mills theory from the lattice data. The only link between the two is \cref{energy_flow}. If the equation is rewritten as:
 \beq
-t_f^2\langle E \rangle = \frac{3}{4\pi } \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075×N_f
+t_f^2\langle E \rangle = \frac{3}{4\pi } \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f
     \label{energy_flow}
 \eeq  
 one can compute the left hand side on the lattice and fit it to the analytical expression on the right hand side from perturbation theory. \\
-As mentioned earlier the problem is to determine matching region, which now affects the fit range. This must be done carefully in order to prevent possible biases and to assess the error on $\Lambda$ properly.
+As mentioned earlier the problem is to determine matching region, which now affects the fit range. This must be done carefully in order to prevent possible biases and to assess the error on $\Lambda$ properly. 

@@ -297,7 +297,7 @@ The exponential of $iQ$ can then be written as:
 \beq    
 e^{iQ} = f_0\mathds{1} + f_1Q+f_2Q^2
 \eeq
-where the functions of the eigenvalues of $Q$, which in turn can be paramterized, because of the hermitianeity of $Q$ in terms of $c_0$ and $c_1$. Labeling the eigenvalues of $Q$ as $q_1, q_2, q_3$ and using the fact that the matrix is traceless they can be parametrized as:
+where the functions of the eigenvalues of $Q$, which in turn can be parameterized, because of the hermitianeity of $Q$ in terms of $c_0$ and $c_1$. Labeling the eigenvalues of $Q$ as $q_1, q_2, q_3$ and using the fact that the matrix is traceless they can be parametrized as:
 \beq
     q_1 = 2u~~~~~~~q_2 = -u+w~~~~~~~q_3 = -u-w
 \eeq
@@ -323,7 +323,7 @@ By looking at \cref{{eq:integrator}} we see that all operations can be defined o
 An intuitive 2D representation of the shift operation is drawn in \cref{fig:shift}
 \input{implementation/shift}
 
-The data to be shifted is on the order of hundreds of kilobytes, which takes some time to be sent by MPI. An optimization that has been implemented is then to rewrite the algorithm in order to use non-blocking communications, first sending the data non-blockingly, then shifting the inner points of the sublattice (which do not require links from the neighbors), receiving the data from the neighbor and placing it in the buffer space.
+The data to be shifted is on the order of hundreds of kilobytes, which takes some time to be sent by MPI. An optimization that has been implemented is then to rewrite the algorithm in order to use non-blocking communications, first sending the data non-blockingly, then shifting the inner points of the sub-lattice (which do not require links from the neighbors), receiving the data from the neighbor and placing it in the buffer space.
 \NOTE{ADD ALGO?}
 
 This has to be implemented for the action derivative lattice and the gauge field itself. The massive reduction in communication overhead, compared to the single link exchange in \cref{sec:para_gen}, improves the scaling of the algorithm greatly, making this part of the problem much more efficient.
@@ -334,4 +334,4 @@ The full code can be found on the web under the link \url{https://github.com/Gio
 
 \FIGURE{scheme class}. 
 
-Notable tools that have been used that deserve a mention are \mpi, nlhoman/json \cite{noauthor_json/index.md_nodate} (used for easy input parameters handling via json files), CMake (for building the project) and Valgrind for funcition and memory profiling. 
+Notable tools that have been used that deserve a mention are \mpi, nlhoman/json \cite{noauthor_json/index.md_nodate} (used for easy input parameters handling via json files), CMake (for building the project) and Valgrind for function and memory profiling. 
