@@ -1,7 +1,8 @@
-For 
+When developing a program for numerical simulations from scratch, it is crucial to design test cases and benchmarks to verify the goodness of the implementation. The easiest case is that of a fully deterministic program (for which the output depends only on some initial parameters) because one can compare the results with other implementations to validate the code. In the case of stochastic processes, like the Metropolis algorithm, it is only possible to compare the average behavior with external implementations. \\
+In this chapter we will give an overview of the test cases, the properties of the ensembles used in this thesis and how the parameters that were needed to generate them have been set.
 
 \section{Generated Ensembles}
-In order to study the scale parameter, it has been necessary to choose a set of decreasing lattice spacings to then be able to take the continuum limit. The lattice spacing is linked to the coupling $g_0$ and $\beta$ by the relation found in \cref{scale:parameter}.\\ 
+In order to study the momentum scale it has been necessary to choose a set of decreasing lattice spacings to then be able to take the continuum limit. This procedure is common to most Lattice QCD calculations as it is the most straightforward way to take recover the continuum theory. The lattice spacing is linked to the coupling $g_0$ and $\beta$ by the relation found in \cref{scale:parameter}.\\ 
 We chose 4 values of $\beta$ that span lattice spacings from approximately $0.1$ fm to $0.05$ fm in approximately equal steps. \\
 For the calculation to be consistent however, the total volume of the lattice should be kept constant, so the choice of the lattice spacings also determined the number of lattice sites per dimension, having $L = aN\approx const$. The time dimension has been take to be twice as big as the space dimension. The number of lattice points per dimension, for parallelization's sake, were chosen in order to have many divisors, to allow for different and small sub-blocks. \\
 Table \cref{runs:ensembles} summarizes the physical properties of the ensembles that were generated.
@@ -33,12 +34,29 @@ The following table summarizes the final values for the parameters of the Metrop
     \capt{Parameters used for the generation of the ensembles on which the results of this work are based on.}
     \end{center}
 \end{table}
-These values have been chosen after many tests, checks of the autocorrelation time and mainly in an empirical way. There are some parameters that are free in principle and no real reference study on their impact on the resulting ensemble. In the next section the trial and error approach that led to this decision will be briefly discussed.
+These values have been chosen after many tests, checks of the autocorrelation time and mainly in an empirical way. There are some parameters that are free in principle and no real reference study on their impact on the resulting ensemble. In the next section the trial and error approach that led to this decision will be briefly discussed.\\
+Evidently, there is less freedom on the choice of the parameters in \cref{FLOW:params} for the gradient flow compared to \cref{MC:params}. The value of $t_f^{MAX}$ is chosen in lattice units. To rescale it to physical units it must be multiplied by $a^2$. In the following table we report the choice of the parameters for the flow of the ensembles in \cref{runs:ensembles}.
+
+\begin{table}[!htb]
+    \begin{center}
+    \begin{tabular}{cccc} 
+        $\beta$ & $\epsilon$ & $t_f^{MAX}/a^2$ & $\sqrt{t_f^{MAX}}$ [fm] \\\hline
+        $6.00$ & $0.01$ & $10.00$ & $0.8330$ \\
+        $6.10$ & $0.01$ & $10.00$ & $0.7070$ \\
+        $6.20$ & $0.01$ & $10.00$ & $0.6076$ \\
+        $6.45$ & $0.02$ & $20.00$ & $0.6047$ 
+    \end{tabular}
+    \label{runs:flow} 
+    \capt{Parameters used for the numerical integration of the flow equations for the ensembles in \cref{runs:ensembles}}
+    \end{center}
+\end{table}
+The choice of $\epsilon$ was motivated by the work found in \cite{ce_testing_2015}, and the same values for the combination of $\epsilon$ and $t_f^{MAX}/a^2$ have been chosen for all ensembles, regardless of the physical maximum smearing radius, except for the $\beta=6.45$ case, for which the number of integration steps of the RK-MK method is kept the same, but the step size is doubled. This was needed to obtain results for large enough flow times out of the ensemble (which is by far the largest one) in reasonable computing time.
+
 
 \section{Test Runs}
 \label{sec:testautocorr}
-Running some test calculations with a completely new code base is obviously necessary. First some benchmarks to check the expectation values of the observables, both on raw configurations as on flowed configurations. These benchmarks were made using 2 configurations generated with the CHROMA \cite{edwards_chroma_2005} code base from the USQCD collaboration for zero flow-time observables and one configuration flowed using an extension of CHROMA called FlowOps (courtesy of T.Luu and A.Shidler ?correct?), built on QDP++ (the backbone of CHROMA), that applies the Wilson flow to configurations. Both types of test, once all the parameters were made equal, gave results equal to machine precision with the ones generated with the new code base.\\
-Checking the validity of expectation values of observables is a solid indication that the overall back-end of the new code-base has been implemented well, as the results are deterministic. Testing the Metropolis algorithm and assessing the quality of the generated ensembles is much harder, because it involves stochastic computations, hence no numerical check can be easily defined, one can only look at average properties of the ensemble. Unfortunately the generation of gauge field configuration as we saw in \cref{MC:params} has 3 parameters that need to be set that do affect the statistical properties of the ensemble, mainly the autocorrelation. As it turns out however, the $\epsilon$ parameter, which controls the spread of the $SU(3)$ random elements around the identity matrix, only affects the acceptance ratio, hence the efficiency of the algorithm and not the physical properties (or at least the effects are small).\\
+Running some test calculations with a completely new program is obviously necessary. First some benchmarks to check the expectation values of the observables, both on raw configurations and on flowed configurations. These benchmarks were made using 2 configurations generated with the CHROMA \cite{edwards_chroma_2005} code base from the USQCD collaboration for zero flow time observables and one configuration flowed using an extension of CHROMA called FlowOps (courtesy of T.Luu and A.Shidler ?correct?), built on QDP++ (the backbone of CHROMA), that applies the Wilson flow to configurations. Both types of tests, once all the parameters were made equal, gave results equal to machine precision with the ones generated with the new code base.\\
+Checking the validity of expectation values of observables is a solid indication that the overall back-end of the new code-base has been implemented well, as the results are deterministic. Testing the Metropolis algorithm and assessing the quality of the generated ensembles is much harder, because it involves stochastic computations, hence no numerical check can be easily defined, one can only look at average properties of the set of configurations. Unfortunately the generation of gauge field configuration as we saw in \cref{MC:params} has 3 parameters that need to be set that do affect the statistical properties of the output ensemble, mainly the autocorrelation. As it turns out however, the $\epsilon$ parameter, which controls the spread of the $SU(3)$ random elements around the identity matrix, only affects the acceptance ratio of the Metropolis test, hence the efficiency of the algorithm and not the physical properties (or at least the effects are small).\\
 The tests were all performed on the three largest lattice spacings, as the system for the smallest one is much larger and requires a considerably longer time to compute.
 
 \subsection{Thermalization}
@@ -54,17 +72,19 @@ When computing expectation values using the Monte Carlo integration, it is impor
 To ensure thermalization, all results of this work are generated discarding the first $10^4$ MC cycles, which is much larger than the value we found, but still a small fraction, so an affordable exaggeration, of the total number of MC cycles of the Markov chain.
 
 
-\subsection{Tests on the Autocorrelation of Observables}
+\subsection{Tests for the Autocorrelation of Observables}
 \label{sec:obs_autocorr}
-The most important test has been the assessment of the autocorrelation time for different observables at various lattice spacings varying the parameters of the generation algorithm. As expected, the most problematic quantity is the topological charge, especially at large flow-times. A good measure of how much a data series is autocorrelated is the integrated autocorrelation time $\tau_{int}$, see \NOTE{Appendix...}, which is expected to be $1/2$ if the data is uncorrelated. In general, a larger $\tau_{int}$ implies an underestimation of uncertainties, so the variance of a quantity is corrected as $\tilde\sigma^2 = 2\tau_{int}\sigma^2$. \\
+The most important test has been the assessment of the autocorrelation time for different observables at various lattice spacings varying the parameters of the generation algorithm. As expected, the most problematic quantity is the topological charge, especially at large flow times. A good measure of how much a data series is autocorrelated is the integrated autocorrelation time $\tau_{int}$, see \cref{app:autocorr}, which is expected to be $1/2$ if the data is uncorrelated. In general, a larger $\tau_{int}$ implies an underestimation of uncertainties, so the variance of a quantity is corrected as $\tilde\sigma^2 = 2\tau_{int}\sigma^2$. \\
 The first test, in \cref{fig:autobetas} shows the integrated autocorrelation time for the topological charge at fixed $N_{corr}=200$ and $N_{hit} = 10$ for different lattice spacings:
 \fig[0.8]{implementation/TopcAutoBetas.pdf}{Integrated autocorrelation time for $N_{corr}=200$ and $N_{hit} = 10$ for different inverse coupling values. }{fig:autobetas}
-Next we looked at a single lattice spacing and tried to vary the parameters $N_{corr}$ and $N_{hits}$ for the $\beta=6.10$ case. 
+
+Afterwards we looked at a single lattice spacing and tried to vary the parameters $N_{corr}$ and $N_{hits}$ for the $\beta=6.10$ case. 
 \fig[0.8]{implementation/TopcTauInt.pdf}{Integrated autocorrelation time for $\beta=6.10$ as the parameters for the gauge field generation $N_{corr}$ and $N_{hit}$ are modified. The black data series represents the chosen set of parameters. }{fig:autotauint}
 From the first plot it is clear that the values that were guessed for the parameters $N_{corr}$ and $N_{hit}$, which could be acceptable for the lowest beta value, are not at all fine for the other lattice spacings. On a general note we observe how the flow quickly removes the low range noise from the observable through the smearing, making it clear that the topological charge is highly correlated in Monte Carlo time even though it might seem uncorrelated if one only looks at $t_f = 0$. \\
 On the other hand, \cref{fig:autotauint} suggests a possible cure for the autocorrelation issue. It is almost tautological that increasing the value of $N_{corr}$ decreases the autocorrelation, as the parameter represents how many MC updates are performed between two measurements of the observable. The dependence of $\tau_{int}$ from $N_{hits}$ is also clear. From the data we observed that increasing both parameters improved the autocorrelation, so the choice was to set both to a larger value from our initial guess and this proved to be the right choice. The black data series in  \cref{fig:autotauint} is the data that we used for our analysis, one can notice that it is still autocorrelated, but that can be handled with a reasonable correction to the variance on the data. \\
 It is important to stress again that the autocorrelation is a huge problem mainly for the topological charge. The energy density operator is much less affected and for all the ensembles we generated the integrated autocorrelation time is never a value much greater that $1/2$ (see \cref{fig:energyautocorr}). 
  
+\FloatBarrier
 \subsection{Strong and Weak Scaling}
 First we can look at the scaling properties of the two sections of the code. We will distinguish the analysis in the two usual quantities used in High Performance Computing for parallel programs: strong and weak scaling. \\
 Strong scaling is the performance of a program measured in execution time as a function of the number of processors used. One would obviously expect the relation to be ideally inverse, with execution time dropping as $1/N_{procs}$, however given the overhead caused by parallelization this is seldomly the case. \\
@@ -76,6 +96,7 @@ Weak scaling is the measure of the performance of a program as the size of the s
 \section{Production Runs and Timing}
 All production runs were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
 The final ensembles were generated using the parameters in table \cref{runs:times}, shows the computing resources used for the generation of all four ensembles. 
+\NOTE{I HAVE TO FIND THE DATA HERE...}
 \begin{table}[!htb]
     \begin{center}
     \begin{tabular}{cccc}

@@ -28,6 +28,7 @@ Evaluating path-integrals is not possible in general with analytical tools so, i
 \NOTE{Should I include this?}
 
 \section{Discretization of QCD on the Lattice}
+\label{sec:lattice_discretize}
 In the case of QCD there are two types of field at play, the gluon gauge field $A$ and the $N_f$ fermionic quark fields $\psi$. In order to perform numerical calculations on the lattice, it is necessary to discretize the Euclidean action for both fields. \\LagrIn this section the discretization is performed following a structure that resembles \cref{intro:symmetry}, that is to start from the fermion fields and imposing gauge invariance.
 
 \subsection{Na{\"i}ve Discretization of Fermions}
@@ -361,21 +362,20 @@ In order to estimate this quantity, one has to compute the field tensor at every
 \end{figure}
 
 In terms of link variables this is equal to:
-\NOTE{CHECK BETTER...}
 \begin{align}
     G_{\mu\nu}^{(clover)}(n)=\frac{1}{4}\bigg[  &U_\mu(n)U_\nu(n+\hat\mu)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n)\\\nonumber
     - &U_\nu(n)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n-\hat\mu)U_\mu(n-\hat\mu)\\\nonumber
     + &U^\dagger_\mu(n-\hat\mu)U^\dagger_\nu(n-\hat\mu-\hat\nu)U_\mu(n-\hat\mu-\hat\nu)U_\nu(n-\hat\nu)\\\nonumber
     - &U^\dagger_\nu(n-\hat\nu)U_\mu(n-\hat\nu)U_\nu(n+\hat\mu-\hat\nu)U^\dagger_\mu(n) \bigg]
 \end{align}
-
+ 
 
 \subsubsection{Topological Charge}
-The gauge fields in QCD exhibit particular topological properties that are believed to have important physical implications \cite{witten_current_1979}\cite{di_giacomo_topology_1997}. The topological charge is an integer quantum number of the field in the continuum, similar to the concept of winding-number. In general fields with different topological charge are separated, but there exist non-zero instanton modes \CIT that allow tunneling between them.
-On the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \cite{alexandrou_comparison_2017}. 
+The gauge fields in QCD exhibit particular topological properties that are believed to have important physical implications \cite{witten_current_1979}\cite{di_giacomo_topology_1997}. The topological charge is an integer quantum number of the field in the continuum, similar to the concept of winding-number. In general fields with different topological charge are separated, but there exist non-zero instanton modes \cite{schafer_instantons_1998} that allow tunneling between them.
+On the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \cite{alexandrou_comparison_2017}\cite{gross_qcd_1981}. 
 
-\NOTE{CHECK...}
-In the continuum topological sectors, regions of space with same charge, are separated from each other, on the lattice through discretization effects the behavior is different, with instantons that allow tunneling between sectors \cite{gross_qcd_1981}.\\ 
+% \NOTE{CHECK...}
+% In the continuum topological sectors, regions of space with same charge, are separated from each other, on the lattice through discretization effects the behavior is different, with instantons that allow tunneling between sectors \cite{gross_qcd_1981}.\\ 
 
 
 The topological charge is the integral over all space-time of the topological charge density:
@@ -395,7 +395,7 @@ A derived quantity of great interest is the topological susceptibility $\chi$, t
 \beq
     \chi = \frac{(\hbar c)^4}{a^4|\Lambda|}\langle Q^2 \rangle
 \eeq
-This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula to the mass of the $\eta'$. \CIT
+This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula \cite{witten_current_1979} to the mass of the $\eta'$ meson, the pseudo-scalar singlet.
 
 \section{Modern Lattice QCD Calculations}
 \NOTE{motlo vaga...\\}

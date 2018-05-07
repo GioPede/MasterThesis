@@ -27,7 +27,7 @@ This scale fixing procedure requires a proper estimate of the length scale from 
 More recently another procedure to fix the energy scale has been proposed, based on the Gradient Flow Method, which will be discussed in \cref{sec:scale_fixing}. The key idea is again to choose and observable that is finite in the continuum limit, so lattice spacing independent. By fixing value for it one can use the quantity as a reference scale for further calculations.  
 
 \section{The Gradient Flow Method}
-The Gradient Flow Method, also known as the Wilson Flow in the case of QCD, is a method for studying non-linear quantum field theories by the  properties of flows in the field space. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow-time''.\\
+The Gradient Flow Method, also known as the Wilson Flow in the case of QCD, is a method for studying non-linear quantum field theories by the  properties of flows in the field space. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow time''.\\
 For the $SU(3)$ gauge field case most of the theoretical foundation was set by M.L{\"u}scher in \cite{luscher_properties_2010}\cite{luscher_perturbative_2011} and for QCD in \cite{luscher_chiral_2013}. Starting from a field $A_\mu(x)$ the characterizing equations are:
 \beq
     \begin{aligned}
@@ -37,7 +37,7 @@ For the $SU(3)$ gauge field case most of the theoretical foundation was set by M
     \end{aligned}
     \label{eq:flow_cont}
 \eeq
-where the $B(t_f, x)$ field is the flowed version of the original field at flow-time $t_f$. This is imposed by fixing:
+where the $B(t_f, x)$ field is the flowed version of the original field at flow time $t_f$. This is imposed by fixing:
 \beq
     B_{\mu}|_{t_f = 0} = A_\mu
 \eeq
@@ -59,8 +59,8 @@ note that $\Delta$ is the covariant laplacian in this notation. The initial cond
 
 \section{Perturbative Analysis of the Wilson Flow}
 \label{sec:pert_flow}
-An important thing to consider when applying the Wilson flow to a field is the renormalization of the observables: one has to check that expectation values of observables at non-zero flow-time are renormalized quantities. Following the calculations performed in \cite{luscher_properties_2010}, we will consider the energy as our base observable. \\
-First, we note that the flow equation is invariant  under flow-time independent gauge transformations, this prevents a detailed study of the renormalization. So we consider a modified version of the flow equation by adding one term:
+An important thing to consider when applying the Wilson flow to a field is the renormalization of the observables: one has to check that expectation values of observables at non-zero flow time are renormalized quantities. Following the calculations performed in \cite{luscher_properties_2010}, we will consider the energy as our base observable. \\
+First, we note that the flow equation is invariant  under flow time independent gauge transformations, this prevents a detailed study of the renormalization. So we consider a modified version of the flow equation by adding one term:
 \beq   
 \partial_{t_f}B_\mu = D_\mu G_{\mu\nu} + \lambda D_\mu\partial_\nu B_\nu
 \label{flow_mod}
@@ -69,11 +69,11 @@ the original case is obtained again by setting $\lambda =0$ and considering:
 \beq   
     B_\mu = \Lambda B_\mu|_{\lambda=0} \Lambda^{-1} +  \Lambda \partial_\mu \Lambda^{-1}
 \eeq
-and with $\Lambda(t,x)$ now being a flow-time dependent gauge transformation, set by:
+and with $\Lambda(t,x)$ now being a flow time dependent gauge transformation, set by:
 \beq   
 \partial_{t_f}\Lambda_\mu = -\lambda\partial_\nu B_\nu\Lambda~~~\text{with}~~\Lambda|_{t_f=0} = 1
 \eeq 
-To leading order, and with the choice of $\lambda=1$, it was shown in \cite{luscher_properties_2010} that \cref{flow_mod} reduces to:
+To leading order, and with the choice of $\lambda=1$, it was shown in \cite{luscher_perturbative_2011} that \cref{flow_mod} reduces to:
 \beq
 \partial_{t_f}B_\mu - \partial_\nu\partial_\nu B_\mu = 0
 \eeq
@@ -84,7 +84,7 @@ B_\mu(t_f,x) =  \int d^4 y \frac{e^{-(x-y)^2/4t_f}}{(4\pi t_f)^2} A_\mu(y)
 this result shows that the flow equations, as a first approximation, are a smearing operation. The right-hand side can be seen as the integral average of the original field weighted with a gaussian distribution of variance $2t_f$ and mean-square-radius of $\sqrt{8t_f}$.\\
 
 The energy $E$ as defined in \cref{eq:energy} is a gauge invariant object. One can observe that the modified flow equation is invariant under gauge transformations, hence the energy, as any other gauge invariant observable, will preserves its invariance. 
-Using the modified flow equation it is possible to write the expectation value of the energy as a function of the flow-time and of the renormalized coupling \cite{luscher_properties_2010}:
+Using the modified flow equation it is possible to write the expectation value of the energy as a function of the flow time and of the renormalized coupling \cite{luscher_properties_2010}:
 \beq
     \langle E \rangle = \frac{3(N^2 - 1)g_0^2}{128\pi^2t_f^2}\left[ 1 + \bar c_1 g_0^2 + \mathcal{O}(g_0^4)\right]
     \label{energy:coupling}
@@ -106,19 +106,19 @@ In the case of $SU(3)$ symmetry group we have:
     \langle E \rangle = \frac{3}{4\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f
     \label{energy_flow}
 \eeq
-The perturbative expansion is only valid for large values of $q$, that is when the flow-time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy, or a length. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which become smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge. 
-\fig[0.15]{introduction/topcflow.png}{Topological charge computed ad one euclidean time of a lattice of size $32^3\times64$ with lattice spacing $0.06793$ fm. The flow different plots are for flow-times $\sqrt{8t_f} = {0, 0.14, 0.30}$ fm on the first row and $\sqrt{8t_f} = {0.43 , 0.52, 0.60}$ fm on the second row.}{visit:topcflow}
+The perturbative expansion is only valid for large values of $q$, that is when the flow time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy, or a length. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which become smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge. 
+\fig[0.15]{introduction/topcflow.png}{Topological charge computed ad one euclidean time of a lattice of size $32^3\times64$ with lattice spacing $0.06793$ fm. The flow different plots are for flow times $\sqrt{8t_f} = {0, 0.14, 0.30}$ fm on the first row and $\sqrt{8t_f} = {0.43 , 0.52, 0.60}$ fm on the second row. The visualization has been performed using a custom \texttt{python} interface, called ``LatViz'', to the open source tool VisIt by LLNL \cite{HPV:VisIt}; developed together with H.M.Vege}{visit:topcflow}
 The topological charge at $\sqrt{8t_f} = 0$ is highly affected by large fluctuations over the lattice sites. This for example affects the topological susceptibility as it is divergent. One can notice that the action of the flow equation is to remove such low distance fluctuations that at $\sqrt{8t_f} = 0$ fm are almost completely gone. For larger smearing radii the emergence of frozen well separated topological sectors becomes visible.
 
 \subsection{Scale Fixing with the Gradient Flow}
 \label{sec:scale_fixing}
-Because of the smearing properties of the flow equation the fields are driven towards the minima of the action, which are in general independent from the lattice spacing. One can therefore set, for sufficiently large flow-times, decide to use the value of the dimensionless quantity $t^2\langle E\rangle$ to fix the scale of the lattice. \\
+Because of the smearing properties of the flow equation the fields are driven towards the minima of the action, which are in general independent from the lattice spacing. One can therefore set, for sufficiently large flow times, decide to use the value of the dimensionless quantity $t^2\langle E\rangle$ to fix the scale of the lattice. \\
 It has been proposed by L{\"u}scher that a value of $t^2\langle E\rangle = 0.3$ is large enough to be used as a reference scale. 
 \fig[0.2]{introduction/luscher.png}{Plot of $\sqrt{8t_0}/r_0$ where $t_0$ is the value such that $t_0^2\langle E \rangle =0.3$ for different lattice spacings taken from \cite{luscher_erratum:_2014}. } {luscher:tsquareE}
 In \cref{luscher:tsquareE} we can indeed observe that the value is constant as a function of the lattice spacing (computed instead using the Sommer parameter). In \cref{sec:scale} this method will be applied and discussed more thoroughly.
 
 \section{Estimating the Scale Parameter}
-Finally all the theoretical concepts and tools have been defined to state the main purpose of this work in a formal way. The goal is to use the perturbative expression of the energy as a function of the flow-time and of the running coupling to estimate the momentum scale  $\Lambda$. Since the algorithm for generating gauge field configurations that has been developed only for pure gauge theory, we will restrict the analysis for $N_f = 0$ for now, but in a future work the more interesting determination of $\Lambda_{QCD}$ could be performed the same way. \\
+Finally all the theoretical concepts and tools have been defined to state the main purpose of this work in a formal way. The goal is to use the perturbative expression of the energy as a function of the flow time and of the running coupling to estimate the momentum scale  $\Lambda$. Since the algorithm for generating gauge field configurations that has been developed only for pure gauge theory, we will restrict the analysis for $N_f = 0$ for now, but in a future work the more interesting determination of $\Lambda_{QCD}$ could be performed the same way. \\
 On the lattice the quantity $t_f^2\langle E \rangle$ can be computed easily, this leaves only the coupling on the right hand side of \cref{energy_flow} as the unknown variable. One can then choose an order for the expansion of the Renormalization Group Equation:
 \beq
 \mu^2 \frac{d\alpha(\mu)}{d\mu^2} = \beta(\alpha) = -(b_0\alpha^2+b_1\alpha^3+\dots)
@@ -144,9 +144,10 @@ here the convenient notation of $t\equiv\ln\frac{\mu^2}{\Lambda^2}$ has been int
 \end{align} 
 or in a numerical form, substituting also the Riemann zeta-function value $\zeta_3 = 1.202056903\dots$ one gets the more handy expression
 \begin{align}
+    \label{b:coeffs}
     b_0 &\approx \frac{1}{(4\pi)} (11-0.66667N_f)\\\nonumber
     b_1 &\approx \frac{1}{(4\pi)^2} (102-12.6667N_f)\\\nonumber
     b_2 &\approx \frac{1}{(4\pi)^3} (1428.50-279.611N_f+ 6.01852N_f^2)\\\nonumber
     b_3 &\approx \frac{1}{(4\pi)^4} (29243.0-6946.30N_f+ 405.089N_f^2+ 1.49931N_f^3)
 \end{align}
-with the aid of these coefficients the only unknown variable in \cref{alpha:M} is the momentum scale, so by fitting this function to the lattice over a range of energies where some degree of overlap is found leads to an estimation of $\Lambda$. 
+with the aid of these coefficients the only unknown variable in \cref{alpha} is the momentum scale, so by fitting this function to the lattice over a range of energies where some degree of overlap is found can lead to an estimation of $\Lambda$. 

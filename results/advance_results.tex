@@ -3,9 +3,9 @@ In \cref{sec:pert_flow} the perturbative behavior of the expectation value of $t
 \section{Discretization Effects on $t_f^2\langle E \rangle$}
 \label{sec:scale}
 Plotting the data for the average value of the energy as a function of the dimensionless quantity $t_f/r_0^2$ ($r_0=0.5$ is the Sommer parameter, described in \cref{sec:scale_fixing} and has unit of length) many interesting properties can be observed.
-\fig[0.7]{results/t2E.pdf}{$t_f^2\langle E \rangle$ computed on the four ensembles that were generated (\cref{MC:params}) as a function of the flow-time in units of $r_0^2$. The solid line is for $t_f^2\langle E \rangle = 0.3$}{fig:t2E}
+\fig[0.7]{results/t2E.pdf}{$t_f^2\langle E \rangle$ computed on the four ensembles that were generated (\cref{MC:params}) as a function of the flow time in units of $r_0^2$. The solid line is for $t_f^2\langle E \rangle = 0.3$}{fig:t2E}
 Firstly, the data suggests that for $t_f > 0.05r_0$ is lattice spacing independent, and so coupling independent since they are related. This allows, as it was suggested by \cite{luscher_properties_2010} that this quantity can be used to set the reference scale of the lattice, similarly to $r_0$. By selecting a value for $t_f^2\langle E \rangle$ one can create a reference scale. It was proposed to use the value of $0.3$, which from the plot we can see that is in the region of best matching between the different data series.\\
-In an operative way one finds the value of the flow-time $t_0$ for which:
+In an operative way one finds the value of the flow time $t_0$ for which:
 \beq
     t_0\langle E \rangle = 0.3
 \eeq
@@ -16,18 +16,37 @@ With this procedure we fix a value of $\sqrt{8t_0}/r_0$ to be:
 \beq
 \sqrt{8t_0}/r_0 = 0.9499(8)
 \eeq 
-which is compatible with the values found in \CIT.
+which is very close to the value found in \cite{ce_non-gaussianities_2015} of $(\sqrt{8t_0}/r_0)_{ref} = 0.941(7)$.
 
 \section{Matching Perturbative and Lattice Results}
-When focusing on the low flow-time section of the $t_f^2\langle E \rangle$ plot, one can study the matching between the perturbative expansion of the observable, performed in \cite{luscher_properties_2010}, and the lattice results that we generated. \\
-The greatest challenge however is that the flow-time interval in which this matching happens is unknown. Certainly for large $t_f$ perturbation theory fails to describe the system: any perturbative expansion in $\alpha_s(q)$ becomes meaningless, as $q=1/\sqrt{8t_f}$ becomes small the coupling grows and approaches one. For small flow-times the lattice results become unreliable, in the region where the smearing radius is much smaller than the lattice spacing; this is clear by looking at a zoomed version of \cref{fig:t2E}. Both of these two bounds, no matter how intuitive they appear, are also not clearly defined and so no unique procedure can be found to constrain the matching region.
-\fig[0.7]{results/t2EZoom.pdf}{Detail of \cref{fig:t2E} for small flow-times.}{fig:t2EZoom} 
+When focusing on the low flow time section of the $t_f^2\langle E \rangle$ plot, one can study the matching between the perturbative expansion of the observable, performed in \cite{luscher_properties_2010}, and the lattice results that we generated. \\
+The greatest challenge however is that the flow time interval in which this matching happens is unknown. Certainly for large $t_f$ perturbation theory fails to describe the system: any perturbative expansion in $\alpha_s(q)$ becomes meaningless, as $q=1/\sqrt{8t_f}$ becomes small the coupling grows and approaches one. For small flow times the lattice results become unreliable, in the region where the smearing radius is much smaller than the lattice spacing; this is clear by looking at a zoomed version of \cref{fig:t2E}. Both of these two bounds, no matter how intuitive they appear, are also not clearly defined and so no unique procedure can be found to constrain the matching region.
+\fig[0.7]{results/t2EZoom.pdf}{Detail of \cref{fig:t2E} for small flow times.}{fig:t2EZoom} 
 
 \subsection{Strategy for the Estimation of the Scale Energy $\Lambda$}
 The problem we are interested to solve is to extract the value of the scale energy of Yang-Mills theory from the lattice data. The only link between the two is \cref{energy_flow}. If the equation is rewritten as:
 \beq
-t_f^2\langle E \rangle = \frac{3}{4\pi } \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f
-    \label{energy_flow}
+t_f^2\langle E \rangle = \frac{3}{4\pi } \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978% + 0.0075\times N_f
+\label{eq:t2Ebuona}
 \eeq  
-one can compute the left hand side on the lattice and fit it to the analytical expression on the right hand side from perturbation theory. \\
-As mentioned earlier the problem is to determine matching region, which now affects the fit range. This must be done carefully in order to prevent possible biases and to assess the error on $\Lambda$ properly. 
+one can compute the left hand side on the lattice and fit it to the analytic expression on the right hand side from perturbation theory. \\
+As mentioned earlier the problem is to determine matching region, which now affects the fit range. This must be done carefully in order to prevent possible biases and to assess the error on $\Lambda$ properly. The first thing to do is to reconstruct the continuum limit curve for $t_f^2\langle E \rangle$. This has been done by selecting linearly spaced values of $t_f/r_0^2$ from $0.005$ to $0.085$ with spacing of $5\cdot 10^{-4}$. For each of the $\beta$ values, the ten closest points around every value of the linear space were used to fit a straight line and interpolate the value of  $t_f^2\langle E \rangle$ exactly on the point. An example for one of those points is shown in \cref{fig:interpolation}
+
+\fig[0.7]{results/Interpolation.pdf}{Interpolation of the lattice data for $t_f^2\langle E \rangle$ around the point $t_f/r_0^2=0.04$. The solid color lines represent the linear fits on the data for one $\beta$ value each. The data points are the ten closest points to the desired value, represented by the black solid line.}{fig:interpolation}
+
+With the interpolated data the continuum limit is taken for each value of the linear space by extrapolating the interpolated points to zero, \cref{fig:extrapolation}
+\fig[0.7]{results/Extrapolation.pdf}{Extrapolation of the continuum limit for $t_f^2\langle E \rangle$ around the point $t_f/r_0^2=0.04$. The data points are the reult of the interpolation procedure in \cref{fig:interpolation}.}{fig:extrapolation}
+
+Once this procedure is performed for all points one can plot the data series for the continuum limit. In \cref{fig:lambdaalldata} it is plotted together with the data series from the lattice. Notice that the data is plotted against $q=\hbar c / \sqrt{8t_f}$, which is an energy. As a rough approximation, neglecting the $k_1\alpha_s^2$ term, the continuum limit plot should be proportional to the running coupling.
+
+\fig[0.7]{results/ContLimitData.pdf}{Data for $t_f^2\langle E \rangle$ from lattice observables for the ensembles in \cref{runs:ensembles} and the extrapolated continuum limit plotted against the energy scale $q=\hbar c / \sqrt{8t_f}$. }{fig:lambdaalldata}
+
+The estimation of the momentum scale $\Lambda$ can now be performed on the continuum data. By plugging \cref{alpha}, using the values of \cref{b:coeffs} with $N_f = 0$, into \cref{eq:t2Ebuona} one can fit the numerical data. However, the range in which to perform the fit is unknown and there is some freedom in the choice of the order of the $\alpha_s(q)$. Under such circumstances, in order to get an unbiased result for  $\Lambda$ a method inspired by the analysis of nucleon masses found in \cite{durr_ab-initio_2008}  was applied. In that paper, multiple definitions of the nucleon masses were used, but no one could be a priori be preferred over the others, and fits to multiple data with different ranges were performed; a situation somewhat resembling ours.\\
+The key idea is to effectively perform fits between all possible fit ranges, possibly using also multiple data series if it makes sense to, and construct a histogram of the distribution of the fit parameter. The points in the distribution are then weighted with a quantity that represents the goodness of the fit and the weighted median of the points is taken as the estimator for the fit parameter.
+
+\section{Results for the Momentum Scale $\Lambda$} 
+As outlined in the previous section, the aim is to estimate the momentum scale $\Lambda$ by performing multiple fits of \cref{eq:t2Ebuona}. In total four different values for the momentum scale have been calculated, one for every order, from 1 to 4, of loop corrections in $\alpha_s(q)$. The difference between the various functions for the coupling are shown in \cref{fig:couplings}. 
+
+\fig[0.7]{results/RunningOrders.pdf}{Running coupling $\alpha_s(Q)$ of pure gauge Yang-Mills theory for different loop order corrections.}{fig:couplings}
+
+The fit ranges were chosen in terms of the flow time: from $t_f/r_0^2 = 0.005$ to $0.085$, of all possible lengths with minimum size $0.005$. In total this gave around 3000 different fit ranges for every order of $\alpha_s$. 
