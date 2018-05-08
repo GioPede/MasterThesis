@@ -4,8 +4,8 @@ One of the major focuses of this work has been a completely new implementation o
     \item \textit{Computation of Lattice Observables}: this includes applying the gradient flow to the gauge fields, as well as computing the energy density and the topological charge at every flow time; in other applications the computation of quark propagators and two- or three-point correlators are performed; 
     \item \textit{Computation of Derived Quantities}: mainly post analysis, computation of secondary observables and uncertainties. Resampling and autocorrelation analysis are crucial to Lattice QCD given the typically small size of the ensembles. 
 \end{enumerate}
-In this chapter the main features of the first two steps, which are the most interesting, will be presented. The first two points are numerically very challenging and the calculations had to be performed on computing clusters. The third, the post analysis, is a simpler calculation, so regular tabletop computers could be exploited. \\
-The programming language of choice was \cpp because of its high efficiency, high abstraction capabilities (the code-base is highly object oriented and extensive use of operator overloading was involved) and for the easiness of the \mpi integration. The analysis of data has been performed using \texttt{python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
+In this chapter the main features of the program that was developed to deal with the first two steps, which are the most interesting, will be presented. The third step, the post analysis, which is a simpler calculation, did not require a very sophisticated, or interesting, program. \\
+The problems are numerically very challenging and the calculations had to be performed on computing clusters. The programming language of choice was \cpp because of its high efficiency, high abstraction capabilities and for the easiness of the \mpi integration (a standard HPC parallelization library). The analysis of data has been performed using \texttt{python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
   
 \section{Generating Pure Gauge Fields}
 The task of generating lattice field configurations is extremely demanding in terms of computation requirements. The case of QCD is much more demanding than that of a pure gauge theory, but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $2^4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requires $16$ more points in the global lattice. \\
@@ -18,7 +18,7 @@ To get a better feeling of the algorithm we first have to look at what the basic
     \underbrace{2}_\text{real and imaginary part}
 \end{equation}
 For example, if we choose $N=48,~N_t=96$ (which is the largest system considered in this work) the resulting configuration is $6115295232~bytes$ large, that is $5.7~GBytes$.  The incredibly large size of the data to be handled limits greatly the possibility of simulating larger systems. \\
-The basic element at each lattice site is a set of $4$ different $SU(3)$ matrices, one for each dimension, these are the links variables described in \cref{sec:lattice_discretize}. Since the links with negative orientation are related to the ones with positive orientation by the adjoint operation, only the postively oriented ones are stored in memory.  
+The basic element at each lattice site is a set of $4$ different $SU(3)$ matrices, one for each dimension, these are the links variables described in \cref{sec:lattice_discretize}. Since the links with negative orientation are related to the ones with positive orientation by the adjoint operation, only the positively oriented ones are stored in memory.  
 
 \subsection{The Metropolis Algorithm}
 The main algorithm that has been used to generate an ensemble of gauge field configurations is the Metropolis Algorithm. It is a widely popular Markov Chain Monte Carlo Method to generate a sequence of random samples from a probability distribution \cite{metropolis_equation_1953}\cite{mhj}. \\
@@ -92,7 +92,8 @@ The actual implementation of this algorithm on discretized space-time is however
 The ensemble, on which observables can be computed, is created by saving to disk, in the form of a simple binary file containing all the data,  one configuration every $N_C$ Monte Carlo updates. We need this in order to apply the gradient flow afterwards to the configurations and compute the observables we want. The choice of $N_C$ turned out to be crucial for the autocorrelation of some observables, in particular the topological charge, see \cref{sec:testautocorr}.
 
 \subsection{Sampling the Configuration Space}
-To use Metropolis' algorithm we need to define what a random move is. Using the Wilson Action \cref{intro:lat_action}, which is defined on plaquettes, an random move in the configuration space, on a single link variable, can be seen as a small unitary transformation in the $SU(3)$ group. By small it is intended that the unitary matrix has a strong real diagonal component, making it close to an identity matrix. In order to generate such transformation we use three random $SU(2)$ matrices that are as well ``close to unity''. A recipe for generating these matrices is found in \cite{gattringer_quantum_2010}. We consider three $2\times 2$ unitary matrixes $R_2,S_2$ and $T_2$:
+\label{sec:randommatrix}
+To use Metropolis' algorithm we need to define what a random move is. Using the Wilson Action \cref{intro:lat_action}, which is defined on plaquettes, an random move in the configuration space, on a single link variable, can be seen as a small unitary transformation in the $SU(3)$ group. By small it is intended that the unitary matrix has a strong real diagonal component, making it close to an identity matrix. In order to generate such transformation we use three random $SU(2)$ matrices that are as well ``close to unity''. A recipe for generating these matrices is found in \cite{gattringer_quantum_2010}. We consider three $2\times 2$ unitary matrices $R_2,S_2$ and $T_2$:
 \beq
     R_2 = \begin{pmatrix}
         r_{11} & r_{12} \\ r_{21} & r_{22} 
@@ -320,6 +321,7 @@ g_0^2\partial_{\mu,x} S_G(U_\mu(x)) = \frac{1}{2} \left(\Omega_\mu(x) - \Omega^\
 that is our final expression for the action derivative. It should be noticed that computing this term is not anymore complex than computing the action difference for the gauge field configuration generation case, as in both cases the most complicated object to calculate on the lattice is the sum of the staples. We can notice as well that the derivative is always a traceless hermitean matrix, thus an element of $\mathfrak{su}(3)$ as expected.
 
 \subsection{Exponential of a $\mathfrak{su}(3)$ Element}
+\label{sec:exponential}
 The last thing to define from \cref{eq:integrator} is how to exponentiate the action derivative. Following \cite{morningstar_analytic_2004} we provide a numerical recipe for taking the exponential function of a traceless hermitean $3\times3$ matrix. The key idea is to use the Cayley-Hamilton theorem, that states that every matrix is a zero of its characteristic polynomial:
 \beq
     Q^3 - c_1 Q - c_0\mathds{1} = 0,~~~~~\text{with}~~c_0 = \det Q = \frac{1}{3}(Q^3),~~~c_1 =\frac{1}{2}(Q^2)
@@ -349,6 +351,7 @@ with:
 This fairly complicated algorithm is the core of the gradient flow implementation, because fundamentally the integration of the flow equation is an altenated sequence of staples calculation and  matrix exponentials.
 
 \subsection{Parallelization Scheme}
+\label{sec:shift}
 Also this problem is very expensive in computational terms, so it is worth designing a parallelization scheme for it. The idea is still to split the lattice into sub-blocks as in \cref{sec:para_gen} and have each processor handle one of them.
 By looking at \cref{{eq:integrator}} we see that all operations can be defined on a lattice-wise scale and that they all depend on one previous state of the field, not on an intermediate one as was the case for the generation of gauge fields. This allows us to define a ``lattice shift'' operation, that effectively creates an additional lattice that is the translation of the original along an axis. The huge advantage is that in order to perform this operation only one communication instance is needed (following the previous scheme in \cref{sec:para_gen}), but the message is now a whole shared cube between two processors. A simple 2D representation of the shift operation is drawn in \cref{fig:shift}
 \input{implementation/shift}
@@ -374,8 +377,30 @@ As it has been done for the gauge field configuration generation algorithm, we r
 
 
 \section{Structure and Tools}
-The full code can be found on the web under the link \url{https://github.com/GioPede}, where both the code for the generation and the flow of gauge fields are hosted. The technical documentation is found at \url{https://giopede.github.io/LatticeYangMills/html/index.html} and \url{https://giopede.github.io/LatticeFlow/html/index.html}. As already mentioned the language of choice was \texttt{C++}, mainly because of the high-performance and abstraction level it  provides. An object-oriented structure has been used, as can be seen in 
+The programs that have been developed top gnereate gauge fields and to apply the gradient flow to them have been written in \texttt{C++}. The full code can be found on the web under the link \url{https://github.com/GioPede}, where source code for both is hosted. The technical documentation is found at \url{https://giopede.github.io/LatticeYangMills/html/index.html}, but it should be noted that this is still in active development, though sufficient for this thesis, so the structure of the source-code might vary from what is presented in this section. \\
+The choice of the programming language was mainly due to it being most high-performing language with a high abstraction level. The high performance is given by the tight link that it has to the hardware, allowing precise management of the memory and instructions optimizations. One of the main features that distinguishes it from the \texttt{C} programming language, is that it is an Object-Oriented language. This allows to create abstractions that give an organized structure to the source-code, making the developing process easier and the code more readable and intuitive.
 
-\FIGURE{scheme class}. 
+\subsection{Object-Oriented Programming}
+One of the most successful programming paradigms is Object-Oriented Programming. An object, or ``class'', in this context is a collection of data, or ``attributes'', and procedures, ``methods'', that act on them. \\
+The greatest advantage of using OOP is the introduction of an abstraction level from simple numerical variables, like integers, floating point variables or arrays, to more complex structures. A simple example of this is the class, that was implemented, to represent $SU(3)$ matrices. Instead of dealing every time with the allocation of $18$ variables ($3\times 3$ real and imaginary) one can instantiate a variable of type \texttt{SU3}. This example is also useful to introduce the concept of operator overloading, which fundamentally means to implement mathematical operation between classes.\\
+Finally, in OOP the concepts of inheritance and polymorphism are very important. The calculation of the observables is a good example for these. An observable, in the program, has a very well defined behavior and structure, for instance it stores his value and has a method that can be called to compute it given a gauge field lattice as input. However, the operations to be executed in order to compute the value depend on the observable type. An external class that wants to compute multiple observables should be able to call the compute method without knowing the exact type of the observable. The solution is to create an abstract base class, the observable, and define derived types for each different type that ``inherit'' the general behavior from the base class. For an external class, the derived objects can all be used in the same way, though the operations they perform are different, even if the exact type is unknown; this is called polymorphism.\\
 
-Notable tools that have been used that deserve a mention are \mpi, nlhoman/json \cite{_nlohmann/json} (used for easy input parameters handling via json files), CMake (for building the project) and Valgrind for function and memory profiling. 
+\subsection{Source Code Structure}
+It is possible to identify a layered structure in the class hierarchy of the program, outlined in \cref{code_structure}. At the time of writing the actual design of the source-code  differs slightly from what is presented here (some classes are merged together, for example the observables), but development is being done to reach this cleaner and fully modular structure.\\
+
+\fig[0.7]{implementation/classes.pdf}{Class structure of the code, showing the approximative hierarchy between the different components.}{code_structure}
+
+There is a set of core classes on top of which all the rest is built:
+\begin{itemize} 
+    \item the $SU(3)$ matrix implementation, that specifies basic operation for the most fundamental object of Lattice QCD, the link variables. It also includes the algorithm for generating random matrices and the matrix exponential found in \cref{sec:randommatrix,sec:exponential} 
+    \item the Lattice class, which specifies operations on four dimensional grids. In particular it handles most of the parallelization tools to allow distributed memory computation, like on computing clusters. The parallelization is introduced by the use of the Message Passing Interface, MPI, to implement for example the lattice shift function, \cref{sec:shift}.
+    \item Input/Output tools, to handle input parameter files, gauge configuration parallel reading and writing, observable output files handling and standard command-line output. For the input files the choice has to write a \texttt{json} parsing class, based on the project found at \cite{_nlohmann/json}, to provide an easier user interface via the usage of a  structured input file.
+\end{itemize}
+
+With the tools described just above the main classes of the program were written. These represent general physical concepts in Lattice QCD:
+\begin{itemize}
+    \item the Action abstract base class, of which the Wilson Plaquette action derived type has been implemented, is an object that if given a gauge field lattice can compute: the value of the action at every single lattice site; the staples of a link (for the action derivative and the Metropolis algorithm); the action difference of a link if provided with a random transformation for it.
+    \item the Observable abstract base class. It contains simply the value of the observable and a method to compute it. The derived types that have been implemented are the Plaquette, the Energy Density and the Topological Charge.  
+\end{itemize}
+For both of these base classes new derived types could be implemented, extending the capabilities and the use cases of the program. \\
+Finally the main applications that were developed are: the Pure Gauge Field Generator, which is an implementation of the metropolis algorithm as presented in this chapter; the Wilson Flow, a program to apply the gradient flow equation to a set of gauge field configuration and compute observables at every flow-time; a Pure Gauge Field Reader, mainly intended for testing, it is a useful application to view the single links of a lattice configuration.

@@ -41,7 +41,7 @@ Once this procedure is performed for all points one can plot the data series for
 
 \fig[0.7]{results/ContLimitData.pdf}{Data for $t_f^2\langle E \rangle$ from lattice observables for the ensembles in \cref{runs:ensembles} and the extrapolated continuum limit plotted against the energy scale $q=\hbar c / \sqrt{8t_f}$. }{fig:lambdaalldata}
 
-The estimation of the momentum scale $\Lambda$ can now be performed on the continuum data. By plugging \cref{alpha}, using the values of \cref{b:coeffs} with $N_f = 0$, into \cref{eq:t2Ebuona} one can fit the numerical data. However, the range in which to perform the fit is unknown and there is some freedom in the choice of the order of the $\alpha_s(q)$. Under such circumstances, in order to get an unbiased result for  $\Lambda$ a method inspired by the analysis of nucleon masses found in \cite{durr_ab-initio_2008}  was applied. In that paper, multiple definitions of the nucleon masses were used, but no one could be a priori be preferred over the others, and fits to multiple data with different ranges were performed; a situation somewhat resembling ours.\\
+The estimation of the momentum scale $\Lambda$ can now be performed on the continuum data. By plugging \cref{alpha}, using the values of \cref{b:coeffs} with $N_f = 0$, into \cref{eq:t2Ebuona} one can fit the numerical data. However, the range in which to perform the fit is unknown and there is some freedom in the choice of the order of the $\alpha_s(q)$. Under such circumstances, in order to get an unbiased result for  $\Lambda$ a method inspired by the analysis of nucleon masses found in \cite{durr_ab-initio_2008-1}  was applied. In that paper, multiple definitions of the nucleon masses were used, but no one could be a priori be preferred over the others, and fits to multiple data with different ranges were performed; a situation somewhat resembling ours.\\
 The key idea is to effectively perform fits between all possible fit ranges, possibly using also multiple data series if it makes sense to, and construct a histogram of the distribution of the fit parameter. The points in the distribution are then weighted with a quantity that represents the goodness of the fit and the weighted median of the points is taken as the estimator for the fit parameter.
 
 \section{Results for the Momentum Scale $\Lambda$} 
@@ -49,4 +49,82 @@ As outlined in the previous section, the aim is to estimate the momentum scale $
 
 \fig[0.7]{results/RunningOrders.pdf}{Running coupling $\alpha_s(Q)$ of pure gauge Yang-Mills theory for different loop order corrections.}{fig:couplings}
 
-The fit ranges were chosen in terms of the flow time: from $t_f/r_0^2 = 0.005$ to $0.085$, of all possible lengths with minimum size $0.005$. In total this gave around 3000 different fit ranges for every order of $\alpha_s$. 
+The fit ranges were chosen in terms of the flow time: from $t_f/r_0^2 = 0.005$ to $0.085$, of all possible lengths with minimum size $0.005$. In total this gave around 3000 different fit ranges for every order of $\alpha_s$. In \cref{lambda_hist} the distributions of the results of the fits are shown, both unweighted and weighted. The choice of the weight, which has to depend on the goodness of the fit, was $1/\tilde\chi^\square$, where $\tilde\chi^2$ is the reduced chi.square function:
+\beq
+\tilde\chi^\square = \frac{1}{\nu} \sum_i\frac{(y_i - f(x_i) )^2}{\sigma_i^2}
+\eeq
+where $f(x)$ is the function to be fitted (\cref{eq:t2Ebuona} in this case), $y_i$ are the data to be modeled (the continuum limit of $t^2\langle E\rangle$) which lie at coordinates $x_i$ and have variance $\sigma_i^2$. 
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/hist1.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/hist2.pdf}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/hist3.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/hist4.pdf}        
+    \end{subfigure}
+    \caption{Distributions of the fit parameters, $\Lambda$, obtained by all possible fit ranges between $t_f/r_0^2 = 0.005$ to $0.085$ of minimum size $0.005$. The four different plots are for the four different orders of corrections for $\alpha_s(q)$. Data for the distribution weighted with $1/\chi^2$, normalized to the number of fits, is also reported.}
+    \label{lambda_hist}
+\end{figure}
+
+The fact that the weighted distributions have a peak means that there is a certain region in the energy spectrum where the function in \cref{eq:t2Ebuona} matches the data better. This is expected since we know that for low energies perturbation theory does not hold anymore, so the function does not represent the data correctly. At high energies on the other hand, by looking at \cref{fig:t2EZoom} for example, the discretization effects introduced by the lattice method become relevant, so the continuum limit extrapolation that we made is unreliable in that region.\\
+From the plot of the 1-loop corrected function, one can see that there is no sharp peak in the weighted distribution, compared to the others. The difference in the behavior is not surprising if one looks at \cref{fig:couplings} and considering that the higher order functions for $alpha_s(q)$ are all close together in the energy range considered. 
+
+The estimation of the $\Lambda$ momentum scale is taken by considering the weighted median of the data, which is defined as the $50\%$ weighted percentile, the element $x_k$ of an ordered set of values $x_1, x_2, \dots, x_N$ that satisfies:
+\beq
+    \sum_{i=0}^{k-1} w_i \leq \frac{1}{2} ~~~~ \text{and}  ~~~~~ \sum_{i=k+1}^{N} w_i \geq \frac{1}{2}
+\eeq
+The systematic uncertainty has been taken as the $68\%$ confidence interval of the weighted median distribution, as it was done in \cite{durr_ab-initio_2008-1}. To estimate the statistical error, the whole procedure has been applied to 500 bootstrap samples of the lattice data, constructing the continuum limit limit for each sample and performing fits on all fit ranges for sample. The results are shown in \cref{lambda_table}.
+
+\begin{table}[!htb]
+    \begin{center}
+    \begin{tabular}{cccc} 
+        Fit Function Order & $\Lambda$ [MeV]& $\sigma_{sys}$ [MeV]& $\sigma_{stat}$ [MeV]\\\hline
+        1-loop & $258.9$ & $23.5$ & $6.3$ \\
+        2-loop & $241.6$ & $9.4$  & $0.7$ \\
+        3-loop & $240.1$ & $14.0$ & $1.2$ \\
+        4-loop & $243.9$ & $10.2$ & $0.7$ 
+    \end{tabular}
+    \label{lambda_table} 
+    \capt{Final results for the momentum scale parameter from the distribution of the fits in \cref{lambda_hist}.}
+    \end{center}
+\end{table}
+
+The statistical error is consistently smaller than the systematic one proves that the method for the extrapolation of the continuum limit data is solid, but also implies that almost all the uncertainty is given by the method used to estimate $\Lambda$. \\
+This value can now be compared with ones found in literature for the same quantity using different methods. In particular we compare it with the one found in \cite{capitani_non-perturbative_1999} obtained using a recursive finite-size technique, which is reported as $\Lambda_{ref} = 238(18)$ MeV. The values found in \cref{lambda_table} agree very well with this value.\\Lambda
+One last result to show is the plot of $t^2E(q)$ using our values of $\Lambda$ as input. In \cref{fig:end} it is plotted, order by order, together with the continuum limit data extrapolated from the lattice. We can see that good agreement is found between $q \approx 700$ and $1400$ MeV, or in flow time between $t_f/r_0^2 \approx 0.01$ to $t_f/r_0^2 \approx 0.045$
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/End1.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/End2.pdf}
+    \end{subfigure}
+
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/End3.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{results/End4.pdf}        
+    \end{subfigure}
+    \caption{Plot of $t^2E(q)$, \cref{eq:t2Ebuona}, using the values of the momentum scale found in \cref{lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in blue is the continuum limit extrapolated from the lattice.}
+    \label{fig:end}
+\end{figure}
+
