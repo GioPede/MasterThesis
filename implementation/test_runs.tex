@@ -84,29 +84,70 @@ From the first plot it is clear that the values that were guessed for the parame
 On the other hand, \cref{fig:autotauint} suggests a possible cure for the autocorrelation issue. It is almost tautological that increasing the value of $N_{corr}$ decreases the autocorrelation, as the parameter represents how many MC updates are performed between two measurements of the observable. The dependence of $\tau_{int}$ from $N_{hits}$ is also clear. From the data we observed that increasing both parameters improved the autocorrelation, so the choice was to set both to a larger value from our initial guess and this proved to be the right choice. The black data series in  \cref{fig:autotauint} is the data that we used for our analysis, one can notice that it is still autocorrelated, but that can be handled with a reasonable correction to the variance on the data. \\
 It is important to stress again that the autocorrelation is a huge problem mainly for the topological charge. The energy density operator is much less affected and for all the ensembles we generated the integrated autocorrelation time is never a value much greater that $1/2$ (see \cref{fig:energyautocorr}). 
  
-\FloatBarrier
 \subsection{Strong and Weak Scaling}
-First we can look at the scaling properties of the two sections of the code. We will distinguish the analysis in the two usual quantities used in High Performance Computing for parallel programs: strong and weak scaling. \\
-Strong scaling is the performance of a program measured in execution time as a function of the number of processors used. One would obviously expect the relation to be ideally inverse, with execution time dropping as $1/N_{procs}$, however given the overhead caused by parallelization this is seldomly the case. \\
-Weak scaling is the measure of the performance of a program as the size of the system increases but by keeping the total workload assigned to each processor constant. This measure is important to assess the quality of the parallelization scheme as it gives insights on how much time is spent in communication as more inter-processor messages are being sent.
-\FIGURE{PLOT SCALING}
-\NOTE{COMMENTI...}
+One important thing to look at when developing a program intended to be highly parallelized are the scaling properties. We can now check these for the two sections of the code, the generation of configurations and the gradient flow. We will distinguish the analysis in the two usual quantities used in High Performance Computing: strong and weak scaling. \\
+Strong scaling is the performance of a program as the total problem size is kept fixed and the number of parallel units, the number of processors in this case, increases. The parallel efficiency is computed as:
+\beq
+    \eta_s = \frac{t_0}{t_NN}\cdot 100\% 
+\eeq 
+where $t_0$ is the execution time for one unit of computation, $t_N$ the execution time for the case of $N$ units computing the same system size. In the case for perfect parallelization the efficiency is $100\%$ as an increase of some factor in the number of processors would decrease by the same factor the execution time. In real cases this is seldomly true, the execution time is in fact usually larger than expected. \\
+The test was set up in this way:
+\begin{itemize}
+    \item Gauge Field Generation: one lattice of size $24^3\times 48$ has been randomly generated and $10^4$ MC cycles were performed. The system was split in sub-lattices of decreasing size, so to increase the number of processors.
+    \item Gradient Flow: ten lattice of size $24^3\times 48$ have been flowed for a total of $1000$ integration steps each. Again, the sub-lattice size was decreased and the number of processor increased accordingly. 
+\end{itemize}
+
+\fig[0.7]{implementation/StrongScaling.pdf}{Strong scaling of the two parts of the program. The efficiency is normalized to the first point plotted, that is 64 processors.}{fig:strong_scaling}
+
+Figure \ref{fig:strong_scaling} shows that the performance scales well with the number of processors, but the efficiency is dropping for very large processor numbers. This is expected, the reason is that the sub-lattice the surface to volume ratio of the sub-lattice makes the fraction of operations that require inter-processor communication become comparable to the "inner" points calculations. It is to be noted that smaller number of processors could not be used, as the processors in that case would have been all on the same node (the cluster used for testing has 28 cores per node), so any timing would have excluded the inter-node communication time, which is significantly higher than the inter-node one.
+
+By weak scaling of a parallelized problem it is intended the measure of the performance as the local workload is kept fixed and the total volume of the problem is increased by adding processors. The efficiency is computed as:
+\beq
+\eta_W = \frac{t_0}{t_N}\cdot 100\% 
+\eeq 
+where $t_0$ is the execution time of the smallest case and $t_N$ the one of a system $N$ times larger computed on $N$ times the parallel units. The test set up was:
+\begin{itemize}
+    \item Gauge Field Generation: the sub-lattice has been fixed to $4^4$, and volumes from $16^3\times32$, a total of $32$ processes, to $32^3\times64$, $512$ processors, have been considered. Intermediate volumes are built by multiplying one spatial dimension at a time by a factor of 2. For each volume $10000$ MC cycles have been computed.
+    \item Gradient Flow: the gauge fields generated in the previous point have been flowed for a total of $1000$ integration steps by the same number of processors that generated them, so the sub-lattice size was set again to be $4^4$.
+\end{itemize}
+
+\fig[0.7]{implementation/WeakScaling.pdf}{Strong scaling of the two parts of the program. The efficiency is the ratio with respect to the first data point. }{fig:weak_scaling}
+
+The results in \cref{fig:weak_scaling} show that both the programs are perfectly scalable. The communication overhead, introduced by the need of sharing link variables across the edges, is constant with respect to the number of processors. This implies that the parallelization procedure has been implemented correctly, though it could still be potentially improved. \\
+These results for strong and weak scaling are very comforting, as they show that the hardest part of the development process, the parallelization of the code, has been well designed and implemented.
 
 
-\section{Production Runs and Timing}
-All production runs were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
-The final ensembles were generated using the parameters in table \cref{runs:times}, shows the computing resources used for the generation of all four ensembles. 
-\NOTE{I HAVE TO FIND THE DATA HERE...}
+\section{Main Runs and Timing}
+All runs of the programs, to generate the four ensembles in \cref{runs:ensembles} and to apply and integrate the gradient flow equations to all their configurations, were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
+The ensembles, on which the results in \cref{part:results} were generated using the parameters in table \cref{runs:mcparams}. The following table shows the computing resources used for the generation of all four ensembles. 
+
+\begin{table}[!htb]
+    \begin{center}
+    \begin{tabular}{ccccc}
+        $\beta$ & $N_{procs}$ & Wall Time [h] & Time per MC Cycle [s] & Time per Configuration [s]\\\hline
+        $6.00$ & $1024$ & $27$ & $0.16104$  & $96.6$\\
+        $6.10$ & $512$ & $35$ & $0.42102$ & $252.6$\\
+        $6.20$ & $1024$ & $53$ & $0.4780825$ & $382.4$ \\
+        $6.45$ & $1024$ & $204$ & $1.836$ & $2937.6$
+    \end{tabular}
+    \label{runs:times} 
+    \capt{Execution times for generating ensembles from \cref{runs:ensembles} with parameters found in \cref{runs:mcparams}. All the runs were performed on the iCER cluster at MSU. $N_{procs}$ is the number of processors used for each ensemble; the Wall Time is the ``wall clock'' time (the time spent in the parallel execution); Time per MC cycle is the time spend in each step of the Markov Chain; Time per Configuration is the time spent between saved configurations, to be used for observables, so it includes the adjustment made for the longer autocorrelation times of larger $\beta$ values.} 
+    \end{center}
+\end{table}
+
+It is clear from the table that the largest set, out of which only 250 configurations were saved, had execution times larger by one order of magnitude compared to the second largest; this made increasing the ensemble size unfeasible with the time and resources for this work.\\
+Lastly we present the equivalent of \cref{runs:times} for the Gradient Flow program:
+
 \begin{table}[!htb]
     \begin{center}
     \begin{tabular}{cccc}
-        $\beta$ & $N_{procs}$ & Wall Time & CPU Time\\\hline
-        $6.00$ & $1000$ & $600$ & $600000$\\
-        $6.10$ & $500$ & $600$ & $300000$\\
-        $6.20$ & $500$ & $800$ & $400000$\\
-        $6.45$ & $250$ & $1600$ & $400000$
+        $\beta$ & $N_{procs}$ & Wall Time [h] & Time per Configuration [s]\\\hline
+        $6.00$ & $1024$ & $15$ & $109.3$\\
+        $6.10$ & $512$ & $30$ & $218.6$\\
+        $6.20$ & $1024$ & $33$ & $243.6$ \\
+        $6.45$ & $1024$ & $96$ & $1326.9$
     \end{tabular}
     \label{runs:times} 
-    \capt{Execution times for generating ensembles from \cref{runs:ensembles} with parameters found in \cref{runs:mcparams}. All the runs were performed on the iCER cluster at MSU. $N_{procs}$ is the number of processors used for each ensemble; the Wall Time is the ``wall clock'' time (the time spent in the parallel execution); CPU time is the product of Wall Time and $N_{procs}$ and represents the actual computation time spent.} 
+    \capt{Execution times for the numerical integration of the flow equations on the ensembles from \cref{runs:flow} with parameters found in \cref{runs:flow}. All the runs were performed on the iCER cluster at MSU. $N_{procs}$ is the number of processors used for each ensemble; the Wall Time is the ``wall clock'' time (the time spent in the parallel execution); Time per Configuration is the time spent flowing one single gauge configuration.} 
     \end{center}
 \end{table}

@@ -49,11 +49,11 @@ As outlined in the previous section, the aim is to estimate the momentum scale $
 
 \fig[0.7]{results/RunningOrders.pdf}{Running coupling $\alpha_s(Q)$ of pure gauge Yang-Mills theory for different loop order corrections.}{fig:couplings}
 
-The fit ranges were chosen in terms of the flow time: from $t_f/r_0^2 = 0.005$ to $0.085$, of all possible lengths with minimum size $0.005$. In total this gave around 3000 different fit ranges for every order of $\alpha_s$. In \cref{lambda_hist} the distributions of the results of the fits are shown, both unweighted and weighted. The choice of the weight, which has to depend on the goodness of the fit, was $1/\tilde\chi^\square$, where $\tilde\chi^2$ is the reduced chi.square function:
+The fit ranges were chosen in terms of the flow time: from $t_f/r_0^2 = 0.005$ to $0.085$, of all possible lengths with minimum size $0.005$. In total this gave around 3000 different fit ranges for every order of $\alpha_s$. In \cref{lambda_hist} the distributions of the results of the fits are shown, both unweighted and weighted. The choice of the weight, which has to depend on the goodness of the fit, was $1/\tilde\chi^2$, where $\tilde\chi^2$ is the reduced chi.square function:
 \beq
-\tilde\chi^\square = \frac{1}{\nu} \sum_i\frac{(y_i - f(x_i) )^2}{\sigma_i^2}
+\tilde\chi^2 = \frac{1}{\nu} \sum_i\frac{(y_i - f(x_i) )^2}{\sigma_i^2}
 \eeq
-where $f(x)$ is the function to be fitted (\cref{eq:t2Ebuona} in this case), $y_i$ are the data to be modeled (the continuum limit of $t^2\langle E\rangle$) which lie at coordinates $x_i$ and have variance $\sigma_i^2$. 
+where $f(x)$ is the function to be fitted (\cref{eq:t2Ebuona} in this case), $y_i$ are the data to be modeled (the continuum limit of $t_f^2\langle E\rangle$) which lie at coordinates $x_i$ and have variance $\sigma_i^2$. 
 
 \begin{figure}[hbt!]
     \centering
@@ -102,8 +102,8 @@ The systematic uncertainty has been taken as the $68\%$ confidence interval of t
 \end{table}
 
 The statistical error is consistently smaller than the systematic one proves that the method for the extrapolation of the continuum limit data is solid, but also implies that almost all the uncertainty is given by the method used to estimate $\Lambda$. \\
-This value can now be compared with ones found in literature for the same quantity using different methods. In particular we compare it with the one found in \cite{capitani_non-perturbative_1999} obtained using a recursive finite-size technique, which is reported as $\Lambda_{ref} = 238(18)$ MeV. The values found in \cref{lambda_table} agree very well with this value.\\Lambda
-One last result to show is the plot of $t^2E(q)$ using our values of $\Lambda$ as input. In \cref{fig:end} it is plotted, order by order, together with the continuum limit data extrapolated from the lattice. We can see that good agreement is found between $q \approx 700$ and $1400$ MeV, or in flow time between $t_f/r_0^2 \approx 0.01$ to $t_f/r_0^2 \approx 0.045$
+This value can now be compared with ones found in literature for the same quantity using different methods. In particular we compare it with the one found in \cite{capitani_non-perturbative_1999} obtained using a recursive finite-size technique, which is reported as $\Lambda_{ref} = 238(18)$ MeV. The values found in \cref{lambda_table} agree very well with this value.\\ 
+One last result to show is the plot of $t_f^2E(q)$ using our values of $\Lambda$ as input. In \cref{fig:end} it is plotted, order by order, together with the continuum limit data extrapolated from the lattice. We can see that good agreement is found between $q \approx 700$ and $1400$ MeV, or in flow time between $t_f/r_0^2 \approx 0.01$ to $t_f/r_0^2 \approx 0.045$
 
 \begin{figure}[hbt!]
     \centering
@@ -124,7 +124,7 @@ One last result to show is the plot of $t^2E(q)$ using our values of $\Lambda$ a
         \centering
         \includegraphics[width=1\textwidth]{results/End4.pdf}        
     \end{subfigure}
-    \caption{Plot of $t^2E(q)$, \cref{eq:t2Ebuona}, using the values of the momentum scale found in \cref{lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in blue is the continuum limit extrapolated from the lattice.}
+    \caption{Plot of $t_f^2E(q)$, \cref{eq:t2Ebuona}, using the values of the momentum scale found in \cref{lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in blue is the continuum limit extrapolated from the lattice.}
     \label{fig:end}
 \end{figure}
 

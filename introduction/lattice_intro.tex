@@ -5,12 +5,13 @@ Lattice QCD is one of the main Lattice Field Theories. It deals with the strong 
 
 The starting point for Lattice QCD is Feynman's path-integral formalism, but expressed in Euclidean space-time, through a Wick rotation. An observable of some field $\phi$ is then given by:
 \beq
-	\braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]}
-\eeq
-and the euclidean correlator of two quantities $O_1[\phi]$ and $O_2[\phi]$ between times $t_1$ and $t_2$ is:
-\beq
-    \braket{O_1[\phi](t_1)O_2[\phi](t_2)} = \frac{1}{Z[\phi]} \int \D[\phi] ~O_1[\phi(t_1)]O_2[\phi(t_2)] e^{-S[\phi]}
+    \braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]}
     \label{lattice:obs_base}
+    \eeq
+    and the euclidean correlator of two quantities $O_1[\phi]$ and $O_2[\phi]$ between times $t_1$ and $t_2$ is:
+    \beq
+    \braket{O_1[\phi](t_1)O_2[\phi](t_2)} = \frac{1}{Z[\phi]} \int \D[\phi] ~O_1[\phi(t_1)]O_2[\phi(t_2)] e^{-S[\phi]}
+    \label{lattice:correlator}
 \eeq
 where the partition function $Z[\phi]$ is defined as:
 \beq
@@ -20,19 +21,57 @@ and $S[\phi]$ is the euclidean action of the field:
 \beq
 S[\phi] = \int d^4x \Lagr [\phi] 
 \eeq
-Evaluating path-integrals is not possible in general with analytical tools so, in order to allow numerical computations, the Euclidean space-time is discretized on a hyper-cubic lattice $L = (L_x, L_y, L_z, L_t)$. The choice of the lattice spacing, usually denoted $a$, is arbitrary, but most often it is chosen to be equal for all dimensions. If we then define a lattice site $n = (n_x, n_y, n_z, n_t)$ where all the $n$s represent the coordinates of a point in the lattice $\Lambda$, our fields are constrained to have values on the points $an$ instead of on a continuum space-time $x^\mu$.
+Evaluating path-integrals is not possible in general with analytical tools so, in order to allow numerical computations, the Euclidean space-time is discretized on a lattice, fixing the value of the field at only specific and equally spaced position in space-time. 
+
+
+\subsection{The Quantum Mechanical Example}
+To better understand the discretization procedure for quantum field theories, it is useful to look at the simpler case of a quantum mechanical system, for example of a single particle in a potential $V$. The hamiltonian of the system is simply:
 \beq
-    \phi(x) \xrightarrow{discretization} \phi(an)
+    \hat H = \frac{\hat p^2}{2m} + \hat V
 \eeq
-\subsection{The Harmonic Oscillator Example}
-\NOTE{Should I include this?}
+natural units are implied, so $\hbar=1$. In path integral formalism the propagator between a state $\ket{x_i}$ from time $t_i$ to another state $\ket{x_f}$ from time $t_f$ can be expressed as:
+\beq
+    \bra{x_f} e^{-\hat H(t_f-t_i)} \ket{x_i} = \int \D x(t)~e^{-S_E[x]}
+    \label{eq:action__}
+\eeq
+With $S_E[x]$ being the classical euclidean action:
+\beq
+    S_E[x(t)] = \int_{t_i}^{t_f} dt \Lagr [x(t)] = \int_{t_i}^{t_f} dt \frac{m}{2}\dot x(t)^2 +  V[x(t)]
+\eeq
+Note that because this the euclidean action, the exponent in \cref{eq:action__} contains no imaginary unit, because of the Wick rotation $it \rightarrow t$. To compute the propagator numerically one can chose to discretize the time dimension into slices $t_0, t_1,\dots,t_N$ of distance $a$ one from another. A path then becomes a vector of positions at fixed time points:
+\beq
+    x = {x(t_0),x(t_1), \dots, x(t_N)}
+\eeq
+The integral is then changed from a continuous definition to an $N-2$ dimensional integral (the boundary points are fixed):
+\beq
+\int \D x(t)~e^{-S_E[x](t)} \rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1}~e^{-S_{lat}[x]} 
+\eeq
+where $A$ is some normalization. The classical action is now only computed on the fixed points of the discretized time points. In particular we can turn the integral between $t_j$ and  $t_{j + 1}$, using the finite difference discretization for the derivative of $x(t)$ and the average potential, as:
+\beq
+    \int_{t_j}^{t_{j+1}} dt \Lagr[x(t)] \approx a\left[ \frac{m}{2} \left(\frac{x_{j+1} - x_j}{a} \right)^2 + \frac{1}{2} (V[x_{j_+1}] - V[x_j]) \right]
+\eeq
+With this approximation the action of one path, or ``configuration'', is the sum of the approximated integrals from:
+\beq
+S_{lat}[x] \approx \sum_{i = 0}^{N-1} \left[ \frac{m}{2a} (x_{j+1} - x_j)^2 + aV(x_i\right]
+\eeq
+This discretization procedure for a simple quantum mechanical system (whose space coordinate can be seen as a one-dimensional scalar field) allows to compute the path integrals in \cref{lattice:expectation,lattice:correlator} using, in the case for the expectation value for example:
+\begin{align}
+    \langle O[x] \rangle &=  \frac{1}{Z[x]} \int \D[x] ~O[x] e^{-S_{E}[x]} = \frac{1}{Z[x]} \int dx_1 dx_2\dots dx_{N-1}~O[x]e^{-S_{lat}[x]}  \\\nonumber
+    &=\int dx_1 dx_2\dots dx_{N-1} P[x] O[x]
+\end{align}
+where we have identified $P[x] = \frac{1}{Z[x]}e^{-S_{lat}[x]}$ as a probability distribution. One can then compute the expectation value numerically by choosing random configurations according the specified PDF, that depends on the action and compute the expectation value as the average of the observable over the chosen configurations.
+
 
 \section{Discretization of QCD on the Lattice}
 \label{sec:lattice_discretize}
-In the case of QCD there are two types of field at play, the gluon gauge field $A$ and the $N_f$ fermionic quark fields $\psi$. In order to perform numerical calculations on the lattice, it is necessary to discretize the Euclidean action for both fields. \\LagrIn this section the discretization is performed following a structure that resembles \cref{intro:symmetry}, that is to start from the fermion fields and imposing gauge invariance.
+In the case of QCD the discretization procedure is more complicated than the one shown in the previous section as there are two types of field at play, the gluon gauge field $A$ and the $N_f$ fermionic quark fields $\psi$ that live in space-time. In order to perform numerical calculations on the lattice, it is necessary to discretize the Euclidean action for both fields on a hyper-cubic lattice $L = (L_x, L_y, L_z, L_t)$. The choice of the lattice spacing, usually denoted $a$, is arbitrary, but most often it is chosen to be equal for all dimensions. If we then define a lattice site $n = (n_x, n_y, n_z, n_t)$ where all the $n$s represent the coordinates of a point in the lattice $\Lambda$, our fields are constrained to have values on the points $an$ instead of on a continuum space-time $x^\mu$.
+\beq
+    \phi(x) \xrightarrow{discretization} \phi(an)
+\eeq
+In this section the discretization is performed following a structure that resembles \cref{intro:symmetry}, that is to start from the fermion fields and imposing gauge invariance.
 
 \subsection{Na{\"i}ve Discretization of Fermions}
-In this section the fermion discretization procedure found in \cite{gattringer_quantum_2010} is followed, but also some elements from \cite{gupta_introduction_1998}, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The starting point is the fermionic euclidean action in the continuum:
+In this section the fermion discretization procedure found in \cite{gattringer_quantum_2010} is followed, but also some elements from \cite{gupta_introduction_1998,lepage_lattice_2005}, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The starting point is the fermionic euclidean action in the continuum:
 \beq
     S_F [\psi,\bar\psi] = \int d^4x \bpsi(x)(\gamma_\mu\partial^\mu + m)\psi(x)
 \eeq 

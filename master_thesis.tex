@@ -26,9 +26,6 @@
 \begin{abstract}
 	\input{preface/abstract}
 \end{abstract}
-\begin{acknowledgements}
-	\input{preface/acknowledgements}
-\end{acknowledgements}
 
 % PART I: INTRODUCTORY STUFF
 \begin{part}{Introduction to QCD and Lattice Field Theories}
@@ -71,6 +68,7 @@
 
 % PART III: RESULTS
 \begin{part}{Data Analysis and Results}
+	\label{part:results}
 	\begin{chapter}{Raw Observables}
   		\label{chap:obs_results}
   		\input{results/obs_results}
@@ -110,6 +108,11 @@
 % MAKE BIBLIOGRAPHY
 \bibliographystyle{unsrt}
 \bibliography{bibliography/master_thesis,bibliography/master_thesis_1}
+
+
+\begin{acknowledgements}
+	\input{preface/acknowledgements}
+\end{acknowledgements}
 
 % AND SO WE END
 \end{document}
