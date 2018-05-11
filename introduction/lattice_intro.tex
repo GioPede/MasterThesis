@@ -83,12 +83,12 @@ The discretized fermion action is then the sum of the lagrangian density over al
 \beq
     S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a} + m \psi(n) \right]
 \eeq 
-As we did in section \ref{intro:symmetry} we try to apply a local gauge transformation $\Omega(n)$ to the field. It is simple to show that some terms of the derivative in the action are not gauge invariant:
+As we did in section \cref{intro:symmetry} we try to apply a local gauge transformation $\Omega(n)$ to the field. It is simple to show that some terms of the derivative in the action are not gauge invariant:
 \beq
     \bpsi(n)\psi(n\pm\hat\mu) \rightarrow \bpsi(n)\Omega^\dagger(n)\Omega(n\pm\hat\mu)\psi(n\pm\hat\mu)
     \label{eq:fermion_wrong}
 \eeq
-The problem is in the way the derivative was discretized and the solution is the introduction of an additional field as in \ref{intro:symmetry} that has the correct transformation laws. This field must transform under a local gauge transformation in a way that connects the values of the fermion field at two different lattice sites Because of this property we denote the auxiliary field as ``link variables'', later the matching with the gauge filed will be introduced, and by convention it is written as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the orientation along the $\mu$ direction, from \cref{eq:fermion_wrong}:
+The problem is in the way the derivative was discretized and the solution is the introduction of an additional field as in \cref{intro:symmetry} that has the correct transformation laws. This field must transform under a local gauge transformation in a way that connects the values of the fermion field at two different lattice sites Because of this property we denote the auxiliary field as ``link variables'', later the matching with the gauge filed will be introduced, and by convention it is written as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the orientation along the $\mu$ direction, from \cref{eq:fermion_wrong}:
 \beq
 U(n, n-\hat\mu) \equiv  U_{-\mu}(n) = U_\mu(n-\hat\mu)^\dagger 
 \eeq
@@ -102,7 +102,7 @@ from which we infer that:
     U_\mu(n)    &\rightarrow U'_\mu(n) = \Omega(n)U_\mu(n)\Omega^\dagger(n+\hat\mu)\label{link_transformation}\\\nonumber
     U_{-\mu}(n) &\rightarrow U'_{-\mu}(n) = \Omega(n)U_{-\mu}(n)\Omega^\dagger(n-\hat\mu)
 \end{align}
-the field $U_\mu(n)$ is an $SU(3)$ valued field, that can be intuitively thought of as a set of oriented links between the sites of the lattice. A visual representation is given in \cref{fig:links}, 
+the field $U_\mu(n)$ is an $SU(3)$ valued field, that can be intuitively thought of as a set of oriented links between the sites of the lattice. A visual representation is given in \cref{fig:links},  
 
 \begin{figure}[!htb]
 \centering
@@ -145,7 +145,7 @@ With this results we can write a gauge invariant lattice fermion action as:
 \eeq
 
 \subsection{The Gauge Transporter and the Wilson Loop}
-For a more formal definition of the link variables we can look at the continuum gauge transporter. This is the path-ordered product, denoted with $\mathcal{P}$ of a gauge field $A_\mu(x)$ along some curve $\mathcal{C}$ between two points $x$ and $y$ in space-time:
+For a more formal definition of the link variables we can look at the continuum gauge transporter, this is the path-ordered product, denoted with $\mathcal{P}$ of a gauge field $A_\mu(x)$ along some curve $\mathcal{C}$ between two points $x$ and $y$ in space-time:
 \beq
     G(x,y) = \mathcal{P} \exp\left( ig_0\int_\mathcal{C} A_\mu(x')dx'^\mu  \right)
 \eeq
@@ -247,7 +247,7 @@ Note that the $1/g_0^2$ term, that might seem strange since it is not in the kno
 Higher order corrections to this action can be computed analytically by considering higher orders in the BCH expansion in \cref{superlong} and in the exponential expansion in \cref{plaq:expanded}.
 
 \subsection{Lattice Fermions} 
-The discretization of fermions as discussed in the previous section is incomplete as it leads to unphysical results. It becomes evident if one considers the Fourier transform of the propagator. Let's first rewrite \ref{intro:lat_action} in a more compact way, introducing the lattice Dirac propagator $M_{xy}[U]$. 
+The discretization of fermions as discussed in the previous section is incomplete as it leads to unphysical results. It becomes evident if one considers the Fourier transform of the propagator. Let's first rewrite \cref{intro:lat_action} in a more compact way, introducing the lattice Dirac propagator $M_{xy}[U]$. 
 \beq
     S_F [\psi,\bar\psi] = a^4\sum_{n\in\Lambda} \bpsi(x)M_{xy}[U]\psi(y)
 \eeq
@@ -278,7 +278,7 @@ The final form of the Wilson Fermion Action is:
     \label{intro:ferm_action}
 \eeq
 
-Now that all the needed information about the action and the fields is set, mainly through equations \ref{wilsonaction} and \ref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovskian space-time to an euclidean space-time lattice is complete.
+Now that all the needed information about the action and the fields is set, mainly through equations \cref{wilsonaction} and \cref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovskian space-time to an euclidean space-time lattice is complete.
 
 
 \section{Path Integrals on the Lattice}
@@ -304,7 +304,7 @@ This result is very different from what one would get in the real case, $(2\pi)^
     &=  (\det B ) (B^{-1})_{ab}
 \end{align}
 This last result is crucial for computing fermion correlators for example, for a given ``source'' $\bpsi(x)$ and a ``sink'' $\psi(y)$ the propagator between the two can be computed via path integrals, but it requires inverting the fermion action matrix. \\
-With the result of \ref{lattice:grassman} we can simplify greatly the partition function:
+With the result of \cref{lattice:grassman} we can simplify greatly the partition function:
 \beq
 	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  = \int \D U e^{-S_G[U] } \det M[U] 
 \eeq
@@ -329,14 +329,14 @@ Computing full QCD on the lattice is computationally expensive, mainly due to th
 The properties of this theory, that is then reduced to a simple Yang-Mills theory with zero fermion flavors, are still interesting to study and have historically played a very important role, being the only accessible simulation until sufficient computing power became available. For example, from \cref{beta:qcd} one can see that the theory presents confinement and asymptotic freedom. 
 
 \subsection{Observables}
-On the lattice, given the transformation \ref{link_transformation}, any product of link variables that starts and end at the same site, a closed loop, is gauge invariant. The average values of these objects over the whole lattice can be linked to physical observables, for example the field tensor. In a more general form any observable $L[U]$ of the type:
+On the lattice, given the transformation \cref{link_transformation}, any product of link variables that starts and end at the same site, a closed loop, is gauge invariant. The average values of these objects over the whole lattice can be linked to physical observables, for example the field tensor. In a more general form any observable $L[U]$ of the type:
 \beq
     L[U] = \Tr \left[ \prod_{(n,\mu)\in\mathcal{P}} U_\mu(n)\right]
 \eeq
 where $\mathcal{P}$ is a closed path of links on the lattice, is a gauge invariant object.
 
 \subsubsection{Plaquette}
-The simplest observable, which we have already encountered upon defining the Wilson action in \ref{wilsonaction}, is the plaquette. This is the minimal closed loop on the lattice and its value is related to the coupling constant of the action. For each lattice site there are 12 possible plaquettes to be computed, given all the combinations of euclidean indeces. One can consider the average value of the plaquette on the lattice as an observable, related to the value of the action of the field. A proper definition of the observable is:
+The simplest observable, which we have already encountered upon defining the Wilson action in \cref{wilsonaction}, is the plaquette. This is the minimal closed loop on the lattice and its value is related to the coupling constant of the action. For each lattice site there are 12 possible plaquettes to be computed, given all the combinations of euclidean indeces. One can consider the average value of the plaquette on the lattice as an observable, related to the value of the action of the field. A proper definition of the observable is:
 \beq
     P[U] = \frac{1}{6V}\sum_{n\in\Lambda}\sum_{\mu<\nu}P_{\mu\nu}(n)
 \eeq
