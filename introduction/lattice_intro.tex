@@ -1,115 +1,121 @@
 
-Lattice QCD is one of the main Lattice Field Theories. It deals with the strong force at low energies, handling non-perturbative calculations in a numerical way. The idea of discretizing space-time in a lattice and perform calculations of field theories was proposed by Wilson in 1974 \cite{wilson_confinement_1974} as an alternative method to explain confinement. It has proven to be the most systematic approach to non-perturbative theories like QCD. In this chapter we will describe briefly how this discretization procedure is performed and some of the main computational strategies that are involved.
+Lattice QCD is one of the main Lattice Field Theories. It deals with the strong force at low energies, handling non-perturbative calculations in a numerical way. The idea of discretizing spacetime in a lattice and perform calculations of field theories was proposed by Wilson in 1974 \cite{wilson_confinement_1974} as an alternative method to study the confinement of quarks. It has proven to be the most systematic approach to non-perturbative theories like QCD. In this chapter we will describe briefly how this discretization procedure is performed and some of the main computational strategies that are involved.
 
 \section{Discretizing Field Theories}
 
-The starting point for Lattice QCD is Feynman's path-integral formalism, but expressed in Euclidean space-time, through a Wick rotation. An observable of some field $\phi$ is then given by:
+The starting point for Lattice QCD is Feynman's path-integral formalism, but expressed in Euclidean spacetime, through a Wick rotation. An observable of some field $\phi$ is then given by:
 \beq
-    \braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]}
-    \label{lattice:obs_base}
-    \eeq
-    and the euclidean correlator of two quantities $O_1[\phi]$ and $O_2[\phi]$ between times $t_1$ and $t_2$ is:
-    \beq
-    \braket{O_1[\phi](t_1)O_2[\phi](t_2)} = \frac{1}{Z[\phi]} \int \D[\phi] ~O_1[\phi(t_1)]O_2[\phi(t_2)] e^{-S[\phi]}
-    \label{lattice:correlator}
+\braket{O[\phi]} = \frac{1}{Z[\phi]} \int \D[\phi] ~O[\phi] e^{-S[\phi]},
+\label{lattice:obs_base}
+\eeq
+and the euclidean correlator of two quantities $O_1[\phi]$ and $O_2[\phi]$ between times $t_1$ and $t_2$ is:
+\beq
+\braket{O_1[\phi](t_1)O_2[\phi](t_2)} = \frac{1}{Z[\phi]} \int \D[\phi] ~O_1[\phi(t_1)]O_2[\phi(t_2)] e^{-S[\phi]},
+\label{lattice:correlator}
 \eeq
 where the partition function $Z[\phi]$ is defined as:
 \beq
-	Z = \int \D[\phi] ~e^{-S[\phi]} 
+	Z = \int \D[\phi] ~e^{-S[\phi]} ,
 \eeq
 and $S[\phi]$ is the euclidean action of the field:
 \beq
-S[\phi] = \int d^4x \Lagr [\phi] 
+S[\phi] = \int d^4x \Lagr [\phi] ,
 \eeq
-Evaluating path-integrals is not possible in general with analytical tools so, in order to allow numerical computations, the Euclidean space-time is discretized on a lattice, fixing the value of the field at only specific and equally spaced position in space-time. 
+Evaluating path-integrals is not possible in general with analytical tools so, in order to allow numerical computations, the Euclidean spacetime is discretized on a lattice, fixing the value of the field at only specific and equally spaced position in spacetime. 
 
 
 \subsection{The Quantum Mechanical Example}
-To better understand the discretization procedure for quantum field theories, it is useful to look at the simpler case of a quantum mechanical system, for example of a single particle in a potential $V$. The hamiltonian of the system is simply:
+To better understand the discretization procedure for quantum field theories, it is useful to look at the simpler case of a quantum mechanical system, for example of a single particle in a potential $V$. The Hamiltonian of the system is simply:
 \beq
-    \hat H = \frac{\hat p^2}{2m} + \hat V
+    \hat H = \frac{\hat p^2}{2m} + \hat V,
 \eeq
-natural units are implied, so $\hbar=1$. In path integral formalism the propagator between a state $\ket{x_i}$ from time $t_i$ to another state $\ket{x_f}$ from time $t_f$ can be expressed as:
+where we used natural units ($\hbar = c =1$). In path integral formalism the propagator between a state $\ket{x_i}$ from time $t_i$ to another state $\ket{x_f}$ from time $t_f$ can be expressed as:
 \beq
-    \bra{x_f} e^{-\hat H(t_f-t_i)} \ket{x_i} = \int \D x(t)~e^{-S_E[x]}
+    \bra{x_f} e^{-\hat H(t_f-t_i)} \ket{x_i} = \int \D x(t)~e^{-S_E[x]},
     \label{eq:action__}
 \eeq
-With $S_E[x]$ being the classical euclidean action:
+with $S_E[x]$ being the euclidean action:
 \beq
-    S_E[x(t)] = \int_{t_i}^{t_f} dt \Lagr [x(t)] = \int_{t_i}^{t_f} dt \frac{m}{2}\dot x(t)^2 +  V[x(t)]
+    S_E[x(t)] = \int_{t_i}^{t_f} dt \Lagr [x(t)] = \int_{t_i}^{t_f} dt \frac{m}{2}\dot x(t)^2 +  V[x(t)].
 \eeq
-Note that because this the euclidean action, the exponent in \cref{eq:action__} contains no imaginary unit, because of the Wick rotation $it \rightarrow t$. To compute the propagator numerically one can chose to discretize the time dimension into slices $t_0, t_1,\dots,t_N$ of distance $a$ one from another. A path then becomes a vector of positions at fixed time points:
+Note that the in the path integral in \cref{eq:action__} the exponent contains no imaginary unit. This is because we are using the euclidean action, related to the classical action by a Wick rotation $it \rightarrow t$. \\
+To compute the propagator numerically one can chose to discretize the time dimension into slices $t_0, t_1,\dots,t_N$ of distance $a$ one from another. A path then becomes a vector of positions at fixed time points:
 \beq
-    x = {x(t_0),x(t_1), \dots, x(t_N)}
+    x = {x(t_0),x(t_1), \dots, x(t_N)}.
 \eeq
 The integral is then changed from a continuous definition to an $N-2$ dimensional integral (the boundary points are fixed):
 \beq
-\int \D x(t)~e^{-S_E[x](t)} \rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1}~e^{-S_{lat}[x]} 
+\int \D x(t)~e^{-S_E[x](t)} \rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1}~e^{-S_{lat}[x]} ,
 \eeq
 where $A$ is some normalization. The classical action is now only computed on the fixed points of the discretized time points. In particular we can turn the integral between $t_j$ and  $t_{j + 1}$, using the finite difference discretization for the derivative of $x(t)$ and the average potential, as:
 \beq
-    \int_{t_j}^{t_{j+1}} dt \Lagr[x(t)] \approx a\left[ \frac{m}{2} \left(\frac{x_{j+1} - x_j}{a} \right)^2 + \frac{1}{2} (V[x_{j_+1}] - V[x_j]) \right]
+    \int_{t_j}^{t_{j+1}} dt \Lagr[x(t)] \approx a\left[ \frac{m}{2} \left(\frac{x_{j+1} - x_j}{a} \right)^2 + \frac{1}{2} (V[x_{j_+1}] - V[x_j]) \right].
 \eeq
 With this approximation the action of one path, or ``configuration'', is the sum of the approximated integrals from:
 \beq
-S_{lat}[x] \approx \sum_{i = 0}^{N-1} \left[ \frac{m}{2a} (x_{j+1} - x_j)^2 + aV(x_i\right]
+S_{lat}[x] \approx \sum_{i = 0}^{N-1} \left[ \frac{m}{2a} (x_{j+1} - x_j)^2 + aV(x_i\right].
 \eeq
 This discretization procedure for a simple quantum mechanical system (whose space coordinate can be seen as a one-dimensional scalar field) allows to compute the path integrals in \cref{lattice:expectation,lattice:correlator} using, in the case for the expectation value for example:
 \begin{align}
     \langle O[x] \rangle &=  \frac{1}{Z[x]} \int \D[x] ~O[x] e^{-S_{E}[x]} = \frac{1}{Z[x]} \int dx_1 dx_2\dots dx_{N-1}~O[x]e^{-S_{lat}[x]}  \\\nonumber
-    &=\int dx_1 dx_2\dots dx_{N-1} P[x] O[x]
+    &=\int dx_1 dx_2\dots dx_{N-1} P[x] O[x],
 \end{align}
-where we have identified $P[x] = \frac{1}{Z[x]}e^{-S_{lat}[x]}$ as a probability distribution. One can then compute the expectation value numerically by choosing random configurations according the specified PDF, that depends on the action and compute the expectation value as the average of the observable over the chosen configurations.
+where we have identified $P[x] = \frac{1}{Z[x]}e^{-S_{lat}[x]}$ as the probability distribution function of the observable $O$. One can then compute the expectation value numerically by choosing random configurations according the specified PDF, that depends on the action and compute the expectation value as the average of the observable over the chosen configurations.
 
 
 \section{Discretization of QCD on the Lattice}
 \label{sec:lattice_discretize}
-In the case of QCD the discretization procedure is more complicated than the one shown in the previous section as there are two types of field at play, the gluon gauge field $A$ and the $N_f$ fermionic quark fields $\psi$ that live in space-time. In order to perform numerical calculations on the lattice, it is necessary to discretize the Euclidean action for both fields on a hyper-cubic lattice $L = (L_x, L_y, L_z, L_t)$. The choice of the lattice spacing, usually denoted $a$, is arbitrary, but most often it is chosen to be equal for all dimensions. If we then define a lattice site $n = (n_x, n_y, n_z, n_t)$ where all the $n$s represent the coordinates of a point in the lattice $\Lambda$, our fields are constrained to have values on the points $an$ instead of on a continuum space-time $x^\mu$.
+In the case of QCD the discretization procedure is more complicated than the one shown in the previous section for a one dimensional harmonic oscillator, because there are two types of field at play. Moreover the gluon gauge field $A$ and the $N_f$ fermionic quark fields $\psi$ are defined in four-dimensional spacetime. In order to perform numerical calculations on the lattice, it is necessary to discretize the Euclidean action for both fields on a hyper-cubic lattice $\Lambda$:
 \beq
-    \phi(x) \xrightarrow{discretization} \phi(an)
+    \Lambda = \{n = (n_x, n_y, n_z, n_t)\}~~\text{where}~~n_x, n_y, n_z = 1,2,\dots,N;~~n_t = 1,2,\dots,N_T.
+\eeq
+The choice of the lattice spacing, usually denoted $a$, is arbitrary, but most often it is chosen to be equal for all dimensions, space and time alike. Our discretized fields are then constrained to have values only on the points $an$ instead of on a continuum spacetime $x^\mu$:
+\beq
+    \phi(x) \xrightarrow{discretization} \phi(an).
 \eeq
 In this section the discretization is performed following a structure that resembles \cref{intro:symmetry}, that is to start from the fermion fields and imposing gauge invariance.
 
 \subsection{Na{\"i}ve Discretization of Fermions}
-In this section the fermion discretization procedure found in \cite{gattringer_quantum_2010} is followed, but also some elements from \cite{gupta_introduction_1998,lepage_lattice_2005}, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The starting point is the fermionic euclidean action in the continuum:
+\label{lat:ferm_naive}
+The main ideas for the discretization procedure of fermions that we present are taken from \cite{gattringer_quantum_2010}, quoting the main intermediate steps that lead to the formulation of Lattice QCD. The reviews \cite{gupta_introduction_1998,lepage_lattice_2005} have also been useful references.\\
+The starting point is the fermionic euclidean action in the continuum:
 \beq
-    S_F [\psi,\bar\psi] = \int d^4x \bpsi(x)(\gamma_\mu\partial^\mu + m)\psi(x)
+    S_F [\psi,\bar\psi] = \int d^4x \bpsi(x)(\gamma_\mu\partial^\mu + m)\psi(x),
 \eeq 
-now we discretize the euclidean space-time on a lattice $\Lambda$ of spacing $a$, each point will be denoted with $n$. The partial derivative can be turned into the central finite difference between neighboring points along the direction of the derivative:
+now we discretize the euclidean spacetime on a lattice $\Lambda$ of spacing $a$, each point will be denoted with $n$. The partial derivative can be turned into the central finite difference between neighboring points along the direction of the derivative:
 \beq
-    \partial_\mu\psi(x) \rightarrow \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a}
+    \partial_\mu\psi(x) \rightarrow \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a}.
 \eeq 
 The discretized fermion action is then the sum of the lagrangian density over all lattice sites multiplied by the unit volume $a^4$:
 \beq
-    S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a} + m \psi(n) \right]
+    S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{\psi(n+\hat\mu) - \psi(n-\hat\mu)}{2a} + m \psi(n) \right].
 \eeq 
-As we did in section \cref{intro:symmetry} we try to apply a local gauge transformation $\Omega(n)$ to the field. It is simple to show that some terms of the derivative in the action are not gauge invariant:
+As we did in section \cref{intro:symmetry}, we try to apply a local gauge transformation $\Omega(n)$ to the field. It is simple to show that some terms of the derivative in the action are not gauge invariant:
 \beq
-    \bpsi(n)\psi(n\pm\hat\mu) \rightarrow \bpsi(n)\Omega^\dagger(n)\Omega(n\pm\hat\mu)\psi(n\pm\hat\mu)
+    \bpsi(n)\psi(n\pm\hat\mu) \rightarrow \bpsi(n)\Omega^\dagger(n)\Omega(n\pm\hat\mu)\psi(n\pm\hat\mu).
     \label{eq:fermion_wrong}
 \eeq
-The problem is in the way the derivative was discretized and the solution is the introduction of an additional field as in \cref{intro:symmetry} that has the correct transformation laws. This field must transform under a local gauge transformation in a way that connects the values of the fermion field at two different lattice sites Because of this property we denote the auxiliary field as ``link variables'', later the matching with the gauge filed will be introduced, and by convention it is written as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the orientation along the $\mu$ direction, from \cref{eq:fermion_wrong}:
+The problem is in the way the derivative was discretized and the solution is the introduction of an additional field that has the correct transformation laws. This field must transform under a local gauge transformation in a way that connects the values of the fermion field at two different lattice sites. Because of this property we denote the auxiliary field as ``link variables'', later the matching with the gauge field will be introduced, and by convention it is written as $U(n, n + \hat\mu) = U_\mu(n)$. Furthermore, it must depend on the orientation along the $\mu$ direction, from \cref{eq:fermion_wrong}:
 \beq
-U(n, n-\hat\mu) \equiv  U_{-\mu}(n) = U_\mu(n-\hat\mu)^\dagger 
+U(n, n-\hat\mu) \equiv  U_{-\mu}(n) = U_\mu(n-\hat\mu)^\dagger .
 \eeq
 In particular, we want it to transform as:
 \begin{align}
     \bpsi(n)U_\mu(n)\psi(n+\hat\mu) &\rightarrow \bpsi(n)\Omega^\dagger(n)U'_\mu(n)\Omega(n+\hat\mu)\psi(n\pm\hat\mu)\\\nonumber
-    \bpsi(n)U_{-\mu}(n)\psi(n-\hat\mu) &\rightarrow \bpsi(n)\Omega^\dagger(n)U'_{-\mu}(n)\Omega(n+\hat\mu)\psi(n\pm\hat\mu)
+    \bpsi(n)U_{-\mu}(n)\psi(n-\hat\mu) &\rightarrow \bpsi(n)\Omega^\dagger(n)U'_{-\mu}(n)\Omega(n+\hat\mu)\psi(n\pm\hat\mu),
 \end{align}
 from which we infer that:
 \begin{align}
     U_\mu(n)    &\rightarrow U'_\mu(n) = \Omega(n)U_\mu(n)\Omega^\dagger(n+\hat\mu)\label{link_transformation}\\\nonumber
-    U_{-\mu}(n) &\rightarrow U'_{-\mu}(n) = \Omega(n)U_{-\mu}(n)\Omega^\dagger(n-\hat\mu)
+    U_{-\mu}(n) &\rightarrow U'_{-\mu}(n) = \Omega(n)U_{-\mu}(n)\Omega^\dagger(n-\hat\mu).
 \end{align}
 the field $U_\mu(n)$ is an $SU(3)$ valued field, that can be intuitively thought of as a set of oriented links between the sites of the lattice. A visual representation is given in \cref{fig:links},  
-
 \begin{figure}[!htb]
 \centering
 \begin{tikzpicture}[node distance=1cm] 
     % arrows
-    \draw[->-=.55, line width=1.5pt, >=latex] (2.5,0) to (6.5,0);
-    \draw[->-=.55, line width=1.5pt, >=latex] (-2.5,0) to  (-6.5,0);
+    \draw[-<-=.5, line width=1.5pt, >=latex] (-2.5,0) to (-6.5,0);
+    \draw[-<-=.5, line width=1.5pt, >=latex] (2.5,0) to  (6.5,0);
     
     \draw (6.5, 0.3) -- (6.5, -0.3);
     \draw (2.5, 0.3) -- (2.5, -0.3);
@@ -126,13 +132,13 @@ the field $U_\mu(n)$ is an $SU(3)$ valued field, that can be intuitively thought
     \filldraw (-2.5, 0) circle (0.05);
     \filldraw (-6.5, 0) circle (0.05); 
 
-    \node [above right] (A) at (6.5, 0) {$n+\hat\mu$};
-    \node [above left] (B) at (2.5, 0) {$n$};
-    \node [above right] (D) at (-2.5, 0) {$n$};
-    \node [above left] (C) at (-6.5, 0) {$n-\hat\mu$};
+    \node [above right] (A) at (-2.5, 0) {$n+\hat\mu$};
+    \node [above left] (B) at (-6.5, 0) {$n$};
+    \node [above right] (D) at (6.5, 0) {$n$};
+    \node [above left] (C) at (2.5, 0) {$n-\hat\mu$};
 
-    \node (E) at (-4.5, -0.7) {$U_{-\mu}(n) \equiv U_\mu^\dagger(n-\hat\mu)$};
-    \node (F) at (4.5, -0.7) {$U_{\mu}(n)$};
+    \node (E) at (4.5, -0.7) {$U_{-\mu}(n) \equiv U_\mu^\dagger(n-\hat\mu)$};
+    \node (F) at (-4.5, -0.7) {$U_{\mu}(n)$};
 \end{tikzpicture}
 \capt{Schematic representation of the link variables $U_{\mu}(n)$ and $U_{-\mu}(n)$ on the lattice.}
 \label{fig:links}
@@ -140,37 +146,37 @@ the field $U_\mu(n)$ is an $SU(3)$ valued field, that can be intuitively thought
  
 With this results we can write a gauge invariant lattice fermion action as:
 \beq
-    S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{U_\mu(n)\psi(n+\hat\mu) - U_{-\mu}(n)\psi(n-\hat\mu)}{2a} + m \psi(n) \right]
+    S_F [\psi,\bar\psi] = a^4 \sum_{n\in\Lambda} \bpsi(n) \left[ \sum_{\mu=1}^4\gamma_\mu  \frac{U_\mu(n)\psi(n+\hat\mu) - U_{-\mu}(n)\psi(n-\hat\mu)}{2a} + m \psi(n) \right].
     \label{intro:lat_action}
 \eeq
 
 \subsection{The Gauge Transporter and the Wilson Loop}
-For a more formal definition of the link variables we can look at the continuum gauge transporter, this is the path-ordered product, denoted with $\mathcal{P}$ of a gauge field $A_\mu(x)$ along some curve $\mathcal{C}$ between two points $x$ and $y$ in space-time:
+For a more formal definition of the link variables we can look at the continuum gauge transporter $G(x,y)$, which is defined as the path-ordered product, denoted with $\mathcal{P}$, of a gauge field $A_\mu(x)$ along some curve $\mathcal{C}$ between two points $x$ and $y$ in spacetime:
 \beq
-    G(x,y) = \mathcal{P} \exp\left( ig_0\int_\mathcal{C} A_\mu(x')dx'^\mu  \right)
+    G(x,y) = \mathcal{P} \exp\left( ig_0\int_\mathcal{C} A_\mu(x')dx'^\mu  \right).
 \eeq
 An important thing to note now is that gauge transporter belongs to the gauge group, $SU(3)$ for QCD, and not to the algebra, $\mathfrak{su}(3)$. 
-Up to order $\mathcal{O}(a)$ the integral on the straight line connecting two points on the lattice can be approximated with $aA_\mu(n)$ for small lattice spacings. For convenience the gauge filed is scaled by a factor $1/g_0$, giving: 
+Up to order $\mathcal{O}(a)$ the integral on the straight line connecting two points on the lattice can be approximated with $aA_\mu(n)$ for small lattice spacings. For convenience the gauge field is scaled by a factor $1/g_0$, giving: 
 \beq
-\tilde A_\mu(x) = \frac{1}{g_0} A_\mu(x)
+\tilde A_\mu(x) = \frac{1}{g_0} A_\mu(x),
 \label{eq:fieldscale}
 \eeq
 but for notation's sake we'll drop the tilde from now on. One is then left with:
 \begin{align}
     G(n,n+\hat\mu) &\equiv U_\mu(n) ~~= \exp(iaA_\mu(n)) = \mathds{1} + iaA_\mu(n) + \mathcal{O}(a^2) \label{eq:transporter}\\\nonumber
-    G(n,n-\hat\mu) &\equiv U_{-\mu}(n) = \exp(-iaA_\mu(n)) = \mathds{1} - iaA_\mu(n-\hat\mu) + \mathcal{O}(a^2)
+    G(n,n-\hat\mu) &\equiv U_{-\mu}(n) = \exp(-iaA_\mu(n)) = \mathds{1} - iaA_\mu(n-\hat\mu) + \mathcal{O}(a^2),
 \end{align}
-where in the second equation, for the negative direction, the approximation is taken on the arrival point instead on the initial one. With this definition is easy to see the relation we just stated earlier on the direction change:
+where in the second equation, for the negative direction, the approximation is taken on the arrival point instead on the initial one. With this definition is easy to see the relation we just stated earlier on the orientation change:
 \beq
-    U(n, n-\hat\mu) = U_{-\mu}(n) = U^\dagger_\mu(n)
+    U(n, n-\hat\mu) = U_{-\mu}(n) = U^\dagger_\mu(n).
 \eeq
-In the continuum case it can be shown, in \cite{peskin} for example, that the trace of a gauge transporter that has the same start and final point, a Wilson Loop, is gauge invariant. On the lattice the minimal Wilson loop is just a square on a fixed plane $\mu\nu$, and we call this a Plaquette:
+One can now define a Wilson loop as a gauge transporter that has the same start and final point. In the continuum case it can be shown, see for example ref. \cite{peskin}, that the trace of such an object is gauge invariant. On the lattice the minimal Wilson loop is just a square on a fixed plane $\mu\nu$, and we call this a Plaquette:
 \begin{align}
     \label{plaquette}
 P_{\mu\nu}(n) &= U_\mu(n) U_\nu(n+\hat\mu) U_{-\mu}(n+\hat\mu+\hat\nu) U_-{\nu}(n+\hat\nu)  \\\nonumber
-              &= U_\mu(n) U_\nu(n+\hat\mu) U^\dagger_\mu(n+\hat\nu) U^\dagger_\nu(n)
+              &= U_\mu(n) U_\nu(n+\hat\mu) U^\dagger_\mu(n+\hat\nu) U^\dagger_\nu(n),
 \end{align}
-a pictorial representation is given in \cref{fig:plaq}.
+a pictorial representation of this equation is given in \cref{fig:plaq}.
 \begin{figure}[!htb]
     \centering
     \begin{tikzpicture}[node distance=1cm, remember picture] 
@@ -215,141 +221,152 @@ a pictorial representation is given in \cref{fig:plaq}.
         \node [left] (E) at (-5.7,2.6) {$x_\nu$};
         \node [below] (F) at  (-4.1,1.1) {$x_\mu$};
     \end{tikzpicture}
-    \capt{The Plaquette, as defined on the lattice, it terms of the oriented product of the link variables of a minimal square in the plane $\mu\nu$.}
+    \capt{The Plaquette, as defined on the lattice, is the oriented product of the link variables of a minimal square in the plane $\mu\nu$.}
     \label{fig:plaq}
 \end{figure}
 
-This allows us to write using \cref{eq:transporter} and applying the Baker-Campbell-Hausdorff formula to deal with the product of matrix exponentials:
+\subsection{The Wilson Gluonic Action}
+In the continuum theory the Wilson loop is related to the square of the field strength tensor, the same term that enters the Lagrangian. The plaquette is therefore a good starting point for the creation of a discretized version of the Euclidean action for the gluon field.\\
+Recalling the Baker-Campbell-Hausdorff (BCH) formula for the product of exponentials of matrices:
+\beq
+    \exp(A)\exp(B) = \exp\left( A+B+\frac{1}{2} [A,B]+\dots  \right),
+\eeq
+ and by inserting \cref{eq:transporter} repeatedly into the definition of the plaquette one has:
 \begin{align}
     \nonumber P_{\mu\nu}(n) &=\exp\bigg[iaA_\mu(n) + iaA_\nu(n+\hat\mu) -iaA_\mu(n+\hat\nu) -iaA^\dagger_\nu(n) - \frac{a^2}{2}[A_\mu(n), A_\mu(n+\hat\mu)] \\
     & - \frac{a^2}{2}[A_\nu(n+\hat\nu), A_\nu(n)] + \frac{a^2}{2}[A_\mu(n), A_\nu(n)] + \frac{a^2}{2}[A_\nu(n+\hat\mu), A_\mu(n+\hat\nu)] \label{superlong} \\ 
-    \nonumber & + \frac{a^2}{2}[A_\mu(n), A_\mu(n+\hat\nu)] + \frac{a^2}{2}[A_\nu(n+\hat\mu), A_\nu(n)] + \mathcal{O}(a^3)\bigg]
+    \nonumber & + \frac{a^2}{2}[A_\mu(n), A_\mu(n+\hat\nu)] + \frac{a^2}{2}[A_\nu(n+\hat\mu), A_\nu(n)] + \mathcal{O}(a^3)\bigg].
 \end{align}
 Now the terms that are shifted from the site $n$ can be expanded as:
 \beq
     A_\mu(n+\hat\nu) = A_\mu(n) + a\partial_\nu A_\mu(n) +  \mathcal{O}(a^2)
 \eeq
-and with this substitution most terms cancel and one has:
+and with this substitution most terms cancel and one gets:
 \begin{align}
     \label{plaq:expanded}
     P_{\mu\nu}(n) &=\exp\left[ ia^2(\partial_\mu A_\nu(n) - \partial_\nu A_\mu(n) + i[A_\mu(n),A_\nu(n)]) + \mathcal{O}(a^3)  \right]\\\nonumber
-                  &=\exp\left[ ia^2G_{\mu\nu}(n) + \mathcal{O}(a^3)  \right]
+                  &=\exp\left[ ia^2G_{\mu\nu}(n) + \mathcal{O}(a^3)  \right],
 \end{align}
-Where we recovered the gauge field strength tensor $G_ {\mu\nu}$. This term can be used to build the euclidean lattice action term for the gluons. In particular, to be able to recover the continuum action, we would like a term of the form:
+where we recovered the gauge field strength tensor using $G_ {\mu\nu} =\partial_\mu A_\nu - \partial_\nu A_\mu + i[A_\mu,A_\nu]$. The relation found in \cref{plaq:expanded} can be used to build the euclidean lattice action term for the gluons. In particular, to be able to recover the continuum action, we would like a term of the form:
 \beq
-    S_G[U] = \frac{a^4}{2g^2}\sum_{n\in\Lambda}\sum_{\mu\nu} \Tr (G_{\mu\nu}(n)^2) \xrightarrow{a\rightarrow 0}  \frac{1}{4g^2} \int d^4x G_{\mu\nu}(x)^2 = S_G[A]
+    S_G[U] = \frac{a^4}{2g^2}\sum_{n\in\Lambda}\sum_{\mu\nu} \Tr (G_{\mu\nu}(n)^2) \xrightarrow{a\rightarrow 0}  \frac{1}{4g^2} \int d^4x G_{\mu\nu}(x)^2 = S_G[A].
 \eeq 
-Note that the $1/g_0^2$ term, that might seem strange since it is not in the known continuum Lagrangian is given by the scaling of the field in \cref{eq:fieldscale}. Up to order $\mathcal{O}(a^2) $ this can be obtained, in terms of the link variables, by:
+Note that the $1/g_0^2$ term, which could seem strange since it is not in the known continuum Lagrangian, is given by the scaling of the field in \cref{eq:fieldscale}. Up to order $\mathcal{O}(a^2) $ this can be obtained, in terms of the link variables, by:
 \beq
-    S_G[U] = \frac{2}{g^2}\sum_{n\in\Lambda}\sum_{\mu<\nu} \text{Re} \Tr (\mathds{1} - P_{\mu\nu}(n))
+    S_G[U] = \frac{2}{g^2}\sum_{n\in\Lambda}\sum_{\mu<\nu} \text{Re} \Tr (\mathds{1} - P_{\mu\nu}(n)).
     \label{wilsonaction}
 \eeq 
 Higher order corrections to this action can be computed analytically by considering higher orders in the BCH expansion in \cref{superlong} and in the exponential expansion in \cref{plaq:expanded}.
 
 \subsection{Lattice Fermions} 
-The discretization of fermions as discussed in the previous section is incomplete as it leads to unphysical results. It becomes evident if one considers the Fourier transform of the propagator. Let's first rewrite \cref{intro:lat_action} in a more compact way, introducing the lattice Dirac propagator $M_{xy}[U]$. 
+The discretization of fermions as discussed in \cref{lat:ferm_naive} is incomplete as it leads to unphysical results. It becomes evident if one considers the Fourier transform of the propagator. Let's first rewrite \cref{intro:lat_action} in a more compact way, introducing the lattice Dirac propagator $M_{xy}[U]$:
 \beq
     S_F [\psi,\bar\psi] = a^4\sum_{n\in\Lambda} \bpsi(x)M_{xy}[U]\psi(y)
 \eeq
 with
 \beq
-    M_{xy}[U]= \sum_{\mu=1}^4\gamma_\mu  \frac{U_\mu(x)\delta_{x,(y-\hat\mu)} - U^\dagger_{-\mu}(x)\delta_{x,(y+\hat\mu)}}{2a} + m \delta_{x,y} 
+    M_{xy}[U]= \sum_{\mu=1}^4\gamma_\mu  \frac{U_\mu(x)\delta_{x,(y-\hat\mu)} - U^\dagger_{-\mu}(x)\delta_{x,(y+\hat\mu)}}{2a} + m \delta_{x,y} .
 \eeq
-in momentum space the propagator becomes:
+In momentum space the propagator becomes:
 \beq
-    \tilde M_{pq}= \delta(p-q)\tilde M(p)~~~~\text{where}~~~~\tilde M(p) = m\mathds{1} + \frac{i}{a}\sum_{\mu=1}^4\gamma_\mu\sin(p_\mu a)
+    \tilde M_{pq}= \delta(p-q)\tilde M(p)~~~~\text{where}~~~~\tilde M(p) = m\mathds{1} + \frac{i}{a}\sum_{\mu=1}^4\gamma_\mu\sin(p_\mu a).
 \eeq
 In order to calculate the inverse of the propagator in real space we need to invert the one in momentum space and perform an inverse Fourier transform. However, the inverse of the propagator in Fourier space has multiple poles, for example in the case of massless fermions:
 \beq
-\tilde M(p)^{-1}\bigg\rvert_{m=0} =  \frac{-ia\sum_{\mu}\gamma_\mu\sin(p_\mu a)}{\sum_{\mu}\sin^2(p_\mu a)}
+\tilde M(p)^{-1}\bigg\rvert_{m=0} =  \frac{-ia\sum_{\mu}\gamma_\mu\sin(p_\mu a)}{\sum_{\mu}\sin^2(p_\mu a)}.
 \eeq
-the problem vanishes for $a\rightarrow 0$, the continuum case, returning just one fermion type, but on the lattice multiple fermions, one for each pole emerge. This is known as the ``doubling problem'' and the extra fermions are called doublers. The solution, proposed by Wilson \cite{wilson_confinement_1974}, is to modify the propagator adding a term that makes the poles in the inverse of the Fourier transformed propagator vanish. In momentum space:
+The problem vanishes for $a\rightarrow 0$, the continuum case, returning just one fermion type, but on the lattice multiple fermions, one for each pole emerge. This is known as the ``doubling problem'' and the extra fermions are called doublers. The solution, proposed by Wilson \cite{wilson_confinement_1974}, is to modify the propagator adding a term that makes the poles in the inverse of the Fourier transformed propagator vanish. In momentum space the Wilson propagator is defined as:
 \beq
-M^W(p) = m\mathds{1} + \frac{i}{a}\sum_{\mu=1}^4\gamma_\mu\sin(p_\mu a) + \mathds{1}\frac{1}{a}\sum_{\mu=1}^4 (1-\cos(p_\mu a))
+\tilde M^W(p) = m\mathds{1} + \frac{i}{a}\sum_{\mu=1}^4\gamma_\mu\sin(p_\mu a) + \mathds{1}\frac{1}{a}\sum_{\mu=1}^4 (1-\cos(p_\mu a)).
 \eeq
-and in coordinate space:
+Now, by applying the inverse Fourier transform, one gets for coordinate space:
 \beq
-M^W_{xy}[U]= \frac{1}{2a}\sum_{\mu=\pm1}^{\pm4}(\mathds{1} -\gamma_\mu) U_\mu(x)\delta_{x,(y-\hat\mu)} + \left(m +\frac{4}{a}\right)\delta_{x,y} 
+M^W_{xy}[U]= \frac{1}{2a}\sum_{\mu=\pm1}^{\pm4}(\mathds{1} -\gamma_\mu) U_\mu(x)\delta_{x,(y-\hat\mu)} + \left(m +\frac{4}{a}\right)\delta_{x,y} ,
 \eeq
-the shorthand notation $\gamma_{-\mu} = -\gamma_\mu$ has been introduced. \\
+where the shorthand notation $\gamma_{-\mu} = -\gamma_\mu$ has been introduced. \\
 The final form of the Wilson Fermion Action is:
 \beq
-    S_F [\psi,\bar\psi] = a^4\sum_{n\in\Lambda} \bpsi(x)M^W_{xy}[U]\psi(y)
+    S_F [\psi,\bar\psi] = a^4\sum_{n\in\Lambda} \bpsi(x)M^W_{xy}[U]\psi(y).
     \label{intro:ferm_action}
 \eeq
 
-Now that all the needed information about the action and the fields is set, mainly through equations \cref{wilsonaction} and \cref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovskian space-time to an euclidean space-time lattice is complete.
+Now that all the needed information about the action and the fields is set, mainly through equations \cref{wilsonaction} and \cref{intro:ferm_action}, the picture of how to discretize QCD from the continuum Minkovskian spacetime to an euclidean spacetime lattice is complete.
 
 
 \section{Path Integrals on the Lattice}
 \label{sec:pathintegral}
 To express expectation values and correlators on the lattice, path integral formalism is used. The partition function, as we have seen earlier, is the path integral of the fields over the whole space of the action. For the case of QCD the fields are $U$, $\psi$ and $\bpsi$:
 \beq
-	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  
+	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  ,
 \eeq
 with the action being the sum of the gluonic and fermionic parts:
 \beq
-S[\psi,\bar{\psi},U]=S_G[U] + S_F[\psi,\bar{\psi}, U] = S_G[U] + \sum_f \bpsi M[U] \psi
+S[\psi,\bar{\psi},U]=S_G[U] + S_F[\psi,\bar{\psi}, U] = S_G[U] + \bpsi M[U] \psi.
 \eeq
-The immediate simplification is to integrate out the fermion fields. As in the continuum case one can perform an integration on the Grassmann-valued fields, in general for an integral over some Grassmann numbers $\theta_i$ and their complex conjugates $\theta_i^*$, and a Hermitean matrix $K$:
+The immediate simplification is to integrate out the fermion fields. As in the continuum case one can perform the integration of the Grassmann-valued fields. \\
+Grassmann numbers are defined to be anticommutative, meaning that for any two Grassmann numbers $a,b$ the relation $ab=-ba$ holds. A useful general property of these numbers regards the evaluation of multidimensional Gaussian integrals. For set of Grassmann numbers $\theta_i$, their complex conjugates $\theta_i^*$ and a Hermitean matrix $K$ one can define the following integral:
 \begin{align}
     \label{lattice:grassman}
-    \int \D\Theta^*\D\Theta e^{-\Theta K \Theta } &= \left( \prod_i\int d\theta_i^*d\theta_i \right)  e^{-\theta_i^* K_{ij} \theta_j } =  \left( \prod_i\int d\theta_i^*d\theta_i \right)  e^{-\sum_i\theta_i^* k_i \theta_i } \\\nonumber
-    &= \prod_i b_i = \det B
+    \int \D\Theta^*\D\Theta e^{-\Theta^* K \Theta } &= \left( \prod_i\int d\theta_i^*d\theta_i \right)  e^{-\theta_i^* K_{ij} \theta_j } =  \left( \prod_i\int d\theta_i^*d\theta_i \right)  e^{-\sum_i\theta_i^* k_i \theta_i } \\\nonumber
+    &= \prod_i k_i = \det K,
 \end{align} 
-This result is very different from what one would get in the real case, $(2\pi)^n/\det B$. It can also be shown that:
-
-\begin{align}
-    \int \D\Theta^*\D\Theta \theta_a^*\theta_b e^{-\Theta* K \Theta } &= \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\theta_i^* K_{ij} \theta_j } =  \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\sum_i\theta_i^* k_i \theta_i } \\\nonumber
-    &=  (\det B ) (B^{-1})_{ab}
-\end{align}
-This last result is crucial for computing fermion correlators for example, for a given ``source'' $\bpsi(x)$ and a ``sink'' $\psi(y)$ the propagator between the two can be computed via path integrals, but it requires inverting the fermion action matrix. \\
+A more detailed proof of this relation can be found in \cite{peskin}. This result is very different from what one would get in the case of real numbers, where the analog integral has solution $(2\pi)^n/\det K$. \\
 With the result of \cref{lattice:grassman} we can simplify greatly the partition function:
 \beq
 	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  = \int \D U e^{-S_G[U] } \det M[U] 
 \eeq
 In a similar fashion as in statistical mechanics, the expectation value of an observable on the lattice can be computed, recalling the general form \cref{lattice:obs_base} as:
 \beq
-    \langle O \rangle = \frac{1}{Z}  \int \D U ~O[\psi, \bpsi, U] e^{-S_G[U] } \det M[U] 
+    \langle O \rangle = \frac{1}{Z}  \int \D U ~O[\psi, \bpsi, U] e^{-S_G[U] } \det M[U] .
     \label{lattice:expectation}
 \eeq
-The above expression cannot be evaluated or simplified analytically any further, so the usual approach is to approximate the path integral numerically. The main idea is to create an ensemble of field configurations using the probability distribution:
+To compute fermionic correlators however, another relation og Grassmann integrals is needed:
+\begin{align}
+    \int \D\Theta^*\D\Theta \theta_a^*\theta_b e^{-\Theta^* K \Theta } &= \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\theta_i^* K_{ij} \theta_j } =  \left( \prod_i\int d\theta_i^*d\theta_i \right) \theta_a^*\theta_b e^{-\sum_i\theta_i^* k_i \theta_i } \\\nonumber
+    &=  (\det K ) (K^{-1})_{ab},
+\end{align}
+which allows us to write for the correlator of a fermion from a site $m$, the  to a site $n$ on the lattice:
 \beq
-    P[U] = \frac{e^{-S_G[U]}\det M}{Z}
-\eeq 
-To reproduce the integral in \cref{lattice:expectation}, on such set $\mathcal{U} = \{ U_1, U_2, \dots,U_N \}$ of configurations one computes the observable, the average value is the expectation value:
-\beq
-\langle O \rangle =  \int \D U~ P[U] O[\psi, \bpsi, U] \approx \frac{1}{N} \sum_{i=1}^N O(\psi, \bpsi, U_i) 
+    \langle O_n(\psi)O_m(\bpsi) \rangle = \frac{1}{Z}  \int \D U ~O_n[\psi, U]O_m[\bpsi, U] e^{-S_G[U] } (\det M[U]) (M[U]^{-1})_{mn}.
+    \label{lattice:fermioncorrelator}
 \eeq
-
-The choice of the set $\mathcal{U}$ is the interesting, but difficult, part which is solved by using Monte Carlo methods. The different configurations are chosen in the most widely accepted solution via a Markov chain. In \cref{chap:code_design} a more detailed description of this problem, and a sketch of the implementation that has been developed, will be presented.
+This last result is crucial for the numerical evaluation of fermionic observables. For example, for a given ``source'' $\bpsi(x)$ and a ``sink'' $\psi(y)$ the correlator between the two can be computed via path integrals, but this requires inverting the fermion propagator matrix. \\
+The above expressions for the partition function and the observables cannot be evaluated or simplified analytically any further, so the usual approach is to approximate the path integral numerically. The main idea is to create an ensemble of field configurations using the probability distribution function:
+\beq
+    P[U] = \frac{e^{-S_G[U]}\det M}{Z}.
+\eeq 
+Given an ensemble $\mathcal{U} = \{ U_1, U_2, \dots,U_N \}$ of configurations sampled with the PDF above, the integral in \cref{lattice:expectation} can be approximated as:
+\beq
+\langle O \rangle =  \int \D U~ P[U] O[\psi, \bpsi, U] \approx \frac{1}{N} \sum_{i=1}^N O(\psi, \bpsi, U_i), 
+\eeq
+so that the expectation value of $O$ is the average of the observable measure on the configurations of $\mathcal{U}$. The interesting, but difficult, problem that we have to face now is the choice of the ensemble. The solution is to use Monte Carlo methods, in particular to sample the space of the configurations using a Markov chain. In \cref{chap:code_design} a more detailed description of this problem, and a sketch of the implementation that has been developed to address it, will be presented.
 
 \subsection{Pure Gauge Field Theory}
-Computing full QCD on the lattice is computationally expensive, mainly due to the integration of fermions via the determinant. From a numerical point of view, the determinant need to be computed at every step of the Markov chain that is used to evaluate the path-integral and this operation affects the time cost of sampling the configuration space dramatically. A first approach is to neglect the determinant completely, considering it constant. This is effectively removing dynamical fermions, freezing them to the lattice sites. This approximation is usually referred to as ``quenched QCD'', or QQCD. \\
+Computing full QCD on the lattice is computationally expensive, mainly due to the integration of fermions via the determinant. From a numerical point of view, the determinant needs to be computed at every step of the Markov chain that is used to evaluate the path-integral. This operation affects the time cost of sampling the configuration space dramatically. A first approach is to neglect the determinant completely, considering it constant. This, on a deeper level, effectively means removing dynamical fermions, freezing them to the lattice sites. This approximation is usually referred to as ``quenched QCD'', or QQCD. \\
 The properties of this theory, that is then reduced to a simple Yang-Mills theory with zero fermion flavors, are still interesting to study and have historically played a very important role, being the only accessible simulation until sufficient computing power became available. For example, from \cref{beta:qcd} one can see that the theory presents confinement and asymptotic freedom. 
 
 \subsection{Observables}
 On the lattice, given the transformation \cref{link_transformation}, any product of link variables that starts and end at the same site, a closed loop, is gauge invariant. The average values of these objects over the whole lattice can be linked to physical observables, for example the field tensor. In a more general form any observable $L[U]$ of the type:
 \beq
-    L[U] = \Tr \left[ \prod_{(n,\mu)\in\mathcal{P}} U_\mu(n)\right]
+    L[U] = \Tr \left[ \prod_{(n,\mu)\in\mathcal{P}} U_\mu(n)\right],
 \eeq
 where $\mathcal{P}$ is a closed path of links on the lattice, is a gauge invariant object.
 
 \subsubsection{Plaquette}
-The simplest observable, which we have already encountered upon defining the Wilson action in \cref{wilsonaction}, is the plaquette. This is the minimal closed loop on the lattice and its value is related to the coupling constant of the action. For each lattice site there are 12 possible plaquettes to be computed, given all the combinations of euclidean indeces. One can consider the average value of the plaquette on the lattice as an observable, related to the value of the action of the field. A proper definition of the observable is:
+The simplest observable, which we have already encountered upon defining the Wilson action in \cref{wilsonaction}, is the plaquette. This is the minimal closed loop on the lattice and its value is related to the coupling constant of the action. For each lattice site there are 6 possible plaquettes to be computed, given all the combinations of euclidean indices. One can consider the average value of the plaquette on the lattice as an observable, related to the value of the action of the field. A proper definition of the observable, computed on a lattice $\Lambda$ is:
 \beq
-    P[U] = \frac{1}{6V}\sum_{n\in\Lambda}\sum_{\mu<\nu}P_{\mu\nu}(n)
+    P[U] = \frac{1}{6|\Lambda|}\sum_{n\in\Lambda}\sum_{\mu<\nu}P_{\mu\nu}(n),
 \eeq
-where $P_{\mu\nu}(n)$ is the one defined in \cref{plaquette} and $V$ is the number of dimensionless lattice volume (the total number of lattice sites). \\
-The plaquette expectation value can be used as a tool to determine when the Markov Chain that is used to generate the ensemble, to measure  other observables, has reached a stationary point of the action. In particular, in \cref{sec:thermalization}, the use of the plaquette for checking thermalization of the chain is discussed.
+where $P_{\mu\nu}(n)$ is the one defined in \cref{plaquette} and $|\Lambda|$ is the notation that we introduce for the total number of lattice sites. \\
+% The plaquette expectation value can be used as a tool to determine when the Markov Chain that is used to generate the ensemble, to measure  other observables, has reached a stationary point of the action. In particular, in \cref{sec:thermalization}, the use of the plaquette for checking thermalization of the chain is discussed.
 
 \subsubsection{Energy Density}
 The energy of the field is proportional to the square of the field tensor, so the energy density is in particular:
 \beq
-    E[U] = -\frac{1}{4V}\sum_{n\in\Lambda}\sum_{\mu<\nu}\text{Re}\Tr(G_{\mu\nu}G^{\mu\nu})
+    E[U] = -\frac{1}{4|\Lambda|}\sum_{n\in\Lambda}\sum_{\mu<\nu}\text{Re}\Tr(G_{\mu\nu}G^{\mu\nu}).
     \label{eq:energy}
 \eeq
-In order to estimate this quantity, one has to compute the field tensor at every lattice site, square it and sum over the whole space. It is then usually normalized by the lattice volume (the number of sites), to get the density. The simplest definition of the field tensor is $G_{\mu\nu}^{(plaq)} = \mathds{1} - P_{\mu\nu}$ but this is not very accurate. A more symmetric definition can be obtained by the ``clover'' field tensor, that is the sum of all the plaquettes of a same plane $\mu\nu$ that start from a given lattice site take all with the same orientation. 
+In order to estimate this quantity, one has to compute the field tensor at every lattice site, square it and sum over the whole space. It is also usually normalized by the lattice volume (the number of sites) to get the density. The simplest definition of the field tensor is $G_{\mu\nu}^{(plaq)} = \mathds{1} - P_{\mu\nu}$ but this is not very accurate. A more symmetric definition can be obtained by the ``clover'' field tensor, that is the sum of all the plaquettes of a same plane $\mu\nu$ that start from a given lattice site taken all with the same orientation. To better understand the clover term, in figure \cref{fig:clover} a representation is given.
 
 \begin{figure}[!htb]
     \centering
@@ -396,7 +413,7 @@ In order to estimate this quantity, one has to compute the field tensor at every
         \node [left] (E) at  (\startarrowx, \startarrowy+\lenarrow) {$x_\nu$};
         \node [below] (F) at (\startarrowx+\lenarrow, \startarrowy) {$x_\mu$};
     \end{tikzpicture}
-    \capt{Schematic representation of the symmetric definition of the clover term $G_{\mu\nu}^{(clover)}$ on the lattice.}
+    \capt{Schematic representation of the symmetric definition of the clover term $G_{\mu\nu}^{(clover)}$ on the lattice. The field strength tensor for a plane $\mu\nu$ at a lattice site is given by the sum of all the for plaquettes that start from that site, all taken with the same orientation.}
     \label{fig:clover}
 \end{figure}
 
@@ -405,42 +422,47 @@ In terms of link variables this is equal to:
     G_{\mu\nu}^{(clover)}(n)=\frac{1}{4}\bigg[  &U_\mu(n)U_\nu(n+\hat\mu)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n)\\\nonumber
     - &U_\nu(n)U^\dagger_\mu(n+\hat\nu)U^\dagger_\nu(n-\hat\mu)U_\mu(n-\hat\mu)\\\nonumber
     + &U^\dagger_\mu(n-\hat\mu)U^\dagger_\nu(n-\hat\mu-\hat\nu)U_\mu(n-\hat\mu-\hat\nu)U_\nu(n-\hat\nu)\\\nonumber
-    - &U^\dagger_\nu(n-\hat\nu)U_\mu(n-\hat\nu)U_\nu(n+\hat\mu-\hat\nu)U^\dagger_\mu(n) \bigg]
+    - &U^\dagger_\nu(n-\hat\nu)U_\mu(n-\hat\nu)U_\nu(n+\hat\mu-\hat\nu)U^\dagger_\mu(n) \bigg].
 \end{align}
  
 
 \subsubsection{Topological Charge}
-The gauge fields in QCD exhibit particular topological properties that are believed to have important physical implications \cite{witten_current_1979}\cite{di_giacomo_topology_1997}. The topological charge is an integer quantum number of the field in the continuum, similar to the concept of winding-number. In general fields with different topological charge are separated, but there exist non-zero instanton modes \cite{schafer_instantons_1998} that allow tunneling between them.
-On the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \cite{alexandrou_comparison_2017}\cite{gross_qcd_1981}. 
+The gauge field in QCD exhibits particular topological properties that are believed to have important physical implications \cite{witten_current_1979,di_giacomo_topology_1997}. The topological charge is an integer quantum number of the field in the continuum, similar to the concept of winding-number. In general fields with different topological charge are separated, but there exist non-zero instanton modes \cite{schafer_instantons_1998} that allow tunneling between them.
+On the lattice certain definitions can be used to reproduce the continuum properties, especially for the so called ``topological susceptibility'', that is the second moment of the distribution of the topological charge, which seems to be independent from the definitions of the base observable \cite{alexandrou_comparison_2017,gross_qcd_1981}. 
 
 % \NOTE{CHECK...}
 % In the continuum topological sectors, regions of space with same charge, are separated from each other, on the lattice through discretization effects the behavior is different, with instantons that allow tunneling between sectors \cite{gross_qcd_1981}.\\ 
 
 
-The topological charge is the integral over all space-time of the topological charge density:
+The topological charge is the integral over all spacetime of the topological charge density
 \beq
     Q = \int d^4xq(x)
 \eeq
 where
 \beq 
-    q(x)=\frac{1}{64\pi^2}\Tr(G_{\mu\nu}\tilde G^{\mu\nu}) 
+    q(x)=\frac{1}{64\pi^2}\Tr(G_{\mu\nu}\tilde G^{\mu\nu}) .
 \eeq 
-with $\tilde G^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\rho\sigma} G^{\rho\sigma}$. This can be estimated on the lattice, in the simplest way, by using the same definition of the field strength tensor we used before for the energy density, the clover:
+Here with $\tilde G^{\mu\nu}$ the dual of the gauge field is intended and its definition is:
 \beq
-    Q[U]=\frac{1}{64\pi^2} \sum_{n\in\Lambda}\sum_{\mu<\nu}\epsilon^{\mu\nu\rho\sigma}\Tr[G_{\mu\nu}^{(clover)}(n)G_{\rho\sigma}^{(clover)}(n)]
+\tilde G^{\mu\nu} = \frac{1}{2}\epsilon^{\mu\nu\rho\sigma} G^{\rho\sigma},
+\eeq
+with $\epsilon^{\mu\nu\rho\sigma}$ being the anti-symmetric Levi-Civita symbol.\\
+The topological charge can be estimated on the lattice, in the simplest way, by using the same clover definition of the field strength tensor we used before for the energy density:
+\beq
+    Q[U]=\frac{1}{64\pi^2} \sum_{n\in\Lambda}\sum_{\mu<\nu}\epsilon^{\mu\nu\rho\sigma}\Tr[G_{\mu\nu}^{(clover)}(n)G_{\rho\sigma}^{(clover)}(n)].
 \eeq
 As the lattice spacing is reduced, approaching the continuum, the topological sectors get more and more separated, preventing tunneling between them. This makes the Markov chain used to generate the ensemble less efficient in terms of growing autocorrelation times, as will be shown in \cref{sec:testautocorr}.\\
 A derived quantity of great interest is the topological susceptibility $\chi$, that is proportional to the expectation value of the square of the topological charge:
 \beq
-    \chi = \frac{(\hbar c)^4}{a^4|\Lambda|}\langle Q^2 \rangle
+    \chi = \frac{(\hbar c)^4}{a^4|\Lambda|}\langle Q^2 \rangle.
 \eeq
-This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula \cite{witten_current_1979} to the mass of the $\eta'$ meson, the pseudo-scalar singlet.
+This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula \cite{witten_current_1979} to the mass of the $\eta'$ meson.
 
 \section{Modern Lattice QCD Calculations}
 \NOTE{motlo vaga...\\}
 The state of the art calculations in Lattice QCD involve improved fermion and gluon actions. For the gluon sector the improvements are based on finding linear combinations of gauge invariant loops, such as $2\times 1$, $2\times 2$ and $3\times 1$ rectangles to systematically remove the higher order in the right-hand side of \cref{plaq:expanded}. For fermions the improvements consist on actions that preserve certain symmetries more than others, like chiral fermion actions or staggered fermions.\\
 On the algorithm side, the currently most used method to generate gauge field configuration is the Hybrid Monte Carlo method, which combines stochastic sampling with hamiltonian dynamic updates in the  gauge field space. Other interesting algorithmic problems regard the calculation of fermion determinants, which typically involve very large sparse matrix diagonalization.\\
-A fundamental concept in Lattice calculations is to recover the continuum limit in a controlled manner at the end of the analysis. The error sources that come into play when discretizing space-time on a fixed lattice are:
+A fundamental concept in Lattice calculations is to recover the continuum limit in a controlled manner at the end of the analysis. The error sources that come into play when discretizing spacetime on a fixed lattice are:
 \begin{itemize}
     \item Finite Volume Effects: caused by the non infinite domain of the simulation. Usually periodic boundary conditions are implemented to simulate infinite space, but one should always check if the total lattice volume is large enough, especially when dealing with large systems such as multiple baryons.
     \item State Isolation and Signal to Noise: when computing correlators between two points on the lattice it is possible to extract energy  states of hadrons by looking at the exponential decay of the correlator in euclidean time. However this problem is largely affect by random noise making it hard to extract even the ground state most of the times; excited states are rarely considered.
