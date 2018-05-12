@@ -295,7 +295,7 @@ Now that all the needed information about the action and the fields is set, main
 
 \section{Path Integrals on the Lattice}
 \label{sec:pathintegral}
-To express expectation values and correlators on the lattice, path integral formalism is used. The partition function, as we have seen earlier, is the path integral of the fields over the whole space of the action. For the case of QCD the fields are $U$, $\psi$ and $\bpsi$:
+To express expectation values and correlators on the lattice we employ the path integral formalism. The partition function, as we have seen earlier, is the path integral of the fields over the whole space of the action. For the case of QCD the fields are $U$, $\psi$ and $\bpsi$:
 \beq
 	Z = \int \D\psi\D\bpsi\D U e^{-S[\psi,\bar{\psi},U] }  ,
 \eeq
@@ -346,6 +346,7 @@ Computing full QCD on the lattice is computationally expensive, mainly due to th
 The properties of this theory, that is then reduced to a simple Yang-Mills theory with zero fermion flavors, are still interesting to study and have historically played a very important role, being the only accessible simulation until sufficient computing power became available. For example, from \cref{beta:qcd} one can see that the theory presents confinement and asymptotic freedom. 
 
 \subsection{Observables}
+\label{sec:observables}
 On the lattice, given the transformation \cref{link_transformation}, any product of link variables that starts and end at the same site, a closed loop, is gauge invariant. The average values of these objects over the whole lattice can be linked to physical observables, for example the field tensor. In a more general form any observable $L[U]$ of the type:
 \beq
     L[U] = \Tr \left[ \prod_{(n,\mu)\in\mathcal{P}} U_\mu(n)\right],
@@ -455,6 +456,7 @@ As the lattice spacing is reduced, approaching the continuum, the topological se
 A derived quantity of great interest is the topological susceptibility $\chi$, that is proportional to the expectation value of the square of the topological charge:
 \beq
     \chi = \frac{(\hbar c)^4}{a^4|\Lambda|}\langle Q^2 \rangle.
+    \label{eq:topsus}
 \eeq
 This observable is particularly important for the properties of instantons on the lattice and its value can be related via the Witten-Veneziano formula \cite{witten_current_1979} to the mass of the $\eta'$ meson.
 

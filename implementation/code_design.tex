@@ -216,6 +216,7 @@ An intuitive pictorial representation is given in \cref{fig:staples}.
 
 
 \subsection{Updates Strategies}
+\label{sec:update}
 There is now some arbitrariness in what is defined as a Monte Carlo update, or cycle. In this work we call an update the procedure outlined in \cref{metropolis:update}. 
 
 \begin{algorithm}[bht!]
@@ -257,7 +258,8 @@ Note that the communication is relevant only for the computation of the staples,
 In total the algorithm we presented for generating pure gauge field configurations (using only the Wilson gluonic action) has four parameters as inputs. Of these, only one defines the physics of the system, the others have to be set and optimized in order to improve the acceptance ratio of the metropolis algorithm and the autocorrelation of the observables computed on the generated configurations. A summary is reported in \cref{MC:params}
  
 \begin{table}[!htb]
-    \capt{Parameters for the Monte Carlo generation of Yang-Mills gauge field configurations via the Metropolis Algorithm}
+    \captionsetup{justification=centering}
+    \capt{Parameters for the Monte Carlo generation of Yang-Mills gauge field \\configurations via the Metropolis Algorithm}
     \begin{center}
 \begin{tabular}{cl}
     Parameter & Description\\\hline
@@ -377,6 +379,8 @@ As it has been done for the gauge field configuration generation algorithm, in \
 
 \begin{table}[!htb]
 \begin{center}
+    \captionsetup{justification=centering}
+    \capt{Parameters for the numerical integration of the gradient flow equations \\on Yang-Mills gauge field configurations.} 
 \begin{tabular}{cl}
     Parameter & Description\\\hline
     $\beta$ & Coupling parameter of the Wilson Action, fixed by the input configuration\\
@@ -384,9 +388,8 @@ As it has been done for the gauge field configuration generation algorithm, in \
     $t_f^{MAX}$ & Maximum value of the flow time reached for every configuration. 
 \end{tabular}
 \label{FLOW:params}
-\capt{Parameters for the numerical integration of the gradient flow equations on Yang-Mills gauge field configurations.}
 \end{center}
-\end{table}
+\end{table} 
 
 
 \section{Structure and Tools}
