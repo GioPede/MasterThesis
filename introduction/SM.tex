@@ -11,7 +11,6 @@
         nosep/.style = { inner sep=0pt },
    generation/.style = { anchor=base }
 }
-
 \newcommand\particle[7][white]{%
   \begin{tikzpicture}[x=1cm, y=1cm]
     \path[fill=#1,blur shadow={shadow blur steps=5}] (0.1,0) -- (0.9,0)
@@ -34,7 +33,6 @@
     \ifstrempty{#2}{}{\node at(0.1,-0.5)  [nosep,anchor=west,scale=1.1] {#2};}
   \end{tikzpicture}
 }
-
 \begin{figure}[!hbt]
 \centering
 \begin{tikzpicture}[x=1.2cm, y=1.2cm,scale=1.2, every node/.style={scale=1.38}]

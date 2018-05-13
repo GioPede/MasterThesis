@@ -3,24 +3,25 @@ The SM describes quantized fields defined on all space-time whose excitations ar
 \begin{center}
 \input{introduction/SM}  
 \end{center}
+\vspace{-2cm}
 From a group theory point of view, the SM is the composition of three different local gauge symmetry groups, each associated with a fundamental force:
 \beq
-    SU(3)_C \times \underbrace{SU(2)_L \times U(1)_Y}_{broken~to~~ SU(2)_W \times U(1)_{Q}}.
+    \mathrm{SU}(3)_C \times \underbrace{\mathrm{SU}(2)_L \times\mathrm{U}(1)_Y}_{broken~to~~ \mathrm{SU}(2)_W \times \mathrm{U}(1)_{Q}}.
 \eeq
-The $U(1)_{Q}$ symmetry group is associated with the electromagnetic interaction and $SU(2)_{W}$ is the weak interaction. They both derive from the symmetry $SU(2)_L \times U(1)_{Y}$, which is spontaneously broken through the Higgs Mechanism, . \\ 
-Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory, contained in the SM, that describes the behavior of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on an $SU(3)$ symmetry group. The associated quantum number is called ``color charge'' which pictorially can assume the values of \textit{red} ($r$), \textit{green} ($g$), \textit{blue} ($b$), \textit{anti-red} ($\bar r$), \textit{anti-green} ($\bar g$) or \textit{anti-blue} ($\bar b$). In this chapter, we will discuss the QCD Lagrangian density, its properties and some of the major results of the theory. Some intermediate knowledge of Quantum Field Theory is assumed, derivations and proofs mainly follow the reasoning found in \cite{peskin}.  
+The $\mathrm{U}(1)_{Q}$ symmetry group is associated with the electromagnetic interaction and $\mathrm{SU}(2)_{W}$ is the weak interaction. They both derive from the symmetry $\mathrm{SU}(2)_L \times \mathrm{U}(1)_{Y}$, which is spontaneously broken through the Higgs Mechanism, . \\ 
+Quantum Chromodynamics, commonly referred to as QCD, is the quantum field theory, contained in the SM, that describes the behavior of strongly interacting matter, that is quarks and gluons. It is a non-abelian gauge theory based on an $\mathrm{SU}(3)$ symmetry group. The associated quantum number is called ``color charge'' which pictorially can assume the values of \textit{red} ($r$), \textit{green} ($g$), \textit{blue} ($b$), \textit{anti-red} ($\bar r$), \textit{anti-green} ($\bar g$) or \textit{anti-blue} ($\bar b$). In this chapter, we will discuss the QCD Lagrangian density, its properties and some of the major results of the theory. Some intermediate knowledge of Quantum Field Theory is assumed, derivations and proofs mainly follow the reasoning found in \cite{peskin}.  
 
 \section{The QCD Lagrangian} 
-In Quantum Field Theory (QFT) the characterizing equation of a theory is its \text{Lagrangian density} because it contains all the information about the fields that are involved, their properties and most importantly, their interactions. QCD is a non-abelian gauge theory based on the $SU(3)$ local gauge symmetry group. The simplest Lagrangian is the Yang-Mills Lagrangian:
+In Quantum Field Theory (QFT) the characterizing equation of a theory is its \text{Lagrangian density} because it contains all the information about the fields that are involved, their properties and most importantly, their interactions. QCD is a non-abelian gauge theory based on the $\mathrm{SU}(3)$ local gauge symmetry group. The simplest Lagrangian is the Yang-Mills Lagrangian:
 \beq
-  \Lagr_{QCD} = + \sum_{f=1}^{N_f}\bpsi_f(i\gamma^\mu D_\mu - m_f)\psi_f -\frac{1}{4}(G_{\mu\nu}^a)^2.
+  \Lagr_{QCD} = \sum_{f=1}^{N_f}\bpsi_f(i\gamma^\mu D_\mu - m_f)\psi_f -\frac{1}{4}(G_{\mu\nu}^a)^2.
   \label{lagr:qcd}
 \eeq 
-Here $\psi_f$ and $\bpsi$ represent the complex-valued fermion fields of flavor $f$, with mass $m_f$. These are associated with the quark fields and come in six flavors: $u$ (up), $d$ (down), $s$ (strange), $c$ (charm), $b$ (bottom) and $t$ (top).  The second element in the Lagrangian is the Gluon Field Strength Tensor, $G_{\mu\nu}^a$. The two indices $\mu$ and $\nu$ are Lorentz and $\gamma^\mu$ are Dirac's matrices. The index $a$ is referred to the generators of the gauge group, $SU(3)$ in this case. Note that Einstein's summing convention on repeated indices is implicit, for example when taking the square of the field strength tensor three sums are applied. The definition of $G_{\mu\nu}^a$ is:
+Here $\psi_f$ and $\bpsi_f$ represent the complex-valued fermion fields of flavor $f$, with mass $m_f$. These are associated with the quark fields and come in six flavors: $u$ (up), $d$ (down), $s$ (strange), $c$ (charm), $b$ (bottom) and $t$ (top).  The second element in the Lagrangian is the Gluon Field Strength Tensor, $G_{\mu\nu}^a$. The symbols $\mu$ and $\nu$ are Lorentz indices while $a$ refers to the indices of the generators of the gauge group, $\mathrm{SU}(3)$ in this case. The Dirac's matrices $\gamma^\mu$ are also introduced. Note that Einstein's summing convention on repeated indices is implicit, for example when taking the square of the field strength tensor three sums are applied. The definition of $G_{\mu\nu}^a$ is:
 \beq
   G_{\mu\nu}^a = \frac{i}{g_0} [D_\mu,D_\nu] =  \partial_\mu A_\nu^a - \partial_\nu A_\mu^a + g_0f^{abc}A_\mu^b A_\nu^c .
 \eeq
-In this equation $A_\mu^a $ is the gluon field that carries a Lorentz index and a group generator index, $g_0$ is the bare coupling constant of the strong interaction and the $f^{abc}$ are the structure constants of $SU(3)$, which satisfy: 
+In this equation $A_\mu^a $ is the gluon field that carries a Lorentz index and a group generator index, $g_0$ is the bare coupling constant of the strong interaction and the $f^{abc}$ are the structure constants of $\mathrm{SU}(3)$, which satisfy: 
 \beq
   [t^a, t^b] = if^{abc}t^c
 \eeq
@@ -44,7 +45,7 @@ To begin with, we need to write out all of the terms of the Lagrangian density i
     &~~~-\frac{1}{4}g_0^2f^{abc}f^{ade}A_\mu^bA_\nu^cA^{d\mu}A^{e\nu}  \\\nonumber
     &~~~+g_0\gamma^\mu t^a A_\mu^a \bpsi\psi. \\\nonumber
 \end{align}
-It is convention to represent the terms of the Lagrangian in a pictorial way, using what are called Feynmann diagrams. In the usual representation, fermions are drawn by a solid arrow, the orientation is set based on it being a particle field $\psi$ or an anti-particle field $\bpsi$. Gluons are drawn as springs and present no orientation. The terms in the Lagrangian that contain only two fields (the first two in \cref{lagr:expanded}) define the propagators, as they connect two points in space. All the other terms represent vertices of interaction between the fields.
+It is convention to represent the terms of the Lagrangian in a pictorial way, using what are called Feynmann diagrams. In the usual notation, fermions are drawn by a solid arrow, whose orientation is set based on whether it represents a particle field $\psi$ or an anti-particle field $\bpsi$. Gluons are drawn as springs and present no orientation. The terms in the Lagrangian that contain only two fields (the first two in \cref{lagr:expanded}) define the propagators, as they connect two points in space. All the other terms represent vertices of interaction between the fields.
 The first thing to do is to define the quark and gluon propagators, which can be obtained from the first and second terms respectively of the last equality:
 
 \begin{minipage}{0.4\textwidth}
@@ -69,7 +70,7 @@ The first thing to do is to define the quark and gluon propagators, which can be
         \beq \nonumber = ~~~-\frac{i}{k^2+i\epsilon}\delta_{ab}g^{\mu\nu} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\eeq
 \end{minipage}
 
-with $g^{\mu\nu}$ being the metric tensor of Minkovskian space-time. The arrow above the fields define the momentum direction. In the fermion propagator the indices $i,j$ stand for the color. In the gluon propagator $a$ and $b$ represent the indices for the generators of the $\mathfrak{su}(3)$ algebra while $\mu,\nu$ are Lorentz indices. \\
+with $g^{\mu\nu}$ being the metric tensor of Minkovskian space-time. The arrow above the fields define the momentum $k$ direction. In the fermion propagator the indices $i,j$ stand for the color. In the gluon propagator $a$ and $b$ represent the indices for the generators of the $\mathfrak{su}(3)$ algebra while $\mu,\nu$ are Lorentz indices. For propagators these pairs of indices must all match between the start and end point, this explains the introduction of the two Kronecker deltas $\delta_{i,j}$ and $\delta_{a,b}$.\\
 The last three terms in \cref{lagr:expanded} represent the interaction vertices of QCD. In paricular the third term is a three gluon vertex:
 \begin{center}
 \begin{minipage}{0.4\textwidth}
@@ -132,7 +133,7 @@ The concept of gauge invariance is crucial in the construction of a discretized 
     \psi_g(x)\\
 \end{pmatrix}.
 \eeq 
-A local gauge transformation in the internal space of $SU(3)$ is a unitary transformation of this three-component vector, or in simpler terms: a rotation in color space. Defining $\Omega(x)$ one such local transformation applied to $\psi(x)$ one has:
+A local gauge transformation in the internal space of $\mathrm{SU}(3)$ is a unitary transformation of this three-component vector, or in simpler terms: a rotation in color space. Defining $\Omega(x)$ one such local transformation applied to $\psi(x)$ one has:
 \beq
     \psi(x) \rightarrow \psi'(x) = \Omega(x)\psi(x),
 \eeq
@@ -142,22 +143,23 @@ and for the Dirac adjoint:
 \eeq
 The transformation can be parametrized in terms of some functions $\alpha^a(x)$, one for each generator of the group:
 \beq
-    \Omega(x) = \exp[i\alpha^a(x)t^a]
+    \Omega(x) = \exp[i\alpha^a(x)t^a].
+    \label{eq:omega}
 \eeq
 This internal space rotation if applied to the simple Dirac free-field Lagrangian would generate an additional term:
 \begin{align} \label{lagr:dirac}
-\Lagr_{Dirac} =\bpsi(i\gamma^\mu\partial_\mu - m)\psi ~\rightarrow~ \Lagr'_{Dirac} &= \bpsi \Omega^\dagger(i\gamma^\mu\partial_\mu - m)(\Omega\psi) \\\nonumber &= \bpsi'(i\gamma^\mu\partial_\mu - m)\psi' + i\bpsi'\gamma^\mu\psi (\partial_\mu \Omega)  
+\Lagr_{Dirac} =\bpsi(i\gamma^\mu\partial_\mu - m)\psi ~\rightarrow~ \Lagr'_{Dirac} &= \bpsi \Omega^\dagger(i\gamma^\mu\partial_\mu - m)(\Omega\psi) \\\nonumber &= \bpsi'(i\gamma^\mu\partial_\mu - m)\psi' + i\bpsi'\gamma^\mu\psi (\partial_\mu \Omega)  .
 \end{align} 
 The extra term implies that the Dirac Lagrangian is not gauge invariant. In order to fix this problem a new field $A_\mu(x)$, the gauge field, is introduced. It is convention to include it into the definition of the covariant derivative, so that $\partial_\mu$ becomes $D_\mu = \partial_\mu - ig_0A_\mu(x)$, as previously stated. In geometrical terms, $D_\mu$ represents the derivative along the tangent vectors of the manifold on which the field is defined. The field $A_\mu(x)$ is algebra-valued and, to be consistent with the previous section one needs to project it on a basis of generators of the group: $A_\mu(x) = A^a_\mu(x)t^a$ (remember the implicit sum).\\ 
-The transformation rule for $A_\mu(x)$ is set in order to cancel the extra term in \cref{lagr:dirac} exactly, such that: 
+The transformation rule for $A_\mu(x)$ is set in order to cancel the extra term in \cref{lagr:dirac} exactly. We impose: 
 \beq
-    D_\mu\psi \rightarrow   (D_\mu\psi)'= (\partial_\mu - ig_0A'_\mu(x))\psi' = \Omega(D_\mu\psi),
+    D_\mu\psi(x) \rightarrow   (D_\mu\psi(x))'= (\partial_\mu - ig_0A'_\mu(x))\Omega(x) \psi(x)  = \Omega(x) (D_\mu\psi(x) ),
 \eeq
 which fixes the transformation for $A_\mu(x)$ to:
 \beq
-    A_\mu(x) \rightarrow A'_\mu(x) = \Omega\left[ A_\mu(x) + \frac{i}{g_0} \Omega^\dagger\partial_\mu \Omega \right] \Omega^\dagger.
+    A_\mu(x) \rightarrow A'_\mu(x) = \Omega(x) \left[ A_\mu(x) + \frac{i}{g_0} \partial_\mu \right] \Omega^\dagger(x) .
 \eeq
-We can see that the last term contributes effectively to the Lagrangian as $-i\bpsi'\gamma^\mu\psi (\partial_\mu \Omega)$, which is what we wanted to cancel. For an infinitesimal transformation we can expand the matrix $\Omega$ in powers of $\alpha$ as $ \Omega(x) = \exp[i\alpha^a(x)t^a] \approx 1 + i\alpha^a(x)t^a$ and get the following for the gauge field transformation, for a single component:
+Computing the derivative acting on $\Omega^\dagger$ is not trivial, as the matrices in the exponent of \cref{eq:omega} do not necessarily commute. For an infinitesimal transformation we can expand the matrix $\Omega$ in powers of $\alpha$ as $ \Omega(x) = \exp[i\alpha^a(x)t^a] \approx 1 + i\alpha^a(x)t^a$ and get the following for the gauge field transformation, for a single component:
 \beq
 A^a_\mu(x) \rightarrow A'^a_\mu(x) = A_\mu^a(x) + \frac{i}{g_0}\partial_\mu\alpha^a(x) + f^{abc}A_\mu^b(x)\alpha^c(x)
 \eeq
@@ -176,12 +178,12 @@ Quantum Chromodynamics exhibits a set of features as a theory that is common to 
 
 \subsection{Running Coupling} 
 \label{sec:running_coupling}
-The Renormalization Group Equation (RGE) defines the rate at which the renormalized coupling $g$ varies as the renormalization scale of  $\mu$ changes, through the beta function of the coupling constant, $\beta(g)$, defined as:
+The Renormalization Group Equation (RGE) defines the rate at which the renormalized coupling $g$ varies as the renormalization scale $\mu$ changes, through the beta function of the coupling constant, $\beta(g)$, defined as:
 \beq
     \beta(g) = \frac{d}{d\log(\mu)}g(\mu),
     \label{beta:log}
 \eeq 
-For a generic non-abelian theory $SU(N)$ one can expand the $\beta$ function in orders of $g$ as:
+For a generic non-abelian theory $\mathrm{SU}(N)$ one can expand the $\beta$ function in orders of $g$ as:
 \beq
     \beta(g) = b_0g^3 + b_1g^5 + b_2g^7 + \dots   
 \eeq
@@ -190,13 +192,14 @@ One can then integrate up to arbitrary order \cref{beta:log} and get an expressi
     b_0 = - \frac{1}{(4\pi)^2} \left( \frac{11}{3}N - \frac{2}{3}N_f \right).
     \label{beta:qcd}
 \eeq
-Here $N$ is the gauge group $SU(N)$ dimension and $N_f$ the number of flavors of the fermions. The minus sign in front implies that any non-abelian theory with a sufficiently small number of fermions, less than $\frac{11}{2}N$ (that is 16 for QCD),  is ``asymptotically free'', meaning that at high energy the coupling vanishes and particles don't feel any interaction.\\
-The RGE is usually expressed in terms of the analog of the fine structure-constant for the strong force, $\alpha_s = g^2/4\pi$. The first order solution is given by plugging \cref{beta:qcd} into \cref{beta:log} and integrating. In terms of $\alpha_s$ at a scale $\mu$ we get: 
+Here $N$ is the dimension of the gauge group $\mathrm{SU}(N)$  and $N_f$ the number of flavors of the fermions. The minus sign in front implies that any non-abelian theory with a sufficiently small number of fermions, less than $\frac{11}{2}N$ (that is $\leq 16$ for QCD),  is ``asymptotically free'', meaning that at high energy the coupling vanishes and particles don't feel any interaction.\\
+The RGE is usually expressed in terms of the analog of the fine structure-constant for the strong force, $\alpha_s = g^2/4\pi$. The first order solution is given by plugging \cref{beta:qcd} into \cref{beta:log} and integrating. In terms of $\alpha_s$ at a momentum scale $\mu$ we get: 
 \beq
     \alpha_s(\mu) = \frac{\alpha_s^0}{1 + \frac{b_0\alpha_s^0}{4\pi}\log(\mu^2/M^2)},
     \label{alpha:M}
 \eeq  
-here $\alpha_s^0$ is the value of the coupling at an energy $M$, which is set by the integration. The typical choice for $M$ when measuring the running coupling is the mass of the $Z$ boson, an experimentally very well known value. This mass is sufficiently large energy scale for perturbation theory to be applied safely to QCD. The coupling depends on the arbitrarily chosen renormalization point $M$, a convenient choice is then to rewrite the equation defining a momentum scale $\Lambda$ that satisfies:
+here $\alpha_s^0$ is the value of the coupling at an energy $M$, which is set by the integration. The typical choice for $\mu$ when measuring the running coupling is the mass of the $Z$ boson, an experimentally very well known value. This mass a is sufficiently large energy scale for perturbation theory to be applied safely to QCD. \\
+The coupling depends on the arbitrarily chosen renormalization point $M$, a convenient choice is then to rewrite the equation defining a scale $\Lambda$ that satisfies:
 \beq
     1 = \frac{b_0\alpha_s^0}{4\pi}\log(M^2/\Lambda^2) .
 \eeq  
@@ -205,11 +208,11 @@ This simplifies \cref{alpha:M} to its well-known form, correct up to one loop co
     \alpha_s(\mu) = \frac{4\pi}{b_0\log(\mu^2/\Lambda^2)}.
     \label{alpha:1loop} 
 \eeq
-In \cref{fig:running} a higher order approximation of $\alpha_s(\mu)$ is plotted against some selected experimental values. 
+In \cref{fig:running} a higher order approximation of $\alpha_s(\mu)$ is plotted against some selected experimental values.  
 \fig[1.15]{introduction/running-coupling.png}{The strong coupling as a function of the energy scale, The data points are experimental results; the black solid line and yellow bands represent the QCD prediction using the reported value of the coupling at the mass of the $Z$ boson ($\alpha_s^0$ in our notation). Image taken from \cite{coupling-Chaudhuri} }{fig:running}
 
-In \cref{sec:4loop} we will show a more precise result, correct up to 4 loop corrections, of this result. The momentum scale, often referred to as $\Lambda_{QCD}$, is the energy at which the interactions become strong. Experimental values \cite{dissertori_9._2016} suggest that $\Lambda_{QCD} \approx 200-300$ MeV, meaning that perturbation theory can be applied from momenta roughly above the $1$ GeV scale, where $\alpha_s\approx 0.4$. \\
-One of the main goals of this thesis is to find a simple and not numerically expensive way to estimate the mass scale parameter $\Lambda$ from lattice calculations. In this work on pure Yang-Mills theory, the case of no fermion flavors, and in prospect for QCD with $2$ or $2+1$ dynamical fermions. 
+In \cref{sec:4loop} we will show a more precise result, correct up to four-loop corrections, for the running coupling $\alpha_s{\mu}$. The scale, often referred to as $\Lambda_{QCD}$, is the energy at which the interactions become strong and perturbation theory becomes invalid. We can see that for $\mu$ approacging the value of $\Lambda$ \cref{alpha:1loop} diverges. Experimental values \cite{dissertori_9._2016} suggest that $\Lambda_{QCD} \approx 200-300$ MeV, meaning that perturbation theory can be applied from momenta roughly above the $1$ GeV scale, where $\alpha_s\approx 0.4$. \\
+One of the main goals of this thesis is to find a simple and not numerically expensive way to estimate the scale parameter $\Lambda$ from lattice calculations. In this work the scale of pure Yang-Mills theory, which we denote as $\Lambda_{YM}$ is studied. This is the case of no fermion flavors, but in future work the determination of $\Lambda{QCD}$ with $2$ or $2+1$ dynamical fermions will also be studied. 
 
 \subsubsection{Asymptotic Freedom}
 Equation (\ref{alpha:1loop}) is a clear indication that QCD at high energies has a small coupling. Asymptotic freedom is the property of gauge theories, QCD is usually the example of it, that causes the interactions between the fields to become weaker as the energy scale increases, this is because of the inverse log dependence of the coupling on the energy. Grand Unification Theories (GUT), for example, are based on the fact that there exists an energy scale at which the strong force has a coupling equivalent to the one of the electroweak interaction.  \\
@@ -217,38 +220,38 @@ The discovery of asymptotic freedom by Gross, Wilczek and Politzer \cite{Gross-W
 Asymptotically free theories can be analyzed perturbatively at sufficiently large energies and are believed to be consistent up to any energy scale.
 
 \subsubsection{Confinement}
-In general, color charged particles cannot be isolated, so that quarks and gluons are not detectable alone, but always in the form of hadrons: colorless objects formed of multiple quarks, mesons (quark-antiquark) and baryons (three quarks or three anti-quarks). Glueballs, combinations of gluons such that the total is colorless, are also in principle allowed, but have not been observed yet. Confinement is the phenomenon for which it is not possible to isolate a color charge, single quarks or gluons, from a hadron without producing other new hadrons. Single colored particles at a very small time scale undergo hadronization, the process of spawning new quarks or anti-quarks from the vacuum to balance the total color charge and produce colorless matter. This is the reason for the fundamentally different nature of the strong force compared to the other forces, no perturbative expansion can be made at low energies. The exact proof of how this links with the color confinement of QCD is yet not known, but qualitatively it can be explained by the fact that the gauge bosons of the theory, the gluons, carry color charge just like the quarks. \\
-At low energy scales from \cref{alpha:1loop} we can infer that the coupling constant increases exponentially, so particles that have energies comparable to the energy scale $\Lambda_{QCD}$ interact very strongly with the gauge field and any other particle. This implies, for example, that the force between two particles does not vanish for long distances, but instead it increases. The usual picture is to consider the gluons being exchanged by two quarks at rest. These gluons would form flux-tubes between the sources that, if stretched by separating the quarks, eventually store enough energy to make a quark-anti-quark pair energetically favorable, as illustrated in the following figure. 
+In general, color charged particles cannot be isolated, so that quarks and gluons are not detectable alone, but always in the form of hadrons: colorless objects formed of multiple quarks. Hadrons can be of two types: mesons (quark-antiquark) and baryons (three quarks or three anti-quarks). Glueballs, combinations of gluons such that the total is colorless, are also in principle allowed, but have not been observed yet. Confinement is the phenomenon for which it is not possible to isolate a color charge, single quarks or gluons, from a hadron without producing other new hadrons. Single colored particles within very small time scales undergo hadronization, the process of spawning new quarks or anti-quarks from the vacuum to balance the total color charge and produce colorless matter. This is the reason for the fundamentally different nature of the strong force compared to the other forces, no perturbative expansion can be made at low energies. The exact proof of how confinement is introduced in non-abelian gauge theories like QCD is yet not known. Qualitatively, however, it can be explained by the fact that the gauge bosons of the theory, the gluons, carry color charge just like the matter fields, the quarks. \\
+At low energies from \cref{alpha:1loop} we can infer that the coupling constant increases exponentially, so particles that have momenta comparable to the scale $\Lambda_{QCD}$ interact very strongly with the gauge field and any other particle. This implies, for example, that the force between two particles does not vanish for long distances, but instead it increases. The usual picture is to consider the gluons being exchanged by two quarks at rest. These gluons would form flux-tubes between the sources that, if stretched by separating the quarks, eventually store enough energy to make a quark-anti-quark pair energetically favorable, as illustrated in the following figure. 
 \fig[0.1]{introduction/confinement.jpg}{Representation of confinement using flux-tubes . As two color sources are pulled apart, the energy stored in the color field between the sources increases so much that a $q\bar q$ pair is formed from the vacuum energy.}{intro:flux-tubes}
 
-One could also look at the inverse of the energy scale, which is a distance in natural units, of roughly $\Lambda_{QCD}^{-1} \approx 1 fm$, that is approximately the size of light hadrons, a further proof that quark sources cannot be torn apart easily.\\
-The strong low-energy interaction is the cause for the large discrepancy between the mass of the baryons and the mass of their constituent quarks. For the proton for example, the quark masses (two up-quarks and one down-quark) give a total of 10 MeV, while the mass of the proton is 938 MeV. This means that the $99\%$ of the mass of the proton is given by the quark and gluon binding energy.
+One could also look at the inverse of the energy scale, which is a distance in natural units, of roughly $\Lambda_{QCD}^{-1} \approx 1 $ fm, that is approximately the size of light hadrons, a further proof that quark sources cannot be torn apart easily.\\
+The strong low-energy interaction is the cause for the large discrepancy between the mass of the baryons and the mass of their constituent quarks. Considering a proton for example, its constituent quark (two up-quarks and one down-quark) have masses that sum up to $10$ MeV. However, the total mass of the proton is $938$ MeV, this means that the $99\%$ of its mass is given by the binding energy of quarks and gluons.
 
 \section{Methods and Regimes of Chromodynamics}
 Given the very different behaviors of the strong force at different energy scales, QCD needs to be dealt with in various ways depending on the scale of interest. At high energies, perturbation theory can be applied safely, but at low ones no expansion in the coupling constant can be made. 
 
 \subsubsection{Perturbative QCD}
 At high energies, like the scale of the large particle accelerators that are currently available, the QCD coupling constant is sufficiently small to allow analytical calculations of Feynman diagrams to be meaningful. Hadronization is neglected as the time scale is small enough to consider it a post-collision process. 
-For example, at a scale where the strong force is comparable to the electroweak interaction, the cross section of $e^+e^-\rightarrow \textit{hadrons}$ compared to that of $e^+e^-\rightarrow \mu^+\mu^-$ can be used to measure the number of quark flavors that are active below that energy. In \cref{fig:ee_hadrons} the perturbative QCD (pQCD) ratio of the hadronic to muonic cross section for the electron-positron annihilation is shown compared to experimental data.
+For example, at a scale where the strong force is comparable to the electroweak interaction, the cross section of $e^+e^-\rightarrow \textit{hadrons}$ compared to that of $e^+e^-\rightarrow \mu^+\mu^-$ can be used to measure the number of quark flavors that are active below a certain energy. In \cref{fig:ee_hadrons} the perturbative QCD (pQCD) ratio of the hadronic to muonic cross section for the electron-positron annihilation is shown compared to experimental data. A step is visible around $3-4$ GeV and it is caused by the triggering of the bottom quark sector in the process. 
 \fig[0.8]{introduction/e+e-tohadrons.pdf}{Ratio of the experimental cross section of $e^+e^-\rightarrow \text{hadrons}$ and $e^+e^-\rightarrow \mu^+\mu^-$ as collected by the Particle Data Group \cite{_c._????}. Naive quark model is the dashed green line and pQCD results are also shown as a solid red line. pQCD appears to agree well to experiment in non resonant regions of the energy spectrum. }{fig:ee_hadrons}
 
 
 \subsubsection{Lattice Methods} 
-To deal with the non-perturbative sector of the strong interaction the most widespread approach is to use numerical simulations, in particular, lattice methods, it is common to refer to it as Lattice QCD. The main idea, which will be expressed more in detail in Chapter \ref{chap:lattice_intro}, is to discretize spacetime and evaluate the field only at fixed sites on a hyper-cubic lattice. Physical quantities are then computed stochastically on ensembles of such gauge fields. This approach, however, is very expensive from a computational point of view and so far no calculation at physical quark masses with a sufficiently small lattice spacing, in principle closer to the continuum theory, have been performed.
+To deal with the non-perturbative sector of the strong interaction the most widespread approach is to use numerical simulations, in particular, lattice methods, it is common to refer to it as Lattice QCD. The main idea, which will be expressed more in detail in Chapter \ref{chap:lattice_intro}, is to discretize spacetime and evaluate the quantum field only at fixed sites on a hyper-cubic lattice. Physical quantities are then computed stochastically on ensembles of such gauge fields. This approach, however, is very expensive from a computational point of view and so far no calculation at physical quark masses with a sufficiently small lattice spacing, in principle closer to the continuum theory, have been performed.
 
 \subsubsection{Effective Field Theories}
 An interesting problem is to link QCD directly with nuclear forces, that are long-range remnants of the strong interaction at a hadron level. The problem is of high interest because there is yet no fundamental theory of nuclear interactions from first principles. The most common approach is to define an Effective Field Theory (EFT), starting from a low energy approximation of chromodynamics, that preserves most of the symmetries of the underlying theory. \\
-Chiral EFT ($\chi EFT$) is one of the most popular of such theories; it starts from considering nucleons as a fundamental $SU(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective Lagrangian, with nucleons as the fermion fields and pions as Nambu-Goldstone bosons \cite{nambu_dynamical_????} of the theory. Its Lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons:
+Chiral EFT ($\chi EFT$) is one of the most popular of such theories; it starts from considering nucleons as a fundamental $\mathrm{SU}(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective Lagrangian, with nucleons as the fermion fields and pions as Nambu-Goldstone bosons \cite{nambu_dynamical_????} of the theory. Its Lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons \cite{epelbaum_nuclear_2010}:
 \beq
     \Lagr_{\chi EFT} = \Lagr_{\pi\pi} +  \Lagr_{\pi N} + \Lagr_{NN} + ~\text{(three hadron terms)} ~+\dots
 \eeq 
-where $\Lagr_{\pi\pi}$ is the term describing the dynamics between pions, $\Lagr_{NN}$ represents the term for interactions between two nucleons ans $\Lagr_{\pi N}$ the one between one pion and one nucleon and so on. Each term is further expanded in powers of $Q/\Lambda_\chi$ where $Q$ is the pion momentum and $\Lambda_\chi$ is the energy scale at which the theory breaks down because of the pions acquiring an energy comparable to the mass of the nucleons. One constructs order by order all possible terms:
+where $\Lagr_{\pi\pi}$ is the term describing the dynamics between pions, $\Lagr_{NN}$ represents the term for interactions between two nucleons ans $\Lagr_{\pi N}$ the one between one pion and one nucleon and so on. Each term is further expanded in powers of $Q/\Lambda_\chi$ where $Q$ is the pion momentum and $\Lambda_\chi$ is the energy scale at which the theory breaks down because of the pions having an energies comparable to the mass of the nucleons. One constructs order by order all possible terms:
 \begin{align}
     \Lagr_{NN} &= \Lagr_{NN}^{(0)} + ~~~~~~~~~~  \Lagr_{NN}^{(2)} + ~~~~~~~~~  \Lagr_{NN}^{(4)} + \dots\\\nonumber
     \Lagr_{\pi N} &= ~~~~~~~~~~~ \Lagr_{\pi N}^{(1)} + \Lagr_{\pi N}^{(2)} ~+  \Lagr_{\pi N}^{(3)} + \Lagr_{\pi N}^{(4)} + \dots  \\\nonumber
     \Lagr_{\pi \pi} &= ~~~~~~~~~~~~~~~~~~~~~ \Lagr_{\pi \pi}^{(2)} +  ~~~~~~~~~~  \Lagr_{\pi \pi}^{(4)} + \dots  \\\nonumber
 \end{align} 
 one then computes all possible diagrams order by order and truncates the expansion when needed. This is mostly useful for computing reduced matrix elements for nuclear many-body calculations \cite{hagen_coupled-cluster_2014}. 
-\fig[0.5]{introduction/chiralEFT.png}{Diagrams of the leading order terms in $\chi EFT$ \cite{bogner_low-momentum_2010}, organized by truncation error. The solid lines represent nucleons, dashed lines are for pions. Different types of vertices are shown with different symbols. }{fig:chiralEFT}
+\fig[0.8]{introduction/chiralEFT.pdf}{Diagrams of the leading order terms in $\chi EFT$ \cite{epelbaum_nuclear_2010}, organized by truncation error. The solid lines represent nucleons, dashed lines are for pions. Different types of vertices are shown with different symbols. }{fig:chiralEFT}
 
-One interesting remark, as seen in \cref{fig:chiralEFT} is that the approach of $\chi EFT$ spontaneously generates interaction matrix elements for three or more nucleons. 
+One interesting remark, as seen in \cref{fig:chiralEFT}, is that the approach of $\chi EFT$ spontaneously generates interaction matrix elements for three or more nucleons. 
