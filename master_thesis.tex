@@ -5,7 +5,7 @@
 % TITLE
 \author{Giovanni Pederiva}
 \title{{\scshape Computing the Energy Scale $\Lambda_{YM}$ of Pure Yang-Mills Theory from a Novel Lattice QCD Code with Gradient Flow}}
-\date{May 2018}
+\date{May 2018} 
 
 % LOAD PACKAGES 
 \input{shared/preamble}
@@ -25,10 +25,14 @@
 % ABSTRACT AND ACKNOWLEDGMENTS
 \begin{abstract}
 	\input{preface/abstract}
+	\begin{chapter}{Introduction}
+		\label{chap:intro}
+  		\input{preface/intro}
+	\end{chapter}
 \end{abstract}
 
 % PART I: INTRODUCTORY STUFF
-\begin{part}{Introduction to QCD and Lattice Field Theories}
+\begin{part}{Overview of QCD and Lattice Field Theories}
 	\label{part:intro}
 	\begin{chapter}{A Primer on QCD in the Continuum}
 		\label{chap:qcd_intro}
@@ -54,7 +58,8 @@
 
 % PART II: IMPLEMENTATION
 \begin{part}{Implementation}
-	\begin{chapter}{Designing a Lattice $SU(3)$ Yang-Mills Theory Code}
+	\label{part:implementation}
+	\begin{chapter}{Designing a Lattice $\mathrm{SU(3)}$ Yang-Mills Theory Code}
   		\label{chap:code_design}
   		\input{implementation/code_design}
 	\end{chapter}
