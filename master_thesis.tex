@@ -1,6 +1,10 @@
 % MAIN DOCUMENT FOR MASTER THESIS
 \documentclass[twoside,english, a4paper, 11pt]{shared/uiofysmaster}
 \usepackage[top=1.5in, bottom=1.5in, left=1in, right=1in]{geometry}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+	
+\addbibresource{bibliography/master_thesis.bib}
+
 
 % TITLE
 \author{Giovanni Pederiva}
@@ -8,7 +12,7 @@
 \date{May 2018} 
 
 % LOAD PACKAGES 
-\input{shared/preamble}
+\input{shared/preamble} 
 
 % MAIN DOCUMENT BEGINNING
 \begin{document}
@@ -19,17 +23,24 @@
 \maketitle
 \clearpage
 
-\tableofcontents
-\clearpage
+
 
 % ABSTRACT AND ACKNOWLEDGMENTS
 \begin{abstract}
 	\input{preface/abstract}
-	\begin{chapter}{Introduction}
-		\label{chap:intro}
-  		\input{preface/intro}
-	\end{chapter}
+	\cleardoublepage
+	\begin{acknowledgements}
+		\input{preface/acknowledgements}
+	\end{acknowledgements}
+	\clearpage
 \end{abstract}
+\tableofcontents
+\clearpage 
+
+\begin{chapter}{Introduction}
+	\label{chap:intro}
+	  \input{preface/intro}
+\end{chapter}
 
 % PART I: INTRODUCTORY STUFF
 \begin{part}{Overview of QCD and Lattice Field Theories}
@@ -74,7 +85,7 @@
 % PART III: RESULTS
 \begin{part}{Data Analysis and Results}
 	\label{part:results}
-	\begin{chapter}{Raw Observables}
+	\begin{chapter}{Basic Observables}
   		\label{chap:obs_results}
   		\input{results/obs_results}
 	\end{chapter}
@@ -111,13 +122,11 @@
 \end{part}
 
 % MAKE BIBLIOGRAPHY
-\bibliographystyle{unsrt}
-\bibliography{bibliography/master_thesis,bibliography/master_thesis_1}
+%\bibliographystyle{unsrt}
+%bibliography/master_thesis_1}
+\printbibliography
 
-
-\begin{acknowledgements}
-	\input{preface/acknowledgements}
-\end{acknowledgements}
-
+ 
+ 
 % AND SO WE END
 \end{document}
