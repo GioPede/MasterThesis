@@ -136,9 +136,10 @@ These results for strong and weak scaling are very comforting, as they show that
 
 
 \section{Main Runs and Timing}
-{\color{red} All runs of the programs, to generate the four ensembles in \cref{runs:ensembles} and to apply and integrate the gradient flow equations to all their configurations, were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
+To generate all the data that was needed for our analysis we had to perform eight main calculations. First we generated the four ensembles of table \cref{runs:ensembles}, by running the gauge field generator code. Afterwards the numerical integration of the gradient flow equation has been performed on all the four sets of gauge field configurations.\\
+All runs of the programs, were carried out on the High Performance Computing Center at Michigan State University (MSU), with the support of the Institute for Cyber-Enabled Research (iCER). Development was performed on local machines and on the small cluster SMAUG located at the Department of Physics of the University of Oslo (UiO) and some larger benchmarks were run on the Abel Computer Cluster also at UiO.\\
 The ensembles on which the results in \cref{part:results} are based were generated using the parameters in  \cref{runs:mcparams}. A summary of the computational resources used for the generation of all four ensembles is presented in \cref{runs:times}. 
-}
+
 \begin{table}[!htb]
     \capt{Execution times for generating ensembles from \cref{runs:ensembles} with parameters found in \cref{runs:mcparams}. All the runs were performed on the iCER cluster at MSU. $N_{procs}$ is the number of processors used for each ensemble; the Wall Time is the ``wall clock'' time (the time spent in the parallel execution); Time per MC cycle is the time spend in each step of the Markov Chain; Time per Configuration is the time spent between saved configurations, to be used for observables, so it includes the adjustment made for the longer autocorrelation times of larger $\beta$ values.} 
     \begin{center}

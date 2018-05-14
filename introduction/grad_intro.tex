@@ -20,16 +20,15 @@ a parametrization up to $p=3$ has been fitted to data by Guagnelli et al. \cite{
     \label{scale:parameter}.
 \eeq
 
-\fig{introduction/beta.pdf}{Data and interpolating function for $\ln(a/r_0)$ as found in \cite{guagnelli_precision_1998}. }{fig:beta_scale}
+\fig{introduction/beta.pdf}{Data and interpolating function for $\ln(a/r_0)$ as found in \cite{guagnelli_precision_1998}. The data points are numerical results for lattices at different couplings $\beta$ and with different $a/r_0$ ratios. The solid line is the result of the fitting of the parametrization shown in \cref{scale:parameter}. }{fig:beta_scale}
  
-{\color{red}
-This scale fixing procedure requires a proper estimate of the length scale from measurements of the static quark potential for various quark sources, which is an expensive calculation. For some simpler calculations, it is customary to set the length scale to a fixed value, namely $r_0 = 0.5$ fm. This value commonly called the Sommer scale parameter, is then used in \cref{scale:parameter} to implicitly extract $a$. \\
-More recently another procedure to fix the energy scale has been proposed, based on the Gradient Flow Method, which will be discussed in the following section. The key idea is again to choose an observable that is finite in the continuum limit and use it to set a reference scale on the lattice.}
+This scale fixing procedure requires a good estimate of a quantity that is not computationally expensive to compute and, more importantly, that has small systematic uncertainties. Furthermore, the physical unit must be very well defined. Such a quantity is useful to match the unphysical results of pure gauge theories to some physical values. For some simpler calculations, it is customary to set the length scale $r_0$ to a fixed value, namely $r_0 = 0.5$ fm. This value commonly called the Sommer scale parameter, is then used in \cref{scale:parameter} to implicitly extract $a$. \\
+More recently another procedure to fix the energy scale has been proposed, based on the Gradient Flow Method, which will be discussed in the following section. The key idea is again to choose an observable that is numerically cheap to evaluate but with very small systematic uncertainty.
 
 \section{The Gradient Flow Method}
 \label{sec:grad_flow}
-The Gradient Flow Method, also known as the Wilson flow in the case of QCD, is a method for studying non-linear properties of the gauge fields. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow time''. In more precise terms we apply a local gauge-covariant diffusion equation to the fields.\\
-For the $\mathrm{SU}(3)$ gauge field case most of the theoretical{\color{red} foundation was set by M.L}{\"u}scher in \cite{luscher_properties_2010,luscher_perturbative_2011} and for QCD in \cite{luscher_chiral_2013}. Starting from a field $A_\mu(x)$ the characterizing equations are:
+The Gradient Flow Method, also known as the Gradient flow in the case of QCD, is a method for studying non-linear properties of the gauge fields. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow time''. In more precise terms we apply a local gauge-covariant diffusion equation to the fields.\\
+For the $\mathrm{SU}(3)$ gauge field case most of the theoretical foundation was set by M.L{\"u}scher in \cite{luscher_properties_2010,luscher_perturbative_2011} and for QCD in \cite{luscher_chiral_2013}, but previous mentions were found in \cite{narayanan_infinite_2006-1}. Starting from a field $A_\mu(x)$ the characterizing equations are:
 \beq
     \begin{aligned}
         &\partial_{t_f}{B}_\mu = D_\nu G_{\nu\mu}\\
@@ -62,9 +61,10 @@ note that $\Delta$ is the covariant Laplacian in this notation. The initial cond
     \chi|_{t_f = 0} = \psi,~~~~~~~\bar\chi|_{t_f = 0} = \bar\psi.
 \eeq
 
-\section{Perturbative Analysis of the Wilson Flow}
+\section{Perturbative Analysis of the Gradient Flow}
 \label{sec:pert_flow}
-{\color{red} An important thing to consider when applying the Wilson flow to a field is the renormalization of the observables: one has to check that expectation values of observables at non-zero flow time are renormalized quantities. Following the calculations performed in \cite{luscher_properties_2010}, we will consider the energy as our base observable. } \\
+When evolving the gauge field with the gradient flow equation all pure gauge observables remain normalized couplings. This means that the continuum limit can be extrapolated from the theory at any flow time, fixed in physical units. \\
+Following the calculations performed in \cite{luscher_properties_2010}, we will consider the specil case of the energy and show the relation that it has with the renormalized coupling of the theory. \\
 First, we note that the flow equation is invariant  under flow time independent gauge transformations, this prevents a detailed study of the renormalization. We consider a modified version of the flow equation by adding one term:
 \beq   
 \partial_{t_f}B_\mu = D_\nu G_{\nu\mu} + \lambda D_\mu\partial_\nu B_\nu.
@@ -117,22 +117,22 @@ In the case of $\mathrm{SU}(3)$ symmetry group we have:
     \langle E \rangle = \frac{3}{4\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f.
     \label{energy_flow}
 \eeq
-The perturbative expansion is only valid for large values of $q$, that is when the flow time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which becomes smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge is shown.  
+The perturbative expansion is only valid for large values of $q$, that is when the flow time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy, or in other terms , it is a length. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which becomes smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge is shown.  
 \fig[0.15]{introduction/topcflow.png}{Topological charge computed ad one euclidean time of a lattice of size $32^3\times64$ with lattice spacing $0.06793$ fm. The flow different plots are for flow times $\sqrt{8t_f} = {0, 0.14, 0.30}$ fm on the first row and $\sqrt{8t_f} = {0.43 , 0.52, 0.60}$ fm on the second row. The visualization has been performed using a custom \texttt{python} interface (developed together with H.M.Vege), called ``LatViz'', to the open source tool VisIt by LLNL \cite{HPV:VisIt}.}{visit:topcflow}
 
-The topological charge at $\sqrt{8t_f} = 0$ fm (the non flowed field configuration) is highly affected by large fluctuations over the lattice sites. {\color{red} This for example affects the topological susceptibility causing it to be divergent}. One can notice that the action of the flow equation is to remove short distance fluctuations that at $\sqrt{8t_f} = 0.60$ fm are almost completely gone. For larger smearing radii the emergence of well separated topological sectors becomes visible.
+The topological charge at $\sqrt{8t_f} = 0$ fm (the non flowed field configuration) is highly affected by short-distance over the lattice sites. One can notice that the effect of the flow equation is to remove these fluctuations, that at $\sqrt{8t_f} = 0.60$ fm are almost completely gone. For larger smearing radii the emergence of well separated topological sectors becomes visible.
 
 \subsection{Scale Fixing with the Gradient Flow}
 \label{sec:scale_fixing}
-{\color{red} Because of the smearing properties of the flow equation the fields are driven towards the minima of the action, which are in general independent from the lattice spacing. For sufficiently large flow times, one can therefore decide to use the value of the dimensionless quantity $t_f^2\langle E\rangle$ to fix the scale of the lattice.} The choice of this quantity is motivated by the fact that $\langle E\rangle = -\frac{1}{4}G_{\mu\nu}G^{\mu\nu}$ is proportional to the Wilson gauge action \cref{wilsonaction}. The gradient flow minimizes the action, so independently of the lattice spacing, all field configurations will converge to the same value.\\
-It has been proposed by L{\"u}scher that a value of $t_f^2\langle E\rangle = 0.3$ is large enough to be used as a reference scale. 
+From the analysis in the previous section, one can infer that the combination $t_f^2\langle E\rangle$ is to leading order a constant proportional to the coupling. The object is also dimensionless, being the product of the energy density, that scales as $a^4$ and the square of $t_f$ which is by itself of dimension $a^2$. Being a quantity that is relatively simple to compute it is  good candidate as a tool to define a reference scale. 
+It has been proposed by L{\"u}scher that a value of $t_f^2\langle E\rangle = 0.3$ is large enough to be used as a reference scale such that cut-off effects, given by the lattice artifacts, vanish. 
 \fig[0.2]{introduction/luscher.png}{Plot of $\sqrt{8t_0}/r_0$ where $t_0$ is the value such that $t_0^2\langle E \rangle =0.3$ for different lattice spacings taken from \cite{luscher_erratum:_2014}. The dimension less ratio $\sqrt{8t_0}/r_0$ shows the equivalence bequeen the Sommer scale $r_0$  and the gradient flow reference scale $t_0$. The continuum limit extrapolation is performed using $(a_0/r_0)^2$ as the dimesionless rescaling quantity. The two data series, better explained in the article, represent two different definitions of the gauge fiels strength tensor and consequently of the energy density. One, the black one, is taken with the clover definition, the same we defined in \cref{eq:energy} and following. The gray points are taken with the plaquette definition of the field strangth tensor.} {luscher:tsquareE}
 In \cref{luscher:tsquareE} we can indeed observe that the continuum limit value, computed using the Sommer parameter as a reference, is independent from the definition of the basic observable used to compute it.\\
 In \cref{sec:scale} this method will be applied and discussed more thoroughly.
  
 \section{Estimating the $\Lambda$ Scale Parameter}
 Finally all the theoretical concepts and tools have been defined to state the main purpose of this work in a formal way. The goal is to use the perturbative expression of the energy as a function of the flow time and of the running coupling, \cref{energy:coupling}, to estimate the scale $\Lambda$ of the theory. \\
-Since the algorithm for generating ensembles of gauge field configurations that has been developed in this work only considers pure gauge theory, we will restrict the analysis to $\Lambda_{YM}$. This is the scale parameter when one sets $N_f = 0$, no fermion flavors. In a future work the more interesting determination of $\Lambda_{QCD}$ could be performed the same way. \\
+The algorithm for generating ensembles of gauge field configurations that has been developed in this work only considers pure gauge theory. Consequently, for now, we will restrict the analysis to $\Lambda_{YM}$. This is the scale parameter when one sets $N_f = 0$, no fermion flavors. In a future work the more interesting determination of $\Lambda_{QCD}$ could be performed the same way. \\
 On the lattice the quantity $t_f^2\langle E \rangle$ can be computed easily, this leaves only the coupling on the right hand side of \cref{energy_flow} as the unknown variable. One can then choose an order for the expansion of the Renormalization Group Equation:
 \beq
 q^2 \frac{d\alpha(q)}{dq^2} = \beta(\alpha) = -(b_0\alpha^2+b_1\alpha^3+\dots).
@@ -164,4 +164,4 @@ or in a numerical form, substituting also the Riemann zeta-function value $\zeta
     b_2 &\approx \frac{1}{(4\pi)^3} (1428.50-279.611N_f+ 6.01852N_f^2),\\\nonumber
     b_3 &\approx \frac{1}{(4\pi)^4} (29243.0-6946.30N_f+ 405.089N_f^2+ 1.49931N_f^3).
 \end{align}
-With the aid of these coefficients the only unknown variable in \cref{energy:coupling}, using \cref{alpha} for $\alpha_S(q)$, is the scale parameter $\Lambda$.
+With the aid of these coefficients the only unknown variable in \cref{energy:coupling}, using \cref{alpha} for $\alpha_S(q)$, is the scale parameter $\Lambda_{YM}$.

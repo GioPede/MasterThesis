@@ -133,7 +133,7 @@ and these four coefficients, together with the generators of the $\mathrm{SU}(2)
 \beq
 U = x_0\mathds{1} + i\vec{x}\cdot\vec{\sigma} = \begin{pmatrix}
     u_{11} & u_{12} \\ u_{21} & u_{22} 
-\end{pmatrix},
+\end{pmatrix}.
 \eeq
 One then embeds these $\mathrm{SU}(2)$ matrices in three $\mathrm{SU}(3)$ matrices by mapping them as:
 \beq
@@ -149,7 +149,7 @@ One then embeds these $\mathrm{SU}(2)$ matrices in three $\mathrm{SU}(3)$ matric
         1 & 0 & 0 \\ 0 & t_{11} & t_{12} \\ 0 & t_{21} & t_{22} 
     \end{pmatrix}.
 \eeq
-These three matrices are clearly members of the $\mathrm{SU}(3)$ group and so is their product $X = RST$, which is used as the ``random move'' in the Metropolis-Hastings algorithm. We thus have defined a recipe for numerically generating random transformations, the key element for our algorithm.
+These three matrices are clearly members of the $\mathrm{SU}(3)$ group and so is their product $X = RST$, which is used as the ``random move'' in the Metropolis-Hastings algorithm. We thus have defined a recipe for numerically generating random transformations, the key element of our algorithm.
 
 \subsection{Efficient Action Difference Calculation}
 An additional element that is needed in the Metropolis-Hastings algorithm is the action difference $\Delta S$, used in evaluating the ratio of the PDFs between configurations. When a random transformation $U_\mu(n) \rightarrow U'_\mu(n) = XU_\mu(n)$ is applied on a single link of the lattice, the total change in the action only depends on the plaquettes that contain the considered link variable. In four dimensions there are 12 such elements. The action difference for a single gauge link is then:
@@ -222,7 +222,7 @@ An intuitive pictorial representation is given in \cref{fig:staples}.
 
     \end{tikzpicture}
 
-    \capt{Schematic representation of the symmetric definition of action around a single link $S[U_\mu](n)$ expressed as a function of the staples. The link in red is the one that is being considered for the action, $U_\mu(n)$. On the left side there is the action defined as the sum of all the plaquettes containing $U_\mu(n)$. On the right side the link $U_\mu(n)$ is factored out to show the meaning of the staples $A[U_\mu(n)]$. The sum on the right-hand side is $A[U_\mu(n)]$ as defined in \cref{eq:staples}.}
+    \capt{Schematic representation of the symmetric definition of the action around a single link $S[U_\mu](n)$ expressed as a function of the staples. The link in red is the one that is being considered for the action, $U_\mu(n)$. On the left side the action is defined as the sum of all the plaquettes containing $U_\mu(n)$. On the right side the link $U_\mu(n)$ is factored out to show the meaning of the staples $A[U_\mu(n)]$. The sum on the right-hand side is $A[U_\mu(n)]$ as defined in \cref{eq:staples}.}
     \label{fig:staples}
 \end{figure}
 
@@ -253,12 +253,12 @@ The order in which the links in the lattice are visited is also arbitrary. The s
 
 \subsection{Parallelization Scheme}
 \label{sec:para_gen}
-Given the size of the lattice (the total number of sites in this work is from $|\Lambda| \approx 10^5$ to $|\Lambda|\approx 10^7$), it is almost necessary to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks, or sub-lattices, and have each process handle its portion of the field alone. \\
+Given the size of the lattice (the total number of sites in this work is from $|\Lambda| \approx 10^5$ to $|\Lambda|\approx 10^7$), it is imperative to split the computation of the updates on more than one processors. The most direct way is to divide the lattice into sub-blocks, or sub-lattices, and have each process handle its portion of the field alone. \\
 In an operative way, given a lattice of size $(N_x, N_y, N_z, N_t)$ each space-time dimension is split into even portions, of size $(S_x, S_y, S_z, S_t)$ and mapped on $N_{procs}$ processors, having that:
 \beq
 N_{procs} = \frac{S_x}{N_x} \times \frac{S_y}{N_y} \times \frac{S_z}{N_z}  \times \frac{S_t}{N_t}.
 \eeq 
-A unique mapping can be performed from the ``local'' coordinates of a lattice site in one of the sub-blocks to the ``global" coordinates once the position of the sub-lattice is known. In practice this can be done through the aid of the unique identifier of the processor that is given by the parallelization library. In particular, the Message Passing Interface (\texttt{MPI}) has a built-in function to map processors into a grid of arbitrary dimensions and size, called \texttt{MPI\_CartCoord\_Create}. The utility also allows for the easy identification of the rank (the jargon term for the unique identifier of a processor) of the nearest neighbors. Using this tools one can manage the distribution of the total lattice into $N_{procs}$ sub-lattices. \\
+A unique mapping can be performed from the ``local'' coordinates of a lattice site in one of the sub-blocks to the ``global" coordinates once the position of the sub-lattice is known. In practice this can be done through the aid of the unique identifier of the processor that is given by the parallelization library. In particular, the Message Passing Interface (\texttt{MPI}) \cite{Forum:1994:MMI:898758} library has a built-in function to map processors into a grid of arbitrary dimensions and size, called \texttt{MPI\_CartCoord\_Create}. The utility also allows for the easy identification of the rank (the jargon term for the unique identifier of a processor) of the nearest neighbors. Using this tools one can manage the distribution of the total lattice into $N_{procs}$ sub-lattices. \\
 However, the plaquette $P_{\mu\nu}(n)$ of a lattice site $n$, that enters the action difference definition, depends on link variables located at neighboring sites, this is clear by looking at the definition found in \cref{plaquette}. This implies that when updating a link on the edge of a sub-lattice, information about another block is needed. Here is where \texttt{MPI} comes in use, substituting the usual periodic boundary conditions that are used in the calculations with periodic communication patterns between the processors. For this particular problem we decided to use a point to point communication scheme, the use of periodic boundary conditions allowed also for non-blocking communications, in particular the collective geometry based scheme shown in \cref{fig:subblocks} has been implemented. 
 
 \input{implementation/sub-blocks} 
@@ -317,7 +317,7 @@ The general ansatz for the RK-MK method is to write the integration step, with $
 \beq
     V_{t+\epsilon} =  \exp[\epsilon\Omega(V_t)] V_t,
 \eeq
-where $\Omega(V_t)$ is a linear combination of $Z(V_t + \epsilon c_i)$, with $c_i$ the RK coefficients, and of their commutators. Following the suggestion of \cite{luscher_properties_2010} the third order integration scheme  has been used:
+where $\Omega(V_t)$ is a linear combination of $Z(V_t + \epsilon c_i)$, with $c_i$ the RK coefficients, and of their commutators. Following the suggestion of \cite{luscher_properties_2010} a third order integration scheme  has been used:
 \begin{align}
     \label{eq:integrator}
     &W_0 = V_t\\\nonumber
@@ -325,9 +325,9 @@ where $\Omega(V_t)$ is a linear combination of $Z(V_t + \epsilon c_i)$, with $c_
     &W_2 = \exp\left[ \frac{8}{9}Z_1 - \frac{17}{36}Z_0 \right] W_1\\\nonumber
     &V_{t+\epsilon} = \exp\left[ \frac{3}{4}Z_2 - \frac{8}{9}Z_1 + \frac{17}{36}Z_0\right] W_2,
 \end{align}
-where the shorthand notation $Z_i = i\epsilon Z(W_i)$ has been introduced. The choice of the coefficients for the Butcher's tableu \cite{_numerical_????} of the RK method is made in order to satisfy the requirements for a third order RK integrator and to cancel the commutator terms in $\Omega(V_t)$ when expanding it with the Baker-Campbell-Husdorff formula. \\
+where the shorthand notation $Z_i = i\epsilon Z(W_i)$ has been introduced. The choice of the coefficients for the Butcher's tableu \cite{_numerical_????} of the RK method is made in order to satisfy the requirements for a third-order RK integrator and to cancel the commutator terms in $\Omega(V_t)$ when expanding it with the Baker-Campbell-Hausdorff formula. \\
 The choice of the integration step size $\epsilon$ as been motivated by the results found in \cite{ce_testing_2015}. The article suggests that for an integrator of third order the choice of $\epsilon=0.01-0.02$ is sufficient to keep the numerical error under control.\\
-What is then left to define are the derivative of the action at a given lattice site and the numerical exponentiation of a member of the $\mathfrak{su}(3)$ algebra, which returns an $\mathrm{SU}(3)$ element.
+What is then left to define are the derivatives of the action at a given lattice site and the numerical exponentiation of a member of the $\mathfrak{su}(3)$ algebra, which returns an $\mathrm{SU}(3)$ element.
 
 \subsection{The Action Derivative}
 The differential operator acting on an algebra-valued function $f(U)$ in a Lie group is defined, in terms of the generators $t^a$, as:
@@ -350,7 +350,7 @@ This is our final expression for the action derivative. It should be noticed tha
 
 \subsection{Exponential of an $\mathfrak{su}(3)$ Element}
 \label{sec:exponential}
-The last thing to define from \cref{eq:integrator} is how to exponentiate the action derivative, that apperas in the form $\exp[i\epsilon Z(W_i)]$. Following \cite{morningstar_analytic_2004} we provide a numerical recipe for taking the exponential function of a traceless hermitean $3\times3$ matrix. The key idea is to use the Cayley-Hamilton theorem, that states that every matrix is a zero of its characteristic polynomial:
+The last thing to define from \cref{eq:integrator} is how to exponentiate the action derivative, that appears in the form $\exp[i\epsilon Z(W_i)]$. We provide a numerical recipe for taking the exponential function of a traceless hermitean $3\times3$ matrix. The key idea is to use the Cayley-Hamilton theorem, as suggested in  \cite{morningstar_analytic_2004}, that states that every matrix is a zero of its characteristic polynomial:
 \beq
     Q^3 - c_1 Q - c_0\mathds{1} = 0,~~~~~\text{with}~~c_0 = \det Q = \frac{1}{3}(Q^3),~~~c_1 =\frac{1}{2}(Q^2).
 \eeq
@@ -374,7 +374,7 @@ with:
 \begin{align}
     h_0 &= (u^2-w^2)e^{2iu} + e^{-iu}\bigg[ 8u^2 \cos(w) + 2iu(3u^2 + w^2)\frac{\sin(w)}{w} \bigg],\\\nonumber%
     h_1 &= 2ue^{2iu} - e^{-iu} \bigg[ 2u \cos(w) - i(3u^2 - w^2) \bigg],\\\nonumber
-    h_2 &= e^{2iu} - e^{-iu} \bigg[ \cos(w) + 3iu\frac{\sin(w)}{w} \bigg],
+    h_2 &= e^{2iu} - e^{-iu} \bigg[ \cos(w) + 3iu\frac{\sin(w)}{w} \bigg].
 \end{align}
 This algorithm is the core of the gradient flow implementation, because fundamentally the integration of the flow equation is an alternating sequence of staples calculation and  matrix exponentials.
 
@@ -382,7 +382,7 @@ This algorithm is the core of the gradient flow implementation, because fundamen
 \label{sec:shift}
 Integrating the flow equation on gauge fields is very expensive in computational terms, as was the gauge field generation,  it is worth designing a parallelization scheme for it. The idea is still to split the lattice into sub-blocks as in \cref{sec:para_gen} and have each processing unit handle one of them.\\
 By looking at \cref{{eq:integrator}} we see that all operations can be defined on a lattice-wise scale. This allows us to define a ``lattice shift'' operation, that consists in creating an additional lattice in memory that is the translation of the original along an axis. Mathematical operations can then be performed between corresponding elements of the original lattice and of the shifted one. \\
-In order to create the shifted lattice some communication between the processors is needed, when the elements on the edge need to be shifted. The huge advantage is that in order to perform this shift operation only one communication instance can be used (following the previous scheme in \cref{sec:para_gen} for the periodic boundary conditions) in which the message is a whole shared cube between two neighboring processors. This is much more efficient compared to the single link variable communication that is used in the gauge field generation. A simple 2D representation of the shift operation is drawn in \cref{fig:shift}
+In order to create the shifted lattice some communication between the processors is needed, when the elements on the edge need to be shifted. The huge advantage is that in order to perform this shift operation only one communication instance can be used (following the previous scheme in \cref{sec:para_gen} for the periodic boundary conditions) in which the message cube shared as a whole between two neighboring processors. This is much more efficient compared to the single link variable communication that is used in the gauge field generation. A simple 2D representation of the shift operation is drawn in \cref{fig:shift}
 \input{implementation/shift}
 
 The data to be shifted is on the order of hundreds of kilobytes and sending such an amount of data using \texttt{MPI} is a time consuming operation. A possible optimization that has been implemented is to rewrite the algorithm in order to use non-blocking communications. These allow the program, while the Message Passing Interface is handling the communication, to continue with the execution instead of waiting for the message to be sent. One must however be careful not to use any of the data that is being sent or received before checking that communication has been finished. \\
@@ -408,25 +408,25 @@ As it has been done for the gauge field configuration generation algorithm, in \
 
 
 \section{Structure and Tools}
-The programs that have been developed to genereate gauge fields and to apply the gradient flow to them have been written in \texttt{C++}. The full code can be found on the web under the link \url{https://github.com/GioPede}, where source code for both is hosted. The technical documentation is found at \url{https://giopede.github.io/LatticeYangMills/html/index.html}, but it should be noted that this is still in active development, though sufficient for this thesis, so the structure of the source code might vary from what is presented in this section. \\
+The programs that have been developed to generate gauge fields and to apply the gradient flow to them have been written in \texttt{C++}. The full code can be found on the web under the link \url{https://github.com/GioPede}, where source code for both is hosted. The technical documentation is found at \url{https://giopede.github.io/LatticeYangMills/html/index.html}, but it should be noted that this is still in active development, though sufficient for this thesis, so the structure of the source code might vary from what is presented in this section. \\
 The choice of programming language was mainly due to it being the most high-performing language with a high enough abstraction level. The high performance of \cpp is given by the tight link that it has to the hardware, allowing precise management of the memory and instructions optimizations. \\
 One of the main features that distinguishes \cpp from the \texttt{C} programming language (a valid and equally performing alternative), is that it is an Object-Oriented language. This allows to create abstractions that give an organized structure to the source code, making the developing process easier and the code more readable and intuitive.
 
 \subsection{Object-Oriented Programming}
 One of the most successful programming paradigms is Object-Oriented Programming (OOP). An object, or ``class'', in this context is a collection of data, or ``attributes'', and procedures, ``methods'', that act on them. \\
 The greatest advantage of using OOP is the introduction of an abstraction level from simple numerical variables, like integers, floating point variables or arrays, to more complex structures. A simple example of this is the class to represent $\mathrm{SU}(3)$ matrices. Instead of dealing every time with the allocation of $18$ variables ($3\times 3$ both for the real and imaginary parts) one can instantiate a variable of type \texttt{SU3}. This example is also useful to introduce the concept of operator overloading, which fundamentally means to implement mathematical operation between classes, so that objects can be used as basic elements of additions, multiplication and so on.\\
-Finally, in OOP the concepts of inheritance and polymorphism are very important. The calculation of the observables is a good example for these. An observable, in the program, has a very well defined behavior and structure, for instance it stores its \texttt{value} and has a method \texttt{compute} that can be called to evaluate it given a gauge field lattice as input. However, the operations to be executed in order to compute the value depend on the observable type. An external class that wants to compute multiple observables should be able to call the \texttt{compute} method without knowing the exact type of the observable. The solution is to create an abstract base class, the observable, that only defines \texttt{value} and \texttt{compute}, but gives no specific implementation. Derived types are then created for each different type that ``inherits'' the general behavior from the base class. For an external class, the derived objects can all be used in the same way even if the exact type is unknown. The actual operations that will be performed however will depend on the derived type; this is called polymorphism.\\
+Finally, in OOP the concepts of inheritance and polymorphism are very important. The calculation of the observables is a good example of these. An observable, in the program, has a very well defined behavior and structure, for instance it stores its \texttt{value} and has a method \texttt{compute} that can be called to evaluate it given a gauge field lattice as input. However, the operations to be executed in order to compute the value depend on the observable type. An external class that wants to compute multiple observables should be able to call the \texttt{compute} method without knowing the exact type of the observable. The solution is to create an abstract base class, the observable, that only defines \texttt{value} and \texttt{compute}, but gives no specific implementation. Derived types are then created for each different type that ``inherits'' the general behavior from the base class. For an external class, the derived objects can all be used in the same way even if the exact type is unknown. The actual operations that will be performed however will depend on the derived type; this is called polymorphism.\\
 
 \subsection{Source Code Structure}
 It is possible to identify a layered structure in the class hierarchy of the program, outlined in \cref{fig:code_structure}. At the time of writing the actual design of the source-code  differs slightly from what is presented here (some classes are merged together, for example the observables), but development is being done to reach this cleaner and fully modular structure.\\
 
 \fig[0.7]{implementation/classes.pdf}{Class structure of the code, showing the approximative hierarchy between the different components.}{fig:code_structure}
 
-There is a set of ``Core Classes'', the second layer in figure, on top of which all the rest is built:
+There is a set of ``Core Classes'', the second layer in \cref{fig:code_structure}, on top of which all the rest is built:
 \begin{itemize} 
-    \item the $\mathrm{SU}(3)$ matrix implementation, that specifies basic operation for the most fundamental object of Lattice QCD, the link variables. It also includes the algorithm for generating random matrices and the matrix exponential found in \cref{sec:randommatrix,sec:exponential} 
+    \item the $\mathrm{SU}(3)$ matrix implementation, which specifies basic operation for the most fundamental object of Lattice QCD, the link variables. It also includes the algorithm for generating random matrices and the matrix exponential found in \cref{sec:randommatrix,sec:exponential} 
     \item the Lattice class, which specifies operations on four dimensional grids. In particular it handles most of the parallelization tools to allow distributed memory computation, like on computing clusters. The parallelization is introduced by the use of the Message Passing Interface, \texttt{MPI}, to implement for example the lattice shift function, \cref{sec:shift}.
-    \item Input/Output tools, to handle input parameter files, gauge configuration parallel reading and writing, observable output files handling and standard command-line output. For the input files the choice has to write a \texttt{json} parsing class, based on the project found at \cite{_nlohmann/json}, to provide an easier user interface via the usage of a  structured input file.
+    \item Input/Output tools, to handle input parameter files, gauge configuration parallel reading and writing, observable output files handling and standard command-line output. For the input files the choice was to write a \texttt{json} parsing class, based on the project found at \cite{_nlohmann/json}, to provide an easier user interface via the usage of a  structured input file.
 \end{itemize}
 
 With the tools described just above the main classes of the program were written. These ``Lattice Tools'', the third layer in \cref{fig:code_structure}, represent general physical concepts in Lattice QCD. They are:
