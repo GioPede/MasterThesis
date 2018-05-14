@@ -1,0 +1,62 @@
+\begin{figure}[!htb]
+\centering
+\pgfmathsetmacro{\dist}{2}
+\pgfmathsetmacro{\disttwo}{3}
+\pgfmathsetmacro{\distthree}{1.5}
+\pgfmathsetmacro{\outerR}{0.6}
+\pgfmathsetmacro{\v}{30}
+\pgfmathsetmacro{\sep}{4}
+\definecolor{mygreen}{rgb}{0, 0.5, 0}
+\begin{tikzpicture}[>=latex,x=0.8cm,y=0.8cm]
+    \filldraw[fill=red] (0,0) circle (0.5);
+    \filldraw[fill=mygreen] (0,0) ++(135:\dist) circle (0.5);
+    \draw (0,0) ++(45:\outerR) -- ++(135:\dist) arc(45:225:\outerR) -- ++(315:\dist) arc(-135:45:\outerR);
+
+    \begin{scope}[shift={(\sep,0)}]
+        \filldraw[fill=red] (0,0) circle (0.5) coordinate (A);
+        \filldraw[fill=mygreen] (0,0) ++(135:\disttwo) circle (0.5) coordinate(B);
+        \draw (A) ++(45-180-\v:\outerR) coordinate(x1) arc(45-180-\v:45+\v:\outerR) coordinate (x2);
+        \draw (B) ++(45-\v:\outerR) coordinate(y2) arc(45-\v:45+180+\v:\outerR) coordinate (y1);
+        \path (x2) edge[bend left=\v] (y2);
+        \path (x1) edge[bend right=\v] (y1);
+        \draw (0,0) ++(135:\distthree) coordinate (X);
+        \draw (-\sep/2,0) node (Y) {Energy};
+        \path[thick][->] (Y.north) edge[bend left] (X);
+    \end{scope}
+
+    \begin{scope}[shift={(2*\sep,0)}]
+        \filldraw[fill=red] (0,0) circle (0.5) coordinate (A);
+        \filldraw[fill=mygreen] (0,0) ++(135:\distthree) circle (0.5) coordinate(B);
+        \draw (A) ++(45-180-\v:\outerR) coordinate(x1) arc(45-180-\v:45+\v:\outerR) coordinate (x2);
+        \draw (B) ++(45-\v:\outerR) coordinate(y2) arc(45-\v:45+180+\v:\outerR) coordinate (y1);
+        \path (x2) edge[bend left=\v] (y2);
+        \path (x1) edge[bend right=\v] (y1);
+    \end{scope}
+    \begin{scope}[shift={({2*\sep-(\distthree+0.25)*cos(45)},{(\distthree+0.25)*sin(45)})}]
+        \filldraw[fill=red] (0,0) circle (0.5) coordinate (A);
+        \filldraw[fill=mygreen] (0,0) ++(135:\distthree) circle (0.5) coordinate(B);
+        \draw (A) ++(45-180-\v:\outerR) coordinate(x1) arc(45-180-\v:45+\v:\outerR) coordinate (x2);
+        \draw (B) ++(45-\v:\outerR) coordinate(y2) arc(45-\v:45+180+\v:\outerR) coordinate (y1);
+        \path (x2) edge[bend left=\v] (y2);
+        \path (x1) edge[bend right=\v] (y1);
+    \end{scope}
+    \begin{scope}[shift={(2*\sep,0)}]
+        \draw (0,0) ++(135:\distthree) coordinate (X);
+        \draw (-\sep/2,0) node (Y) {Energy};
+        \path[thick][->] (Y.north) edge[bend left] (X);
+    \end{scope}
+
+    \begin{scope}[shift={(3*\sep,0)}]
+        \filldraw[fill=red] (0,0) circle (0.5);
+        \filldraw[fill=mygreen] (0,0) ++(135:\dist) circle (0.5);
+        \draw (0,0) ++(45:\outerR) -- ++(135:\dist) arc(45:225:\outerR) -- ++(315:\dist) arc(-135:45:\outerR);
+    \end{scope}
+    \begin{scope}[shift={({3*\sep-(\dist+1.5)*cos(45)},{(\dist+1.5)*sin(45)})}]
+        \filldraw[fill=red] (0,0) circle (0.5);
+        \filldraw[fill=mygreen] (0,0) ++(135:\dist) circle (0.5);
+        \draw (0,0) ++(45:\outerR) -- ++(135:\dist) arc(45:225:\outerR) -- ++(315:\dist) arc(-135:45:\outerR);
+    \end{scope}
+\end{tikzpicture}
+\caption{Representation of confinement using flux-tubes . As two color sources are pulled apart, the energy stored in the color field between the sources increases so much that a $q\bar q$ pair is formed from the vacuum energy.}
+\label{intro:flux-tubes}
+\end{figure}

@@ -4,8 +4,8 @@ One of the major focuses of this work has been a completely new implementation o
     \item \textit{Computation of Lattice Observables}: this includes applying the gradient flow method, presented in \cref{sec:grad_flow}, to the gauge fields, as well as computing the energy density and the topological charge at every flow time; in other applications the computation of quark propagators and two- or three-point correlators are performed; 
     \item \textit{Computation of Derived Quantities}: mainly post analysis, computation of secondary observables and uncertainties. Resampling and autocorrelation analysis are crucial to Lattice QCD given the typically small size of the ensembles. 
 \end{enumerate}
-In this chapter the main features of the program that was developed to deal with the first two steps, which are the most interesting, will be presented. The third step, the post analysis, which is a simpler calculation, did not require a very sophisticated implementation. \\
-The problems are numerically very challenging and the calculations had to be performed on computing clusters. The programming language of choice was \cpp because of its high efficiency, high abstraction capabilities and for the easiness of the \mpi integration (a standard HPC parallelization library). The analysis of data has been performed using \texttt{Python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
+In this chapter we present the main features of the program that was developed to deal with the first two steps, which are the most interesting. The third step, the post analysis, which is a simpler calculation, did not require a very sophisticated implementation. \\
+The problems are numerically very challenging and the calculations had to be performed on computing clusters. The programming language of choice was \cpp because of its high efficiency, high abstraction capabilities and for the easiness of the \mpi integration (a standard High Performance Computing (HPC) parallelization library). The analysis of data has been performed using \texttt{Python} and in particular relying heavily on its standard data science packages such as \texttt{numpy} and \texttt{pandas}.
   
 \section{Generating Pure Gauge Fields} 
 The task of generating lattice field configurations is extremely intense in terms of computational requirements. The case of full QCD with dynamical fermions is much more demanding than that of a Pure Gauge theory (no fermion determinants need to be computed, see \cref{sec:pathintegral}), but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $2^4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requires $16$ more points in the global lattice. \\
@@ -21,12 +21,12 @@ For example, if we choose $N=48,~N_t=96$ (which is the largest system considered
 The basic element at each lattice site is a set of $4$ different $\mathrm{SU}(3)$ matrices, one for each dimension, these are the links variables described in \cref{sec:lattice_discretize}. Since the links with negative orientation are related to the ones with positive orientation by the adjoint operation, only the positively oriented ones are stored in memory.  
 
 \subsection{The Metropolis-Hastings Algorithm}
-The main algorithm that has been used to generate statistical ensembles of gauge field configurations is the Metropolis-Hastings Algorithm. It is a widely popular Markov Chain Monte Carlo Method to generate a sequence of random samples with a given probability distribution function \cite{metropolis_equation_1953}\cite{mhj}. \\
-In general, a Markov Chain is a sequence of randomly chosen variables $X_1, X_2, \dots, X_t$, in our case a lattice field configuration, with the Markov Property, that is: the probability of the step $t+1$ depends only on the variable $X_t$:
+The main algorithm that has been used to generate statistical ensembles of gauge field configurations is the Metropolis-Hastings algorithm. It is a widely popular Markov Chain Monte Carlo method to generate a sequence of random samples with a given probability distribution function \cite{metropolis_equation_1953}\cite{mhj}. \\
+In general, a Markov Chain is a sequence of randomly chosen variables $X_1, X_2, \dots, X_t$, in our case a lattice field configuration, with the Markov property, that is: the probability of the step $t+1$ depends only on the variable $X_t$:
 \beq
     P(X_{t+1} = x| X_1 = x_1, X_1 = x_2, \dots, X_t = x_t) = P(X_{t+1} = x|  X_t = x_t) .
 \eeq 
-In the case where the probabilities of moving from a state $X_i = i$ to a state $X_j = j$ is not known, the transition probability from the two states, $W(i\rightarrow j)$ can be split into two contributions: the probability $T(i \rightarrow j)$ for making the transition to state $j$ being in state $i$ and the the probability of accepting this transition $A(i \rightarrow j)$.
+In the case where the probabilities of moving from a state $X_i = i$ to a state $X_j = j$ is not known, the transition probability from the two states, $W(i\rightarrow j)$ can be split into two contributions: the probability $T(i \rightarrow j)$ for making the transition to state $j$ being in state $i$ and the  probability of accepting this transition $A(i \rightarrow j)$,
 \beq
     W(i \rightarrow j) = A(i \rightarrow j)T(i \rightarrow j).
 \eeq  
@@ -43,7 +43,7 @@ Now, considering that the transition probability from a state $j$ to all other s
 \beq
     \sum_i w_iT(i\rightarrow j)A(i\rightarrow j) =  w_j.
 \eeq 
-At this point, the further constrain of Detailed Balance \cite{robert_monte_2004} is introduced, that is:
+At this point, the further constrain of ``detailed balance'' \cite{robert_monte_2004} is introduced, that is:
 \beq
     w_iW(i\rightarrow j) =  w_j W(j\rightarrow i).
 \eeq 

@@ -3,7 +3,7 @@ The determination of the uncertainty of the results of a numerical experiment is
 \section{Resampling: Bootstrap and Jackknife}
 Given a set of $N$ measurements of an observable $O$, a first estimate of the expectation value and of the uncertainty are the mean and the standard deviation of the data:
 \beq
-    \bar O = \frac{1}{N}\sum_{i=1}^N O_i, ~~~~~~ \sigma_O = \sqrt{\frac{1}{N}\sum_{i=1}^N (O_i - \bar O)^2}
+    \bar O = \frac{1}{N}\sum_{i=1}^N O_i, ~~~~~~ \sigma_O = \sqrt{\frac{1}{N}\sum_{i=1}^N (O_i - \bar O)^2},
 \eeq
 where $O_i$ are the measured values of the observable. Resampling methods use the data $O_i$ to construct multiple data series, and the average statistical properties of these series are used to estimate the properties of the original set. Both the bootstrap and the jackknife methods assume uncorrelated data. The observable $O$ can also be a derived quantity, such as a fit on some raw data.
 
@@ -11,22 +11,22 @@ where $O_i$ are the measured values of the observable. Resampling methods use th
 \label{app:resampling}
 The Bootstrap method consists in building $N_b$ bootstrap samples by choosing $N$ points at random from the the original values (repetition are allowed). The average of a bootstrap sample is then:
 \beq
-    \hat O_b = \frac{1}{N}\sum_{i=1}^N O_{r(N)}
+    \hat O_b = \frac{1}{N}\sum_{i=1}^N O_{r(N)},
 \eeq
 where $r(N)$ stands for a random number between $1$ and $N$. One then has $N_b$ such averages and constructs:
 \beq
-    \tilde O = \frac{1}{N_b}\sum_{b=1}^{N_b} \hat O_b, ~~~~~~ \tilde\sigma_{\tilde O} = \sqrt{\frac{1}{N_b}\sum_{b=1}^{N_b} (O_b - \tilde O)^2}
+    \tilde O = \frac{1}{N_b}\sum_{b=1}^{N_b} \hat O_b, ~~~~~~ \tilde\sigma_{\tilde O} = \sqrt{\frac{1}{N_b}\sum_{b=1}^{N_b} (O_b - \tilde O)^2}.
 \eeq
 The expectation value of the observable is then $\langle O \rangle = \tilde O$ and its associated uncertainty is $\tilde\sigma_{\tilde O}$.
 
 \subsection{Jackknife}
 The Jackknife sample are not constructed at random, as is the case for bootstrap, but in a systematic manner. One creates $N$ jackknife samples by removing for each of them the $j$th element of the data:
 \beq
-\hat O_j = \frac{1}{N-1}\sum_{i\neq j}^N O_i
+\hat O_j = \frac{1}{N-1}\sum_{i\neq j}^N O_i.
 \eeq
 One then computes:
 \beq
-\tilde O = \frac{1}{N}\sum_{j=1}^{N} \hat O_j, ~~~~~~ \tilde\sigma_{\tilde O} = \sqrt{\frac{N-1}{N}\sum_{j=1}^{N} (\hat O_j - \tilde O)^2}
+\tilde O = \frac{1}{N}\sum_{j=1}^{N} \hat O_j, ~~~~~~ \tilde\sigma_{\tilde O} = \sqrt{\frac{N-1}{N}\sum_{j=1}^{N} (\hat O_j - \tilde O)^2}.
 \eeq
 The final estimator for the expectation value is  $\langle O \rangle = \tilde O$ and the uncertainty is $\tilde\sigma_{\tilde O}$.\\
 
@@ -38,26 +38,32 @@ The data generated via a Markov chain Monte Carlo method is always affected by a
 We followed the procedures in \cite{dewitt-morette_monte_1997} to get an algorithm to estimate the integrated autocorrelation time and the error correction factor due to autocorrelation. \\
 The autocorrelation function of an ordered set variables $\{x_1, x_2,\dots x_N\}$ with expectation value $\bar x$ is defined as:
 \beq
-    \Gamma(t) = \Gamma(-t) = \langle (x_i - \bar x)(x_{i+t} - \bar x)\rangle \approx \frac{1}{N-t}\sum_{i=1}^{N-t}  (x_i - \bar x)(x_{i+t} - \bar x)
+    \Gamma(t) = \Gamma(-t) = \langle (x_i - \bar x)(x_{i+t} - \bar x)\rangle \approx \frac{1}{N-t}\sum_{i=1}^{N-t}  (x_i - \bar x)(x_{i+t} - \bar x),
 \eeq 
 where $t$ is the ``lag'' between two points. The integrated autocorrelation time is given by:
 \beq
-    \tau_{int} = \frac{1}{2} \sum_{t=1}^\infty \frac{\Gamma(t)}{\Gamma(0)} = \frac{1}{2} \sum_{t=1}^\infty \rho(t)
+    \tau_{int} = \frac{1}{2} \sum_{t=1}^\infty \frac{\Gamma(t)}{\Gamma(0)} = \frac{1}{2} \sum_{t=1}^\infty \rho(t).
     \label{autocorr:inf}
 \eeq
 For sufficiently large $N$, the true variance of the data can be expressed as:
 \beq
-    \tilde\sigma^2 = 2\tau_{int}\sigma^2 
+    \tilde\sigma^2 = 2\tau_{int}\sigma^2 .
     \label{eq:tauint}
 \eeq
-This result is very neat, because it implies that in one can calculate the integrtated autocorrelation time correctly, the inclusion of the effects on the uncertainty estimate is trivial. In order to truncate the infinite summation in \cref{autocorr:inf} one can look at the deviation squared of $\rho(t)$, which as suggested by Sokal \CIT can be written as:
+This result is very neat, because it implies that in one can calculate the integrtated autocorrelation time correctly, the inclusion of the effects on the uncertainty estimate is trivial. In order to truncate the infinite summation in \cref{autocorr:inf} one can look at the deviation squared of $\rho(t)$, which as suggested by Sokal \cite{dewitt-morette_monte_1997} can be written as:
 \beq
-    \langle \delta \rho(t)^2\rangle \approx \frac{1}{N} \sum_{k=1}^\infty \left[ \rho(k+t) + \rho(k-t) - 2\rho(k)\rho(t)\right]^2
+    \langle \delta \rho(t)^2\rangle \approx \frac{1}{N} \sum_{k=1}^\infty \left[ \rho(k+t) + \rho(k-t) - 2\rho(k)\rho(t)\right]^2.
 \eeq
-all these terms, for a sufficiently large value of $k$ should all vanish, hence one can choose a cutoff $\Lambda$ and truncate the sum up to $t+\Lambda$. The integrated autocorrelation time, if the deviations of $\rho(t)$ become small, plateaus, so one can truncate the sum in \cref{autocorr:inf} as well: 
+All these terms, for a sufficiently large value of $k$ should all vanish, hence one can choose a cutoff $\Lambda$ and truncate the sum up to $t+\Lambda$. The integrated autocorrelation time, if the deviations of $\rho(t)$ become small, plateaus, so one can truncate the sum in \cref{autocorr:inf} as well: 
 \beq
-    \tau_{int} = \frac{1}{2} \sum_{t=1}^W \rho(t)
+    \tau_{int} = \frac{1}{2} \sum_{t=1}^W \rho(t),
     \label{autocorr_time}
 \eeq
 where $W$ is the first lag $t$ for which $\rho(t) < \sqrt{ (\langle \delta \rho(t)^2\rangle}$, when the contribution to the integration of $tau_{int}$ from that lag become smaller than the deviation of that same lag. \\
+An approximate error estimate of the integrated autocorrelation time can be defined as:
+\beq
+    \sigma^2(\tau_{int}) \approx \frac{2(2W+1)}{N}\tau_{int}^2
+    \label{eq:tauint_error}
+\eeq
+
 The integrated autocorrelation time has been computed for all quantities presented in this work and statistical uncertainties associated with results have all been corrected via \cref{eq:tauint}

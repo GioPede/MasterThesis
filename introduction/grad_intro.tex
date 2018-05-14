@@ -1,7 +1,7 @@
-In this sections we will present some problems and methods that are used in Lattice QCD and in particular for pure Yang-Mills case, the fermionless theory. A four-loop corrected expression for the $\beta$-function of QCD will be discussed as well, together with a tentative method of determining the scale parameter $\Lambda$ from lattice calculations.
+In this sections we will present some concepts and methods that are used in Lattice QCD and in particular for pure Yang-Mills case, the fermionless theory. A four-loop corrected expression for the $\beta$-function of QCD will be discussed as well, together with a tentative method of determining the scale parameter $\Lambda$ from lattice calculations.
 
 \section{Scale Setting in the Quenched Approximation}
-On the lattice quantities are defined to be dimensionless and in order to link them with physical observables they need to be fixed by the correct power of the lattice spacing $a$ to reproduce the physical units. In the quenched approximation, the pure Yang-Mills case, the fundamental question is then how to connect the lattice spacing to the coupling used in the gluonic action. The general strategy is to compute on the lattice a quantity that is known to be finite in the continuum limit.\\ 
+On the lattice quantities are determined in units of the lattice spacing and in order to link them with physical observables they need to be fixed by the correct power of the lattice spacing $a$ to reproduce the physical units. In the quenched approximation, the pure Yang-Mills case, the fundamental question is then how to connect the lattice spacing to the coupling used in the gluonic action. The general strategy is to compute on the lattice a quantity that is very well known in physical units and with minimal systematic uncertainties.\\ 
 In 1993 R. Sommer proposed to use the static quark potential as a reference in the case of $\mathrm{SU}(2)$ theory \cite{sommer_new_1994}. Later in another work \cite{guagnelli_precision_1998} a length scale $r_0$ was suggested for $\mathrm{SU}(3)$ Yang-Mills theory to be set as the distance such that 
 \beq
 r_0^2F(r_0) = 1.65,
@@ -10,8 +10,7 @@ with $F(r_0)$ being the force between two static color charges. In \cite{guagnel
 \beq
     \frac{a}{r_0} \propto e^{-\frac{\beta}{12b_0}},
 \eeq
-with inverse coupling $\beta = 6/g_0^2$ and $b_0$ the one loop coefficient of the perturbative expansion of the $\beta$ function, see \cref{sec:running_coupling}
-, $b_0=11/(4\pi)^2$. Using the ansatz:
+with inverse coupling $\beta = 6/g_0^2$ and $b_0$ the one loop coefficient of the perturbative expansion of the $\beta$-function, see \cref{sec:running_coupling}, $b_0=11/(4\pi)^2$. Using the ansatz:
 \beq
     \ln\left(\frac{a}{r_0}\right) = \sum_{k=0}^p a_k(\beta-6)^k,
 \eeq
@@ -23,18 +22,19 @@ a parametrization up to $p=3$ has been fitted to data by Guagnelli et al. \cite{
 
 \fig{introduction/beta.pdf}{Data and interpolating function for $\ln(a/r_0)$ as found in \cite{guagnelli_precision_1998}. }{fig:beta_scale}
  
+{\color{red}
 This scale fixing procedure requires a proper estimate of the length scale from measurements of the static quark potential for various quark sources, which is an expensive calculation. For some simpler calculations, it is customary to set the length scale to a fixed value, namely $r_0 = 0.5$ fm. This value commonly called the Sommer scale parameter, is then used in \cref{scale:parameter} to implicitly extract $a$. \\
-More recently another procedure to fix the energy scale has been proposed, based on the Gradient Flow Method, which will be discussed in the following section. The key idea is again to choose an observable that is finite in the continuum limit and use it to set a reference scale on the lattice.
+More recently another procedure to fix the energy scale has been proposed, based on the Gradient Flow Method, which will be discussed in the following section. The key idea is again to choose an observable that is finite in the continuum limit and use it to set a reference scale on the lattice.}
 
 \section{The Gradient Flow Method}
 \label{sec:grad_flow}
-The Gradient Flow Method, also known as the Wilson flow in the case of QCD, is a method for studying non-linear properties of of the gauge fields. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow time''. In more precise terms we apply a local gauge-covariant diffusion equation to the fields.\\
-For the $\mathrm{SU}(3)$ gauge field case most of the theoretical foundation was set by M.L{\"u}scher in \cite{luscher_properties_2010,luscher_perturbative_2011} and for QCD in \cite{luscher_chiral_2013}. Starting from a field $A_\mu(x)$ the characterizing equations are:
+The Gradient Flow Method, also known as the Wilson flow in the case of QCD, is a method for studying non-linear properties of the gauge fields. The key idea is to see how the theory evolves as it becomes less local, by driving it to the stationary points of the action, applying a ``diffusion-like'' differential equation to the field in a fictitious dimension called ``flow time''. In more precise terms we apply a local gauge-covariant diffusion equation to the fields.\\
+For the $\mathrm{SU}(3)$ gauge field case most of the theoretical{\color{red} foundation was set by M.L}{\"u}scher in \cite{luscher_properties_2010,luscher_perturbative_2011} and for QCD in \cite{luscher_chiral_2013}. Starting from a field $A_\mu(x)$ the characterizing equations are:
 \beq
     \begin{aligned}
-        &\partial_{t_f}{B}_\mu = D_\mu G_{\mu\nu}\\
+        &\partial_{t_f}{B}_\mu = D_\nu G_{\nu\mu}\\
         &G_{\mu\nu} = \partial_\mu B_\nu - \partial_\nu B_\mu + [B_\mu, B_\nu]  \\
-        &D_{\mu} = \partial_\mu + [B_\mu, \cdot ],
+        &D_{\mu}B_\nu = \partial_\mu B_\nu + [B_\mu, B_\nu ],
     \end{aligned}
     \label{eq:flow_cont}
 \eeq
@@ -55,7 +55,7 @@ generalized to flowed fields. The sum is performed over all sites of a lattice $
 The flow equations for the fermion fields, although they have not been used in this work, are:
 \begin{align}
     \partial_{t_f}\chi = \Delta \chi, ~~~~~~~~& \partial_{t_f}{\bar{\chi}} = \bar\chi\overleftarrow\Delta \\\nonumber
-    \Delta = D_\mu D_\mu, ~~~~~~~& D_\mu = \partial_\mu+b_\mu,
+    \Delta = D_\mu D_\mu, ~~~~~~~& D_\mu = \partial_\mu+B_\mu,
 \end{align}
 note that $\Delta$ is the covariant Laplacian in this notation. The initial conditions are naturally
 \beq
@@ -64,36 +64,38 @@ note that $\Delta$ is the covariant Laplacian in this notation. The initial cond
 
 \section{Perturbative Analysis of the Wilson Flow}
 \label{sec:pert_flow}
-An important thing to consider when applying the Wilson flow to a field is the renormalization of the observables: one has to check that expectation values of observables at non-zero flow time are renormalized quantities. Following the calculations performed in \cite{luscher_properties_2010}, we will consider the energy as our base observable. \\
+{\color{red} An important thing to consider when applying the Wilson flow to a field is the renormalization of the observables: one has to check that expectation values of observables at non-zero flow time are renormalized quantities. Following the calculations performed in \cite{luscher_properties_2010}, we will consider the energy as our base observable. } \\
 First, we note that the flow equation is invariant  under flow time independent gauge transformations, this prevents a detailed study of the renormalization. We consider a modified version of the flow equation by adding one term:
 \beq   
-\partial_{t_f}B_\mu = D_\mu G_{\mu\nu} + \lambda D_\mu\partial_\nu B_\nu.
+\partial_{t_f}B_\mu = D_\nu G_{\nu\mu} + \lambda D_\mu\partial_\nu B_\nu.
 \label{flow_mod}
 \eeq
 The original case is obtained again by setting $\lambda =0$ and considering:
 \beq   
-    B_\mu = \Lambda B_\mu|_{\lambda=0} \Lambda^{-1} +  \Lambda \partial_\mu \Lambda^{-1}
+    B_\mu = \Lambda B_\mu|_{\lambda=0} \Lambda^{-1} +  \Lambda \partial_\mu \Lambda^{-1},
 \eeq
 and with $\Lambda(t,x)$ now being a flow time dependent gauge transformation, set by:
 \beq   
 \partial_{t_f}\Lambda_\mu = -\lambda\partial_\nu B_\nu\Lambda~~~\text{with}~~\Lambda|_{t_f=0} = 1.
 \eeq 
-The modified flow equation allows to asymptotically expand the field $B_\mu$ in powers of the bare coupling constant $g_0$. In particular, to leading order and with the choice of $\lambda=1$, it was shown in \cite{luscher_perturbative_2011} that \cref{flow_mod} reduces to:
+
+
+In particular, to leading order in the coupling and with the choice of $\lambda=1$, it was shown in \cite{luscher_perturbative_2011} that \cref{flow_mod} reduces to:
 \beq
 \partial_{t_f}B_\mu - \partial_\nu\partial_\nu B_\mu = 0,
 \eeq
 which has a solution, in terms of the initial field $A_\mu(x)$ of the type:
 \beq
-B_\mu(t_f,x) =  \int d^4 y K_{t_f}(x-y) A_\mu(y).
+B_\mu(t_f,x) =  \int d^4 y K_{t_f}(x-y) A_\mu(y),
 \eeq
 with $K_{t_f}(z)$ being the heat kernel of the flow equation:
 \beq
-K_{t_f}(z) = \frac{e^{-z^2/4t_f}}{(4\pi t_f)^2}
+K_{t_f}(z) = \frac{e^{-z^2/4t_f}}{(4\pi t_f)^2}.
 \eeq
 This result shows that the flow equations, as a first approximation, are a smearing operation. The right-hand side can be seen as the integral average of the original field weighted with a gaussian distribution of variance $2t_f$ and mean-square-radius of $\sqrt{8t_f}$.\\
 
 The energy $E$ as defined in \cref{eq:energy} is a gauge invariant object. One can observe that the modified flow equation is invariant under gauge transformations, hence the energy, as any other gauge invariant observable, will preserve its invariance. 
-Using the modified flow equation, the asymptotic expansion of the flowed field $B_\mu$ and the definition of the energy  $\langle E\rangle = -\frac{1}{4}G_{\mu\nu}G^{\mu\nu}$ it is possible to write the expectation value of the energy as a function of the flow time and of the renormalized coupling \cite{luscher_properties_2010}:
+Using the modified flow equation, the asymptotic expansion of the flowed field $B_\mu$ and the definition of the energy  $\langle E\rangle = -\frac{1}{4}G_{\mu\nu}G^{\mu\nu}$ it is possible to write the expectation value of the energy as a function of the flow time and of the bare coupling \cite{luscher_properties_2010}:
 \beq
     \langle E \rangle = \frac{3(N^2 - 1)g_0^2}{128\pi^2t_f^2}\left[ 1 + \bar c_1 g_0^2 + \mathcal{O}(g_0^4)\right],
     \label{energy:coupling}
@@ -102,63 +104,64 @@ with:
 \beq
     \bar c_1 = \frac{1}{16\pi^2} \left[ N\left( \frac{11}{3} L + \frac{52}{9} - 3\ln 3  \right) - N_f\left( \frac{2}{3} L + \frac{4}{9} - \frac{4}{3}\ln 2  \right)  \right] .
 \eeq
-The equation is for general $N$, the gauge group dimension, and number of quark flavors $N_f$. The coefficient $\bar c_1$ is in terms of a scale $L=\ln(8\mu^2t_f) + \gamma_E$ where $\mu$ is the renormalization energy scale and $\gamma_E$ Euler's constant. From this last relation we can set a flow energy scale as $q=1/\sqrt{8t_f}$ and give a definition of \cref{energy:coupling} in terms of the running coupling $\alpha_s(q) = \frac{g_0^2}{4\pi}$:
+The equation is for general $N$, the gauge group dimension, and number of quark flavors $N_f$. The coefficient $\bar c_1$ is in terms of a scale $L=\ln(8\mu^2t_f) + \gamma_E$ where $\mu$ is the renormalization energy scale and $\gamma_E$ Euler's constant. From this last relation we can set a flow energy scale as $q=1/\sqrt{8t_f}$ and give a definition of \cref{energy:coupling} in terms of the running coupling $\alpha_s(q) = \frac{g^2}{4\pi}$:
 \beq
-    \langle E \rangle = \frac{3(N^2 - 1)}{32\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right]
+    \langle E \rangle = \frac{3(N^2 - 1)}{32\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],
 \eeq
 where the coefficient $k_1$ is now:
 \beq
-   k_1 = \frac{1}{4\pi} \left[ N\left( \frac{11}{3} \gamma_E + \frac{52}{9} - 3\ln 3  \right) - N_f\left( \frac{2}{3} \gamma_E  + \frac{4}{9} - \frac{4}{3}\ln 2  \right)  \right] 
+   k_1 = \frac{1}{4\pi} \left[ N\left( \frac{11}{3} \gamma_E + \frac{52}{9} - 3\ln 3  \right) - N_f\left( \frac{2}{3} \gamma_E  + \frac{4}{9} - \frac{4}{3}\ln 2  \right)  \right] .
 \eeq
 In the case of $\mathrm{SU}(3)$ symmetry group we have:
 \beq
-    \langle E \rangle = \frac{3}{4\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f
+    \langle E \rangle = \frac{3}{4\pi t_f^2} \alpha_s(q) \left[ 1 + k_1\alpha_s(q) + \mathcal{O}(\alpha_s^2) \right],~~~~~k_1 = 1.0978 + 0.0075\times N_f.
     \label{energy_flow}
 \eeq
-The perturbative expansion is only valid for large values of $q$, that is when the flow time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy, or a length. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which become smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge is shown.  
+The perturbative expansion is only valid for large values of $q$, that is when the flow time is small. We also can notice that $\sqrt{8t_f}$ is the inverse of an energy. This gives us a further intuitive picture of what the gradient flow equations do, that is to smear the field over a hyper-sphere of radius $\sqrt{8t_f}$. The gradient flow is particularly interesting to study quantities that are divergent on the lattice because of discretization effects, like the topological susceptibility, which becomes smooth at non-zero $t_f$. In \cref{visit:topcflow} an example of the smearing effect of the gradient flow on the topological charge is shown.  
 \fig[0.15]{introduction/topcflow.png}{Topological charge computed ad one euclidean time of a lattice of size $32^3\times64$ with lattice spacing $0.06793$ fm. The flow different plots are for flow times $\sqrt{8t_f} = {0, 0.14, 0.30}$ fm on the first row and $\sqrt{8t_f} = {0.43 , 0.52, 0.60}$ fm on the second row. The visualization has been performed using a custom \texttt{python} interface (developed together with H.M.Vege), called ``LatViz'', to the open source tool VisIt by LLNL \cite{HPV:VisIt}.}{visit:topcflow}
 
-The topological charge at $\sqrt{8t_f} = 0$ fm (the non flowed field configuration) is highly affected by large fluctuations over the lattice sites. This for example affects the topological susceptibility causing it to be divergent. One can notice that the action of the flow equation is to remove such low distance fluctuations that at $\sqrt{8t_f} = 0.30$ fm are almost completely gone. For larger smearing radii the emergence of well separated topological sectors becomes visible.
+The topological charge at $\sqrt{8t_f} = 0$ fm (the non flowed field configuration) is highly affected by large fluctuations over the lattice sites. {\color{red} This for example affects the topological susceptibility causing it to be divergent}. One can notice that the action of the flow equation is to remove short distance fluctuations that at $\sqrt{8t_f} = 0.60$ fm are almost completely gone. For larger smearing radii the emergence of well separated topological sectors becomes visible.
 
 \subsection{Scale Fixing with the Gradient Flow}
 \label{sec:scale_fixing}
-Because of the smearing properties of the flow equation the fields are driven towards the minima of the action, which are in general independent from the lattice spacing. For sufficiently large flow times, one can therefore decide to use the value of the dimensionless quantity $t_f^2\langle E\rangle$ to fix the scale of the lattice. The choice of this quantity is motivated by the fact that $\langle E\rangle = -\frac{1}{4}G_{\mu\nu}G^{\mu\nu}$ is proportional to the Wilson gauge action \cref{wilsonaction}. The gradient flow minimizes the action, so independently of the lattice spacing, all field configurations will converge to the same value.\\
+{\color{red} Because of the smearing properties of the flow equation the fields are driven towards the minima of the action, which are in general independent from the lattice spacing. For sufficiently large flow times, one can therefore decide to use the value of the dimensionless quantity $t_f^2\langle E\rangle$ to fix the scale of the lattice.} The choice of this quantity is motivated by the fact that $\langle E\rangle = -\frac{1}{4}G_{\mu\nu}G^{\mu\nu}$ is proportional to the Wilson gauge action \cref{wilsonaction}. The gradient flow minimizes the action, so independently of the lattice spacing, all field configurations will converge to the same value.\\
 It has been proposed by L{\"u}scher that a value of $t_f^2\langle E\rangle = 0.3$ is large enough to be used as a reference scale. 
-\fig[0.2]{introduction/luscher.png}{Plot of $\sqrt{8t_0}/r_0$ where $t_0$ is the value such that $t_0^2\langle E \rangle =0.3$ for different lattice spacings taken from \cite{luscher_erratum:_2014}. The dimension less ratio $\sqrt{8t_0}/r_0$ shows the equivalence bequeen the Sommer scale $r_0$  and the gradient flow reference scale $t_0$. The continuum limit extrapolation is performed using $(a_0/r_0)^2$ as the dimesionless rescaling quantity. The two data series, better explained in the article, represent two different definitions of the gauge fiels strength tensor and consequently of the energy density.} {luscher:tsquareE}
-In \cref{luscher:tsquareE} we can indeed observe that the value is constant as a function of the lattice spacing (computed instead using the Sommer parameter). In \cref{sec:scale} this method will be applied and discussed more thoroughly.
+\fig[0.2]{introduction/luscher.png}{Plot of $\sqrt{8t_0}/r_0$ where $t_0$ is the value such that $t_0^2\langle E \rangle =0.3$ for different lattice spacings taken from \cite{luscher_erratum:_2014}. The dimension less ratio $\sqrt{8t_0}/r_0$ shows the equivalence bequeen the Sommer scale $r_0$  and the gradient flow reference scale $t_0$. The continuum limit extrapolation is performed using $(a_0/r_0)^2$ as the dimesionless rescaling quantity. The two data series, better explained in the article, represent two different definitions of the gauge fiels strength tensor and consequently of the energy density. One, the black one, is taken with the clover definition, the same we defined in \cref{eq:energy} and following. The gray points are taken with the plaquette definition of the field strangth tensor.} {luscher:tsquareE}
+In \cref{luscher:tsquareE} we can indeed observe that the continuum limit value, computed using the Sommer parameter as a reference, is independent from the definition of the basic observable used to compute it.\\
+In \cref{sec:scale} this method will be applied and discussed more thoroughly.
  
 \section{Estimating the $\Lambda$ Scale Parameter}
 Finally all the theoretical concepts and tools have been defined to state the main purpose of this work in a formal way. The goal is to use the perturbative expression of the energy as a function of the flow time and of the running coupling, \cref{energy:coupling}, to estimate the scale $\Lambda$ of the theory. \\
 Since the algorithm for generating ensembles of gauge field configurations that has been developed in this work only considers pure gauge theory, we will restrict the analysis to $\Lambda_{YM}$. This is the scale parameter when one sets $N_f = 0$, no fermion flavors. In a future work the more interesting determination of $\Lambda_{QCD}$ could be performed the same way. \\
 On the lattice the quantity $t_f^2\langle E \rangle$ can be computed easily, this leaves only the coupling on the right hand side of \cref{energy_flow} as the unknown variable. One can then choose an order for the expansion of the Renormalization Group Equation:
 \beq
-q^2 \frac{d\alpha(q)}{dq^2} = \beta(\alpha) = -(b_0\alpha^2+b_1\alpha^3+\dots)
+q^2 \frac{d\alpha(q)}{dq^2} = \beta(\alpha) = -(b_0\alpha^2+b_1\alpha^3+\dots).
 \eeq
-When solving the equation for $\alpha(q)$ there is some freedom on the choice of the renormalization point, as we have seen in \cref{alpha:M}, such that the equation in the end can be simplified by the introduction of a scale parameter.\\
+When solving the equation for $\alpha(q)$ there is some freedom in the choice of the renormalization point, as we have seen in \cref{alpha:M}, such that the equation in the end can be simplified by the introduction of a scale parameter.\\
 Using the data computed on the lattice, we will first construct the continuum limit estimate for $t_f^2\langle E \rangle$ in order to account for discretization effects. Then an estimate the scale will be found by finding an appropriate procedure to match the lattice results to the perturbation theory expansion. 
 
-\subsection{4-loop Corrected Running Coupling}
+\subsection{Four-loop Corrected Running Coupling}
 \label{sec:4loop}
-The equation \cref{energy_flow} needs to be have a functional form for $\alpha(q)$ as input, here we report an expression that is including diagrams up to 4-loops in the calculations of the RGE, parametrized by 4 coefficients. The equation was taken by the Particle Data Group review of QCD\cite{dissertori_9._2016-1}:
+The equation \cref{energy_flow} needs to be have a functional form for $\alpha(q)$ as input, here we report an expression that is including diagrams up to four-loops in the calculations of the RGE, parametrized by four4 coefficients. The equation was taken by the Particle Data Group review of QCD\cite{dissertori_9._2016-1}:
 \begin{align}
     \label{alpha}
     \alpha(q) = \frac{1}{b_0t} \bigg[& 1 - \frac{b_1\ln t}{b_0t}  + \frac{b_1^2(\ln^2t - \ln t - 1) + b_0b_2}{b_0^4t^2}\\\nonumber
-    & - \frac{b_1^3(\ln^3t - \frac{5}{2}\ln^2 t - 2\ln t + \frac{1}{2}) + 3b_0b_1b_2\ln t - \frac{1}{2}b_0^2b_3}{b_0^6t^3}\bigg]
+    & - \frac{b_1^3(\ln^3t - \frac{5}{2}\ln^2 t - 2\ln t + \frac{1}{2}) + 3b_0b_1b_2\ln t - \frac{1}{2}b_0^2b_3}{b_0^6t^3}\bigg].
 \end{align}
-here the convenient notation of $t\equiv\ln\frac{q^2}{\Lambda^2}$ has been introduced. The coefficients $b_0, b_1,b_2$ and $b_3$ can be computed analytically for a general theory on $\mathrm{SU}(3)$ with $N_f$ quark flavors. While $b_0$ and $b_1$ have known exact values, the other two parameters are renormalization scheme dependent, and we chose the ones computed in the $\overline{MS}$ scheme found in \cite{van_ritbergen_four-loop_1997}. The coefficients are then: 
+Here the convenient notation of $t\equiv\ln\frac{q^2}{\Lambda^2}$ has been introduced. The coefficients $b_0, b_1,b_2$ and $b_3$ can be computed analytically for a general theory on $\mathrm{SU}(3)$ with $N_f$ quark flavors. While $b_0$ and $b_1$ have known exact values, the other two parameters are renormalization scheme dependent, and we choose the ones computed in the $\overline{MS}$ scheme found in \cite{van_ritbergen_four-loop_1997}. The coefficients are then: 
 \begin{align}
-    b_0 &= \frac{1}{(4\pi)}   \left[11 - \frac{2}{3}N_f\right] \\\nonumber
-    b_1 &= \frac{1}{(4\pi)^2} \left[102 - \frac{38}{3}N_f\right] \\\nonumber
-    b_2 &= \frac{1}{(4\pi)^3} \left[\frac{2857}{2} - \frac{5033}{18}N_f + \frac{325}{54}N_f^2\right] \\\nonumber
-    b_3 &= \frac{1}{(4\pi)^4} \bigg[\left(\frac{149753}{6} + 3564\zeta_3\right)  - \left(\frac{1078361}{162}+ \frac{6508}{27}\zeta_3\right) N_f  \\\nonumber
-    & ~~~~~~~~~~+ \left(\frac{50065}{162}  + \frac{6472}{81}\zeta_3\right)N_f^2 + \frac{1093}{729}N_f^3 \bigg] 
+    b_0 &= \frac{1}{(4\pi)}   \left[11 - \frac{2}{3}N_f\right], \\\nonumber
+    b_1 &= \frac{1}{(4\pi)^2} \left[102 - \frac{38}{3}N_f\right] ,\\\nonumber
+    b_2 &= \frac{1}{(4\pi)^3} \left[\frac{2857}{2} - \frac{5033}{18}N_f + \frac{325}{54}N_f^2\right] ,\\\nonumber
+    b_3 &= \frac{1}{(4\pi)^4} \bigg[\left(\frac{149753}{6} + 3564\zeta_3\right)  - \left(\frac{1078361}{162}+ \frac{6508}{27}\zeta_3\right) N_f , \\\nonumber
+    & ~~~~~~~~~~+ \left(\frac{50065}{162}  + \frac{6472}{81}\zeta_3\right)N_f^2 + \frac{1093}{729}N_f^3 \bigg], 
 \end{align} 
 or in a numerical form, substituting also the Riemann zeta-function value $\zeta_3 = 1.202056903\dots$ one gets the more handy expression
 \begin{align}
     \label{b:coeffs}
-    b_0 &\approx \frac{1}{(4\pi)} (11-0.66667N_f)\\\nonumber
-    b_1 &\approx \frac{1}{(4\pi)^2} (102-12.6667N_f)\\\nonumber
-    b_2 &\approx \frac{1}{(4\pi)^3} (1428.50-279.611N_f+ 6.01852N_f^2)\\\nonumber
-    b_3 &\approx \frac{1}{(4\pi)^4} (29243.0-6946.30N_f+ 405.089N_f^2+ 1.49931N_f^3)
+    b_0 &\approx \frac{1}{(4\pi)} (11-0.66667N_f),\\\nonumber
+    b_1 &\approx \frac{1}{(4\pi)^2} (102-12.6667N_f),\\\nonumber
+    b_2 &\approx \frac{1}{(4\pi)^3} (1428.50-279.611N_f+ 6.01852N_f^2),\\\nonumber
+    b_3 &\approx \frac{1}{(4\pi)^4} (29243.0-6946.30N_f+ 405.089N_f^2+ 1.49931N_f^3).
 \end{align}
-with the aid of these coefficients the only unknown variable in \cref{energy:coupling}, using \cref{alpha} for $\alpha_S(q)$, is the scale parameter $\Lambda$.
+With the aid of these coefficients the only unknown variable in \cref{energy:coupling}, using \cref{alpha} for $\alpha_S(q)$, is the scale parameter $\Lambda$.
