@@ -50,7 +50,7 @@ For sufficiently large $N$, the true variance of the data can be expressed as:
     \tilde\sigma^2 = 2\tau_{int}\sigma^2 .
     \label{eq:tauint}
 \eeq
-This result is very neat, because it implies that in one can calculate the integrtated autocorrelation time correctly, the inclusion of the effects on the uncertainty estimate is trivial. In order to truncate the infinite summation in \cref{autocorr:inf} one can look at the deviation squared of $\rho(t)$, which as suggested by Sokal \cite{dewitt-morette_monte_1997} can be written as:
+This result is very neat, because it implies that if one can calculate the integrated autocorrelation time correctly, the inclusion of the effects on the uncertainty estimate is trivial. In order to truncate the infinite summation in \cref{autocorr:inf} one can look at the deviation squared of $\rho(t)$, as suggested in  \cite{dewitt-morette_monte_1997}, can be written as:
 \beq
     \langle \delta \rho(t)^2\rangle \approx \frac{1}{N} \sum_{k=1}^\infty \left[ \rho(k+t) + \rho(k-t) - 2\rho(k)\rho(t)\right]^2.
 \eeq

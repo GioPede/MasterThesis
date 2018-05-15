@@ -1,7 +1,7 @@
 One of the major focuses of this work has been a completely new implementation of a program to generate and analyse $\mathrm{SU}(3)$ lattice gauge field configurations. As it is common practice in Lattice QCD numerical implementations, the program is split in three parts:
 \begin{enumerate}
     \item \textit{Generation of Gauge Fields}: in this case it is done using an implementation of the Metropolis-Hastings algorithm using the Wilson gauge action;
-    \item \textit{Computation of Lattice Observables}: this includes applying the gradient flow method, presented in \cref{sec:grad_flow}, to the gauge fields, as well as computing the energy density and the topological charge at every flow time; in other applications the computation of quark propagators and two- or three-point correlators are performed; 
+    \item \textit{Computation of Lattice Observables}: this includes applying the gradient flow method, presented in \cref{sec:grad_flow}, to the gauge fields, as well as computing the energy density and the topological charge at every flow time; in other applications the computation of quark propagators and two- or three-point correlators are performed at this stage; 
     \item \textit{Computation of Derived Quantities}: mainly post analysis, computation of secondary observables and uncertainties. Resampling and autocorrelation analysis are crucial to Lattice QCD given the typically small size of the ensembles. 
 \end{enumerate}
 In this chapter we present the main features of the program that was developed to deal with the first two steps, which are the most interesting. The third step, the post analysis, which is a simpler calculation, did not require a very sophisticated implementation. \\
@@ -9,7 +9,7 @@ The problems are numerically very challenging and the calculations had to be per
   
 \section{Generating Pure Gauge Fields} 
 The task of generating lattice field configurations is extremely intense in terms of computational requirements. The case of full QCD with dynamical fermions is much more demanding than that of a Pure Gauge theory (no fermion determinants need to be computed, see \cref{sec:pathintegral}), but overall the latter calculation is still challenging. The main, and perhaps overwhelmingly simple, reason for this problem is the dimensionality. Dealing with a discretized space-time lattice, things tend to scale with powers of $2^4$, a trivial example is cutting in half the lattice spacing keeping a fixed total volume: this requires $16$ more points in the global lattice. \\
-To get a better feeling of the algorithm we first have to look at what the basic object of the program is: the lattice. On a computer the number of double precision floating point numbers to be stored for a field configuration is given by
+To get a better feeling of the algorithm we first have to look at what the basic object of the program is: the gauge field lattice. On a computer the number of double precision floating point numbers to be stored for a field configuration is given by
 \begin{equation}
     \underbrace{N^3}_\text{spatial dimension} \times
     \underbrace{N_t}_\text{time dimension} \times
@@ -26,7 +26,7 @@ In general, a Markov Chain is a sequence of randomly chosen variables $X_1, X_2,
 \beq
     P(X_{t+1} = x| X_1 = x_1, X_1 = x_2, \dots, X_t = x_t) = P(X_{t+1} = x|  X_t = x_t) .
 \eeq 
-In the case where the probabilities of moving from a state $X_i = i$ to a state $X_j = j$ is not known, the transition probability from the two states, $W(i\rightarrow j)$ can be split into two contributions: the probability $T(i \rightarrow j)$ for making the transition to state $j$ being in state $i$ and the  probability of accepting this transition $A(i \rightarrow j)$,
+In the case where the probabilities of moving from a state $X_i = i$ to a state $X_j = j$ is not known, the transition probability from state to the other, $W(i\rightarrow j)$ can be split into two contributions: the probability $T(i \rightarrow j)$ for making the transition to state $j$ being in state $i$ and the  probability of accepting this transition $A(i \rightarrow j)$,
 \beq
     W(i \rightarrow j) = A(i \rightarrow j)T(i \rightarrow j).
 \eeq  
@@ -51,7 +51,7 @@ This condition means that at equilibrium every process is equilibrated by its re
 \beq
     \frac{w_i}{w_j} = \frac{W(i\rightarrow j)}{W(j\rightarrow i)} = \frac{T(i\rightarrow j)A(i\rightarrow j)}{T(j\rightarrow i)A(j\rightarrow i)}.
 \eeq
-Making the approximation that the transition probability between two states is the same independently of the direction of the transition: $T(i\rightarrow j) = T(j\rightarrow i)$. This is the so called brute-force approach. What we are left with is that the acceptance ratio of a move to a new state to be the ratio of the PDFs.  
+We now make approximation that the transition probability between two states is the same independently of the direction of the transition: $T(i\rightarrow j) = T(j\rightarrow i)$. This is the so called brute-force approach. What we are left with is that the acceptance ratio of a move to a new state to be the ratio of the PDFs.  
 
 The Metropolis-Hastings algorithm is used in such conditions. To sample the space of gauge configurations one performs the following procedure:
 \begin{enumerate}
@@ -122,7 +122,7 @@ In order to generate such a transformation we use three random $\mathrm{SU}(2)$ 
     ~~~~~~~
     T_2 = \begin{pmatrix}
         t_{11} & t_{12} \\ t_{21} & t_{22} 
-    \end{pmatrix},
+    \end{pmatrix}.
 \eeq
 The elements of the matrix are to be random, but with a controlled spread around the identity matrix. One starts by selecting four random numbers $r_0$, $\vec{r}$ (the latter is a three component vector) between $(-\frac{1}{2},\frac{1}{2})$. 
 Then a ``spread parameter'' $\epsilon$ is introduced, which controls how much to weight the off-diagonal terms. The random variables are scaled according to:
@@ -259,7 +259,7 @@ In an operative way, given a lattice of size $(N_x, N_y, N_z, N_t)$ each space-t
 N_{procs} = \frac{S_x}{N_x} \times \frac{S_y}{N_y} \times \frac{S_z}{N_z}  \times \frac{S_t}{N_t}.
 \eeq 
 A unique mapping can be performed from the ``local'' coordinates of a lattice site in one of the sub-blocks to the ``global" coordinates once the position of the sub-lattice is known. In practice this can be done through the aid of the unique identifier of the processor that is given by the parallelization library. In particular, the Message Passing Interface (\texttt{MPI}) \cite{Forum:1994:MMI:898758} library has a built-in function to map processors into a grid of arbitrary dimensions and size, called \texttt{MPI\_CartCoord\_Create}. The utility also allows for the easy identification of the rank (the jargon term for the unique identifier of a processor) of the nearest neighbors. Using this tools one can manage the distribution of the total lattice into $N_{procs}$ sub-lattices. \\
-However, the plaquette $P_{\mu\nu}(n)$ of a lattice site $n$, that enters the action difference definition, depends on link variables located at neighboring sites, this is clear by looking at the definition found in \cref{plaquette}. This implies that when updating a link on the edge of a sub-lattice, information about another block is needed. Here is where \texttt{MPI} comes in use, substituting the usual periodic boundary conditions that are used in the calculations with periodic communication patterns between the processors. For this particular problem we decided to use a point to point communication scheme, the use of periodic boundary conditions allowed also for non-blocking communications, in particular the collective geometry based scheme shown in \cref{fig:subblocks} has been implemented. 
+However, the plaquette $P_{\mu\nu}(n)$ of a lattice site $n$, that enters the action difference definition, depends on link variables located at neighboring sites, this is clear by looking at the definition found in \cref{plaquette}. This implies that when updating a link on the edge of a sub-lattice, information about another block is needed. Here is where \texttt{MPI} comes in use, substituting the usual periodic boundary conditions that are used in the calculations with periodic communication patterns between the processors. For this specific problem we decided to use a point to point communication scheme, the use of periodic boundary conditions allowed also for non-blocking communications, in particular the collective geometry based scheme shown in \cref{fig:subblocks} has been implemented. 
 
 \input{implementation/sub-blocks} 
 
@@ -271,7 +271,7 @@ It is clear to see that the algorithm can be affected by large communication ove
 In total the algorithm we presented for generating pure gauge field configurations (using only the Wilson gluonic action) has four parameters as inputs. Of these, only one defines the physics of the system, the others have to be set and optimized in order to improve the acceptance ratio of the metropolis algorithm and the autocorrelation time of the observables computed on the generated configurations. A summary is reported in \cref{MC:params}
  
 \begin{table}[!htb]
-    \capt{Parameters for the Monte Carlo generation of Yang-Mills gauge field \\configurations via the Metropolis-Hastings Algorithm}
+    \capt{Parameters for the Monte Carlo generation of Yang-Mills gauge field configurations via the Metropolis-Hastings Algorithm}
     \begin{center}
 \begin{tabular}{cl}
     Parameter & Description\\\hline
@@ -285,7 +285,7 @@ In total the algorithm we presented for generating pure gauge field configuratio
 \end{table}
  
 \section{Gradient Flow of Gauge Configurations}
-To study the flow time dependence of the observables a numeric implementation of \cref{lattice:flow} is needed. The main challenge that this problem poses is how to numerically integrate the flow equation on the lattice while preserving the $\mathrm{SU}(3)$ Lie Group structure of the field through the numerical procedure. The problem is solved by using the so called Structure-Preserving Runge-Kutta Methods, in particular the Runge-Kutta Munthe-Kaas (RK-MK) method that is designed to integrate first order ODE on a manifold \cite{munthe-kaas_runge-kutta_1998,munthe-kaas_lie-butcher_1995,celledoni_introduction_2014}. \\
+To study the flow time dependence of the observables of gauge fields a numeric implementation of \cref{lattice:flow} is needed. The main challenge that this problem poses is how to numerically integrate the flow equation on the lattice while preserving the $\mathrm{SU}(3)$ Lie Group structure of the field through the numerical procedure. The problem is solved by using the so called Structure-Preserving Runge-Kutta Methods, in particular the Runge-Kutta Munthe-Kaas (RK-MK) method that is designed to integrate first order ODE on a manifold \cite{munthe-kaas_runge-kutta_1998,munthe-kaas_lie-butcher_1995,celledoni_introduction_2014}. \\
 In \cref{algo:flow} the general scheme of the program to flow the gauge field configurations from time $t_f=0$ to $t_f^{MAX}$ in steps of size $\epsilon$ is outlined.
 \begin{algorithm}[bht!]
     \caption{Gradient Flow}\label{algo:flow}
@@ -332,7 +332,7 @@ What is then left to define are the derivatives of the action at a given lattice
 \subsection{The Action Derivative}
 The differential operator acting on an algebra-valued function $f(U)$ in a Lie group is defined, in terms of the generators $t^a$, as:
 \beq
-    \partial_{\mu,x}^a f(U) = \frac{d}{ds} f(e^{sX}U) \bigg\rvert_{s=0},~~~~~\text{with} ~~~X(\mu,x) = t^a \delta_{x,y}\delta_{\mu,\nu} .
+    \partial_{\mu,x}^a f(U) = \frac{d}{ds} f(e^{sX}U) \bigg\rvert_{s=0},~~~~~\text{with} ~~~X(\mu,x) = 1 + (t^a - 1) \delta_{x,y}\delta_{\mu,\nu} .
 \eeq
 In practice this operator leaves unchanged all the links except the one that is being derivated. When considering the action in \cref{eq:flow_action} and recalling the definition of staples, \cref{eq:staples}, we have:
 \beq
@@ -346,7 +346,7 @@ Invoking now the fact that any $3\times3$ matrix can be expanded as $M = \frac{1
 \beq
 g_0^2\partial_{\mu,x} S_G(U_\mu(x)) = \frac{1}{2} \left(\Omega_\mu(x) - \Omega^\dagger_\mu (x) \right) -  \frac{1}{6} \Tr \left(\Omega_\mu(x) - \Omega^\dagger_\mu (x) \right).
 \eeq
-This is our final expression for the action derivative. It should be noticed that computing this term is not anymore complex than computing the action difference for the gauge field configuration generation case, as in both cases the most complicated object to calculate on the lattice is the sum of the staples $A[U_\mu(x)]$. We can notice as well that the derivative is always a traceless hermitean matrix, thus an element of $\mathfrak{su}(3)$ as expected.
+This is our final expression for the action derivative. It should be noticed that computing this term is not any more complex than computing the action difference for the gauge field configuration generation case, as in both cases the most complicated object to calculate on the lattice is the sum of the staples $A[U_\mu(x)]$. We can notice as well that the derivative is always a traceless hermitean matrix, thus an element of $\mathfrak{su}(3)$ as expected.
 
 \subsection{Exponential of an $\mathfrak{su}(3)$ Element}
 \label{sec:exponential}
@@ -395,7 +395,7 @@ As it has been done for the gauge field configuration generation algorithm, in \
 
 \begin{table}[!htb]
 \begin{center}
-    \capt{Parameters for the numerical integration of the gradient flow equations \\on Yang-Mills gauge field configurations.} 
+    \capt{Parameters for the numerical integration of the gradient flow equations on Yang-Mills gauge field configurations.} 
 \begin{tabular}{cl}
     Parameter & Description\\\hline
     $\beta$ & Coupling parameter of the Wilson Action, fixed by the input configuration\\
@@ -432,7 +432,7 @@ There is a set of ``Core Classes'', the second layer in \cref{fig:code_structure
 With the tools described just above the main classes of the program were written. These ``Lattice Tools'', the third layer in \cref{fig:code_structure}, represent general physical concepts in Lattice QCD. They are:
 \begin{itemize}
     \item the Action abstract base class, of which the Wilson Plaquette action derived type has been implemented, is an object that if given a gauge field lattice can compute: the value of the action at every single lattice site; the staples of a link (for the action derivative and the Metropolis-Hastings algorithm); the action difference of a link if provided with a random transformation for it.
-    \item the Observable abstract base class. It contains simply the value of the observable and a method to compute it. The derived types that have been implemented are the Plaquette, the Energy Density and the Topological Charge.  
+    \item the Observable abstract base class. It simply contains the value of the observable and a method to compute it. The derived types that have been implemented are the Plaquette, the Energy Density and the Topological Charge.  
 \end{itemize}
 For both of these base classes new derived types could be implemented, extending the capabilities and the use cases of the program. \\
 Finally the ``Main Applications'' that have been developed are: the Pure Gauge Field Generator, which is an implementation of the Metropolis-Hastings algorithm as presented in this chapter; the Wilson Flow, a program to apply the gradient flow equation to a set of gauge field configuration and compute observables at every flow-time; a Pure Gauge Field Reader, mainly intended for testing, it is a useful application to view the single links of a lattice configuration.

@@ -45,16 +45,16 @@
     \endentry
     \entry{capitani_non-perturbative_1999}{article}{}
       \name{author}{1}{}{%
-        {{hash=89a7e9a37f2dbbefd17da5afff21490f}{%
+        {{hash=49e0a199d7b864fd9ff6b4dc71944b9a}{%
            family={S.\bibnamedelimi Capitani},
            family_i={S\bibinitperiod\bibinitdelim C\bibinitperiod},
-           suffix={M.\bibnamedelimi Lüscher},
-           suffix_i={M\bibinitperiod\bibinitdelim L\bibinitperiod},
-           given={R.\bibnamedelimi Sommer\bibnamedelimb et\bibnamedelima al.},
-           given_i={R\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+           suffix={M.\bibnamedelimi Lüscher\bibnamedelimb et\bibnamedelima al.},
+           suffix_i={M\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod},
+           given={R.\bibnamedelimi Sommer},
+           given_i={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
       }
-      \strng{namehash}{89a7e9a37f2dbbefd17da5afff21490f}
-      \strng{fullhash}{89a7e9a37f2dbbefd17da5afff21490f}
+      \strng{namehash}{49e0a199d7b864fd9ff6b4dc71944b9a}
+      \strng{fullhash}{49e0a199d7b864fd9ff6b4dc71944b9a}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}
@@ -95,16 +95,16 @@
     \endentry
     \entry{brida_determination_2016}{article}{}
       \name{author}{1}{}{%
-        {{hash=d3c4b58181f1a706a91b2b06dfecb69a}{%
-           family={M.\bibnamedelimi Dalla\bibnamedelima Brida},
-           family_i={M\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim B\bibinitperiod},
-           suffix={P.\bibnamedelimi Fritzsch},
-           suffix_i={P\bibinitperiod\bibinitdelim F\bibinitperiod},
-           given={T.\bibnamedelimi Korzec\bibnamedelimb et\bibnamedelima al.},
-           given_i={T\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+        {{hash=2630484eca97adf86472098cec2bb3a3}{%
+           prefix={et},
+           prefix_i={e\bibinitperiod},
+           family={al.},
+           family_i={a\bibinitperiod},
+           given={M.\bibnamedelimi Dalla\bibnamedelima Brida},
+           given_i={M\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
       }
-      \strng{namehash}{d3c4b58181f1a706a91b2b06dfecb69a}
-      \strng{fullhash}{d3c4b58181f1a706a91b2b06dfecb69a}
+      \strng{namehash}{2630484eca97adf86472098cec2bb3a3}
+      \strng{fullhash}{2630484eca97adf86472098cec2bb3a3}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}
@@ -574,16 +574,16 @@
     \endentry
     \entry{alles_hybrid_1996}{article}{}
       \name{author}{1}{}{%
-        {{hash=171f113e8731c0818abceed0981b7a02}{%
+        {{hash=d52affe0879408210bcd69ebe5b7d6d6}{%
            family={B.\bibnamedelimi Allés},
            family_i={B\bibinitperiod\bibinitdelim A\bibinitperiod},
-           suffix={G.\bibnamedelimi Boyd},
-           suffix_i={G\bibinitperiod\bibinitdelim B\bibinitperiod},
-           given={M.\bibnamedelimi D'Elia\bibnamedelimb et\bibnamedelima al.},
-           given_i={M\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+           suffix={G.\bibnamedelimi Boyd\bibnamedelimb et\bibnamedelima al.},
+           suffix_i={G\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod},
+           given={M.\bibnamedelimi D'Elia},
+           given_i={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
       }
-      \strng{namehash}{171f113e8731c0818abceed0981b7a02}
-      \strng{fullhash}{171f113e8731c0818abceed0981b7a02}
+      \strng{namehash}{d52affe0879408210bcd69ebe5b7d6d6}
+      \strng{fullhash}{d52affe0879408210bcd69ebe5b7d6d6}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}
@@ -1077,19 +1077,19 @@
     \endentry
     \entry{ce_testing_2015}{inproceedings}{}
       \name{author}{1}{}{%
-        {{hash=b2fa729096f10e2010a3a2fce2edf311}{%
-           family={M.\bibnamedelimi Cè},
-           family_i={M\bibinitperiod\bibinitdelim C\bibinitperiod},
-           suffix={C.\bibnamedelimi Consonni},
-           suffix_i={C\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={G.\bibnamedelimi P.\bibnamedelimi Engel\bibnamedelimb et\bibnamedelima al.},
-           given_i={G\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+        {{hash=3e199f1475b898626d0368641e70464a}{%
+           prefix={et},
+           prefix_i={e\bibinitperiod},
+           family={al.},
+           family_i={a\bibinitperiod},
+           given={M.\bibnamedelimi Cè},
+           given_i={M\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
       }
       \list{publisher}{1}{%
         {Sissa Medialab}%
       }
-      \strng{namehash}{b2fa729096f10e2010a3a2fce2edf311}
-      \strng{fullhash}{b2fa729096f10e2010a3a2fce2edf311}
+      \strng{namehash}{3e199f1475b898626d0368641e70464a}
+      \strng{fullhash}{3e199f1475b898626d0368641e70464a}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}
@@ -1192,16 +1192,16 @@
     \endentry
     \entry{ce_non-gaussianities_2015}{article}{}
       \name{author}{1}{}{%
-        {{hash=b2fa729096f10e2010a3a2fce2edf311}{%
-           family={M.\bibnamedelimi Cè},
-           family_i={M\bibinitperiod\bibinitdelim C\bibinitperiod},
-           suffix={C.\bibnamedelimi Consonni},
-           suffix_i={C\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={G.\bibnamedelimi P.\bibnamedelimi Engel\bibnamedelimb et\bibnamedelima al.},
-           given_i={G\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+        {{hash=3e199f1475b898626d0368641e70464a}{%
+           prefix={et},
+           prefix_i={e\bibinitperiod},
+           family={al.},
+           family_i={a\bibinitperiod},
+           given={M.\bibnamedelimi Cè},
+           given_i={M\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
       }
-      \strng{namehash}{b2fa729096f10e2010a3a2fce2edf311}
-      \strng{fullhash}{b2fa729096f10e2010a3a2fce2edf311}
+      \strng{namehash}{3e199f1475b898626d0368641e70464a}
+      \strng{fullhash}{3e199f1475b898626d0368641e70464a}
       \field{sortinit}{0}
       \field{sortinithash}{990108227b3316c02842d895999a0165}
       \field{labelnamesource}{author}

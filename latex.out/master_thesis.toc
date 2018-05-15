@@ -126,11 +126,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2.3}Strong and Weak Scaling}{66}{subsection.6.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Strong Scaling}{66}{section*.33}
+\contentsline {subsubsection}{Strong Scaling}{67}{section*.33}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Weak Scaling}{68}{section*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.3}Main Runs and Timing}{69}{section.6.3}
+\contentsline {section}{\numberline {6.3}Main Runs and Timing}{70}{section.6.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {part}{III\hspace {1em}Data Analysis and Results}{71}{part.3}
 \defcounter {refsection}{0}\relax 
@@ -142,13 +142,13 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {7.3}Topological Susceptibility}{78}{section.7.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Running Coupling and Scale Fixing}{83}{chapter.8}
+\contentsline {chapter}{\numberline {8}Running Coupling and The $\Lambda _{YM}$ Scale}{83}{chapter.8}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8.1}Discretization Effects on $t_f^2\delimiter "426830A E \delimiter "526930B $}{83}{section.8.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8.2}Matching Perturbative and Lattice Results}{85}{section.8.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.2.1}Strategy for the Estimation of the Scale Energy $\Lambda $}{86}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.1}Strategy for the Estimation of the Scale Energy $\Lambda $}{85}{subsection.8.2.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8.3}Results for the Scale $\Lambda _{YM}$}{89}{section.8.3}
 \defcounter {refsection}{0}\relax 
