@@ -70,9 +70,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}The Gradient Flow Method}{34}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Perturbative Analysis of the Gradient Flow}{35}{section.4.3}
+\contentsline {section}{\numberline {4.3}Perturbative Analysis of the Gradient Flow}{36}{section.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3.1}Scale Fixing with the Gradient Flow}{38}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.1}Scale Fixing with the Gradient Flow}{37}{subsection.4.3.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.4}Estimating the $\Lambda $ Scale Parameter}{39}{section.4.4}
 \defcounter {refsection}{0}\relax 
@@ -158,12 +158,14 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {9.1}Future Work}{98}{section.9.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendix \numberline {A}Statistical Tools}{99}{Appendix.1.A}
+\contentsline {part}{V\hspace {1em}Appendix}{99}{part.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Resampling: Bootstrap and Jackknife}{99}{section.1.A.1}
+\contentsline {chapter}{Appendix \numberline {A}Statistical Tools}{101}{Appendix.1.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.1.1}Bootstrap}{99}{subsection.1.A.1.1}
+\contentsline {section}{\numberline {A.1}Resampling: Bootstrap and Jackknife}{101}{section.1.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.1.2}Jackknife}{100}{subsection.1.A.1.2}
+\contentsline {subsection}{\numberline {A.1.1}Bootstrap}{101}{subsection.1.A.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}Autocorrelation}{100}{section.1.A.2}
+\contentsline {subsection}{\numberline {A.1.2}Jackknife}{102}{subsection.1.A.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Autocorrelation}{102}{section.1.A.2}

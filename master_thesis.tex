@@ -6,10 +6,15 @@
 \usepackage{fontspec}
 \addbibresource{bibliography/master_thesis.bib}
 
-
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
 % TITLE
 \author{Giovanni Pederiva}
-\title{{\scshape Computing the Scale $\Lambda_{YM}$ of Pure Yang-Mills Theory from a Novel Lattice QCD Code with Gradient Flow}}
+\title{{\scshape Computing the $\Lambda$ Scale of Pure Yang-Mills Theory from a Novel Lattice QCD Code with Gradient Flow}}
 \date{May 2018} 
 
 % LOAD PACKAGES 
@@ -103,24 +108,30 @@
 	\begin{chapter}{Summary and Outlook}
 		\label{chap:conclusion}
 		\input{conclusion/conclusion}
-	\end{chapter}
-	\clearpage
+	\end{chapter}	
 	% \begin{chapter}{Future Developements}
 	% 	\label{chap:future}
 	% 	\input{conclusion/future}
 	% \end{chapter}
 \end{part}
 
+\cleardoublepage
+
 
 % APPENDICES
+
+
+
 \begin{appendices}
 	
-	\begin{chapter}{Statistical Tools}
-		\label{appendix:resampling}
-		\input{appendix/resampling}
-	\end{chapter}
+	\begin{part}{Appendix}
+		\begin{chapter}{Statistical Tools}
+			\label{appendix:resampling}
+			\input{appendix/resampling}
+		\end{chapter}
+	\end{part}
 \end{appendices}
-
+	
 % MAKE BIBLIOGRAPHY
 %\bibliographystyle{unsrt}
 %bibliography/master_thesis_1}
