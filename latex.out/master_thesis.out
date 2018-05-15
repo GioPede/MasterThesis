@@ -1,0 +1,74 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Goals and Motivation}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Our Contribution}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Structure of the Thesis}{chapter.1}% 4
+\BOOKMARK [-1][-]{part.1}{I Overview of QCD and Lattice Field Theories}{}% 5
+\BOOKMARK [0][-]{chapter.2}{A Primer on QCD in the Continuum}{part.1}% 6
+\BOOKMARK [1][-]{section.2.1}{The QCD Lagrangian}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.1.1}{Feynman Rules of QCD}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.2}{Gauge Symmetry of the Lagrangian}{section.2.1}% 9
+\BOOKMARK [1][-]{section.2.2}{General Properties of QCD}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.1}{Running Coupling}{section.2.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Methods and Regimes of Chromodynamics}{chapter.2}% 12
+\BOOKMARK [0][-]{chapter.3}{Lattice Field Theories and Lattice QCD}{part.1}% 13
+\BOOKMARK [1][-]{section.3.1}{Discretizing Field Theories}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.1.1}{The Quantum Mechanical Example}{section.3.1}% 15
+\BOOKMARK [1][-]{section.3.2}{Discretization of QCD on the Lattice}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.2.1}{Na\357ve Discretization of Fermions}{section.3.2}% 17
+\BOOKMARK [2][-]{subsection.3.2.2}{The Gauge Transporter and the Wilson Loop}{section.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.2.3}{The Wilson Gauge Action}{section.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.2.4}{Lattice Fermions}{section.3.2}% 20
+\BOOKMARK [1][-]{section.3.3}{Path Integrals on the Lattice}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.3.1}{Pure Gauge Field Theory}{section.3.3}% 22
+\BOOKMARK [2][-]{subsection.3.3.2}{Observables}{section.3.3}% 23
+\BOOKMARK [1][-]{section.3.4}{Modern Lattice QCD Calculations}{chapter.3}% 24
+\BOOKMARK [0][-]{chapter.4}{Advanced Topics in Lattice QCD}{part.1}% 25
+\BOOKMARK [1][-]{section.4.1}{Scale Setting in the Quenched Approximation}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.2}{The Gradient Flow Method}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.3}{Perturbative Analysis of the Gradient Flow}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.3.1}{Scale Fixing with the Gradient Flow}{section.4.3}% 29
+\BOOKMARK [1][-]{section.4.4}{Estimating the \040Scale Parameter}{chapter.4}% 30
+\BOOKMARK [2][-]{subsection.4.4.1}{Four-loop Corrected Running Coupling}{section.4.4}% 31
+\BOOKMARK [-1][-]{part.2}{II Implementation}{}% 32
+\BOOKMARK [0][-]{chapter.5}{Designing a Lattice SU\(3\) Yang-Mills Theory Code}{part.2}% 33
+\BOOKMARK [1][-]{section.5.1}{Generating Pure Gauge Fields}{chapter.5}% 34
+\BOOKMARK [2][-]{subsection.5.1.1}{The Metropolis-Hastings Algorithm}{section.5.1}% 35
+\BOOKMARK [2][-]{subsection.5.1.2}{Sampling the Configuration Space}{section.5.1}% 36
+\BOOKMARK [2][-]{subsection.5.1.3}{Efficient Action Difference Calculation}{section.5.1}% 37
+\BOOKMARK [2][-]{subsection.5.1.4}{Updates Strategies}{section.5.1}% 38
+\BOOKMARK [2][-]{subsection.5.1.5}{Parallelization Scheme}{section.5.1}% 39
+\BOOKMARK [2][-]{subsection.5.1.6}{Summary of the Parameters for Generating Configurations}{section.5.1}% 40
+\BOOKMARK [1][-]{section.5.2}{Gradient Flow of Gauge Configurations}{chapter.5}% 41
+\BOOKMARK [2][-]{subsection.5.2.1}{Numerical Integration of the Flow Equation}{section.5.2}% 42
+\BOOKMARK [2][-]{subsection.5.2.2}{The Action Derivative}{section.5.2}% 43
+\BOOKMARK [2][-]{subsection.5.2.3}{Exponential of an su\(3\) Element}{section.5.2}% 44
+\BOOKMARK [2][-]{subsection.5.2.4}{Parallelization Scheme}{section.5.2}% 45
+\BOOKMARK [2][-]{subsection.5.2.5}{Summary of the Parameters for the Gradient Flow}{section.5.2}% 46
+\BOOKMARK [1][-]{section.5.3}{Structure and Tools}{chapter.5}% 47
+\BOOKMARK [2][-]{subsection.5.3.1}{Object-Oriented Programming}{section.5.3}% 48
+\BOOKMARK [2][-]{subsection.5.3.2}{Source Code Structure}{section.5.3}% 49
+\BOOKMARK [0][-]{chapter.6}{Tests and Runs Description}{part.2}% 50
+\BOOKMARK [1][-]{section.6.1}{Generated Ensembles}{chapter.6}% 51
+\BOOKMARK [1][-]{section.6.2}{Test Runs}{chapter.6}% 52
+\BOOKMARK [2][-]{subsection.6.2.1}{Tests for the Autocorrelation of Observables}{section.6.2}% 53
+\BOOKMARK [2][-]{subsection.6.2.2}{Thermalization}{section.6.2}% 54
+\BOOKMARK [2][-]{subsection.6.2.3}{Strong and Weak Scaling}{section.6.2}% 55
+\BOOKMARK [1][-]{section.6.3}{Main Runs and Timing}{chapter.6}% 56
+\BOOKMARK [-1][-]{part.3}{III Data Analysis and Results}{}% 57
+\BOOKMARK [0][-]{chapter.7}{Basic Observables}{part.3}% 58
+\BOOKMARK [1][-]{section.7.1}{Plaquette and Energy Density}{chapter.7}% 59
+\BOOKMARK [1][-]{section.7.2}{Topological Charge}{chapter.7}% 60
+\BOOKMARK [1][-]{section.7.3}{Topological Susceptibility}{chapter.7}% 61
+\BOOKMARK [0][-]{chapter.8}{Running Coupling and Scale Fixing}{part.3}% 62
+\BOOKMARK [1][-]{section.8.1}{Discretization Effects on tf2"426830A E "526930B }{chapter.8}% 63
+\BOOKMARK [1][-]{section.8.2}{Matching Perturbative and Lattice Results}{chapter.8}% 64
+\BOOKMARK [2][-]{subsection.8.2.1}{Strategy for the Estimation of the Scale Energy }{section.8.2}% 65
+\BOOKMARK [1][-]{section.8.3}{Results for the Scale YM}{chapter.8}% 66
+\BOOKMARK [-1][-]{part.4}{IV Conclusions}{}% 67
+\BOOKMARK [0][-]{chapter.9}{Summary and Outlook}{part.4}% 68
+\BOOKMARK [1][-]{section.9.1}{Future Work}{chapter.9}% 69
+\BOOKMARK [0][-]{Appendix.1.A}{Appendix Statistical Tools}{part.4}% 70
+\BOOKMARK [1][-]{section.1.A.1}{Resampling: Bootstrap and Jackknife}{Appendix.1.A}% 71
+\BOOKMARK [2][-]{subsection.1.A.1.1}{Bootstrap}{section.1.A.1}% 72
+\BOOKMARK [2][-]{subsection.1.A.1.2}{Jackknife}{section.1.A.1}% 73
+\BOOKMARK [1][-]{section.1.A.2}{Autocorrelation}{Appendix.1.A}% 74

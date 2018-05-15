@@ -92,25 +92,26 @@ The estimation of the $\Lambda_{YM}$ scale is taken by considering the weighted 
 \beq
     \sum_{i=0}^{k-1} w_i \leq \frac{1}{2} ~~~~ \text{and}  ~~~~~ \sum_{i=k+1}^{N} w_i \geq \frac{1}{2}
 \eeq
-The systematic uncertainty has been taken as the $68\%$ confidence interval of the weighted median distribution, as it was done in \cite{durr_ab-initio_2008-1}. To estimate the statistical error, the whole procedure has been applied to 500 bootstrap samples of the lattice data, constructing the continuum limit limit for each sample and performing fits on all fit ranges for sample. The results are shown in \cref{lambda_table}.
+The systematic uncertainty has been taken as the $68\%$ confidence interval of the weighted median distribution, as it was done in \cite{durr_ab-initio_2008-1}. To estimate the statistical error, the whole procedure has been applied to 500 bootstrap samples of the lattice data, constructing the continuum limit limit for each sample and performing fits on all fit ranges for sample. The results are shown in \cref{table:lambda_table}.
 
 \begin{table}[!htb]
     \begin{center}
-    \begin{tabular}{ccc} 
-        Fit Function Order & $\Lambda_{YM}r_0$ & $\Lambda_{YM}$ [MeV] \\\hline
-        1-loop & $0.656(78)(17)$ & $259(31)(7)$ \\
-        2-loop & $0.612(26)(2)$ & $242(10)(1)$  \\
-        3-loop & $0.608(38)(3)$ & $239(15)(2)$  \\
-        4-loop & $0.618(32)(2)$ & $244(13)(1)$  
-    \end{tabular}
-    \label{lambda_table} 
-    \capt{Final results for the scale $\Lambda_{YM}$ from the distribution of the fits in \cref{lambda_hist}. The results are shown as $\Lambda_{YM}r_0$, the dimensionless lattice value for the scale. The value of  $\Lambda_{YM}$ in MeV is taken by setting $r_0=0.5$ fm. The first value within brackets after one value is the systematic error, given by the width of the weighted fit distribution. The second value within brackets is the statistical error, estimated by the standard deviation of the weighted means of the bootstrap samples.}
-    \end{center}
+        \capt{Final results for the scale $\Lambda_{YM}$ from the distribution of the fits in \cref{lambda_hist}. The results are shown as $r_0\Lambda_{YM}$, the dimensionless lattice value for the scale. The value of  $\Lambda_{YM}$ in MeV is taken by setting $r_0=0.5$ fm. The first value within brackets after one value is the systematic error, given by the width of the weighted fit distribution. The second value within brackets is the statistical error, estimated by the standard deviation of the weighted means of the bootstrap samples.}
+        \begin{tabular}{ccc} 
+            Fit Function Order & $r_0\Lambda_{YM}$ & $\Lambda_{YM}$ [MeV] \\\hline
+            1-loop & $0.656(78)(17)$ & $259(31)(7)$ \\
+            2-loop & $0.612(26)(2)$ & $242(10)(1)$  \\
+            3-loop & $0.608(38)(3)$ & $239(15)(2)$  \\
+            4-loop & $0.618(32)(2)$ & $244(13)(1)$  
+        \end{tabular}
+        \label{table:lambda_table} 
+    \end{center} 
 \end{table}
 
-The statistical error is consistently smaller than the systematic one proves that the method for the extrapolation of the continuum limit data is solid, but also implies that almost all the uncertainty is given by the method used to estimate $\Lambda$. \\
-This value can now be compared with ones found in literature for the same quantity using different methods. In particular we compare it with the one found in \cite{capitani_non-perturbative_1999} obtained using a recursive finite-size technique, which is reported as $\Lambda_{ref} = 238(18)$ MeV. The values found in \cref{lambda_table} agree very well with this value.\\ 
-One last result to show is the plot of $t_f^2E(q)$ using our values of $\Lambda$ as input. In \cref{fig:end} it is plotted, order by order, together with the continuum limit data extrapolated from the lattice. We can see that good agreement is found between $q \approx 700$ and $1400$ MeV, or in flow time between $t_f/r_0^2 \approx 0.01$ to $t_f/r_0^2 \approx 0.045$
+The statistical error is consistently smaller than the systematic. This means that the weighted fitting procedure is not affected by statistical fluctuations and that the outcome of the fit is reliable. However the rate of the errors also implies that almost all the uncertainty is given by the method used to estimate $\Lambda_{YM}$. \\
+Perhaps unsurprisingly, the result for the one-loop corrected form of $\alpha_S(q)$ differs significantly from the higher order corrections. The uncertainty is also by far larger. However, this difference is easily explained by considering \cref{fig:couplings}, which shows that the distance between the one-loop expression for $\alpha_S(q)$ is significantly different from all the others. 
+The values we found for $\Lambda_{YM}$ can now be compared with ones found in literature for the same quantity using different methods. In particular we compare it with the one found in \cite{capitani_non-perturbative_1999} obtained using a recursive finite-size technique, which is reported as $\Lambda_{ref} = 238(18)$ MeV. The values found in \cref{table:lambda_table} agree very well with the reference.\\ 
+One last result to show is the plot of $t_f^2\langle E\rangle$ as function of $q$ using the perturbative expression, \cref{eq:t2Ebuona}, and our values of $\Lambda_{YM}$ as input. In \cref{fig:end,fig:end1} the function is plotted for every order, together with the continuum limit data extrapolated from the lattice. We can see that good agreement is found between $q \approx 700$ and $1600$ MeV, or in flow time between $t_f/r_0^2 \approx 0.008$ to $t_f/r_0^2 \approx 0.045$
 
 \begin{figure}[hbt!]
     \centering
@@ -123,7 +124,7 @@ One last result to show is the plot of $t_f^2E(q)$ using our values of $\Lambda$
         \includegraphics[width=1\textwidth]{results/End2.pdf}
     \end{subfigure}
 
-    \caption{Plot of $t_f^2E(q)$, \cref{eq:t2Ebuona}, using the values of the scale found in \cref{lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in blue is the continuum limit extrapolated from the lattice.}
+    \caption{Plot of $t_f^2\langle E\rangle$, \cref{eq:t2Ebuona} as a function of the momentum scale $q$, using the values of the scale found in \cref{table:lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in black is the continuum limit extrapolated from the lattice. On the top the function is plotted using the one-loop corrected expression for $\alpha_S(q)$ and $\Lambda_{YM} =259(31)(7)$ MeV. The bottom plot uses the two-loop corrected  $\alpha_S(q)$ and $\Lambda_{YM} =242(10)(1)$ MeV. Note that the plotted continuum function is the result of the multiple weighted fits procedure.}
     \label{fig:end}
 \end{figure}
 \begin{figure}[hbt!]
@@ -136,7 +137,11 @@ One last result to show is the plot of $t_f^2E(q)$ using our values of $\Lambda$
         \centering
         \includegraphics[width=1\textwidth]{results/End4.pdf}        
     \end{subfigure}
-    \caption{Plot of $t_f^2E(q)$, \cref{eq:t2Ebuona}, using the values of the scale found in \cref{lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in blue is the continuum limit extrapolated from the lattice.}
+        \caption{Plot of $t_f^2\langle E\rangle$, \cref{eq:t2Ebuona} as a function of the momentum scale $q$, using the values of the scale found in \cref{table:lambda_table}. The error band is the sum of the statistical and systematic errors from the same table. The data series in black is the continuum limit extrapolated from the lattice. On the top the function is plotted using the three-loop corrected expression for $\alpha_S(q)$ and $\Lambda_{YM} =239(15)(2)$ MeV. The bottom plot uses the four-loop corrected  $\alpha_S(q)$ and $\Lambda_{YM} =244(13)(1)$ MeV. Note that the plotted continuum function is the result of the multiple weighted fits procedure.}
     \label{fig:end1}
 \end{figure}
 
+The conclusion we can make from these results is that there is clear agreement between the perturbative expansion in the coupling of $t_f^2\langle E\rangle$ and the continuum limit extrapolation that we performed for every flow time, in the intermediate energy range. At low values of $q$ as expected  the perturbative expansion diverges from the lattice data. As the coupling $\alpha_S(q)$ increases the less accurate perturbation theory becomes.\\
+The more controversial data to interpret is the high-energy limit. In principle, once the continuum limit is recovered from the lattice data, the data should always be consistent with perturbation theory. However we see that our continuum limit extrapolation is systematically higher than the results of our fitting procedure.  \\
+One possible check of this would be to only consider the high-energy points in the fit. The resulting fit however, would be very far from the data at smaller energies. By performing this check we found the value, in the case of four-loop-corrected $\alpha_S(q)$, $r_0\Lambda_{YM} = 709(31)$ MeV, which is a much worse estimate for the quantity, also basing the comparison on references \cite{capitani_non-perturbative_1999}. This is probably in indication that the high energy mismatch is most likely a flaw of the continuum limit extrapolation. A possible issue is for example highlighted in \cref{fig:extrapolation005}, where one can see that the final extrapolated value is affected by systematic errors introduced by the choice of which lattice spacings to fit. In a more general picture, this means that a proper estimation of the systematics of the extrapolation at low flow times is needed in order to recover the correct continuum limit at high energies.\\
+One further remarks should be made on the procedure we used to find the best estimate of $\Lambda_{YM}$. The method of performing multiple fits over different windows of the momentum scale $q$ and the choice of weighting them with the fit quality, proved successful. In particular the assessment of the systematic uncertainty seems to be reasonable. A single fit over the whole energy range would have produced a very different result. However physically we expect the matching of the continuum limit data with the perturbative expansion of  $t_f^2\langle E\rangle$  to be better at high-energies, so a possible improvement could be to add some weights to the different fitting windows depending on their range, in order to give more importance to the fits performed at high $q$. 
