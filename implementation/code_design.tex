@@ -290,12 +290,12 @@ In \cref{algo:flow} the general scheme of the program to flow the gauge field co
 \begin{algorithm}[bht!]
     \caption{Gradient Flow}\label{algo:flow}
     \begin{algorithmic}[1]
-    \For {\textit{conf} in $ensemble$}
-        \State \textit{conf} \gets readInputFile()     
+    \For {\textit{conf} in \textit{ensemble}}
+        \State \textit{conf} $\gets$ readInputFile()     
         \For {$t_f = 0,~ t_f < t_f^{MAX}$}
-            \State \textit{conf} \gets flowStep(\textit{conf})
+            \State \textit{conf} $\gets $ flowStep(\textit{conf})
             \State computeObservables(\textit{conf}) 
-            \State $t_f$ \gets $t_f + \epsilon$
+            \State $t_f \gets  t_f + \epsilon$
         \EndFor
     \EndFor
 \end{algorithmic}

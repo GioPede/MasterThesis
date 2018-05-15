@@ -64,7 +64,7 @@ The first thing to do is to define the quark and gluon propagators, which can be
     \feynmandiagram [horizontal=a to b] {
         a [particle=\(a~\mu\)] -- [gluon, momentum=\(k\)]  b [particle=\(b~\nu\)] ,
         }; 
-\end{center}
+\end{center} 
 \end{minipage}
 \begin{minipage}{0.58\textwidth}
         \beq \nonumber = ~~~-\frac{i}{k^2+i\epsilon}\delta_{ab}g^{\mu\nu} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\eeq
@@ -233,7 +233,7 @@ Given the very different behaviors of the strong force at different energy scale
 \subsubsection{Perturbative QCD}
 At high energies, like the scale of the large particle accelerators that are currently available, the QCD coupling constant is sufficiently small to allow analytical calculations of Feynman diagrams to be meaningful. Hadronization is neglected as the time scale is small enough to consider it a post-collision process. 
 For example, at a scale where the strong force is comparable to the electroweak interaction, the cross section of $e^+e^-\rightarrow \textit{hadrons}$ compared to that of $e^+e^-\rightarrow \mu^+\mu^-$ can be used to measure the number of quark flavors that are active below a certain energy. In \cref{fig:ee_hadrons} the perturbative QCD (pQCD) ratio of the hadronic to muonic cross section for the electron-positron annihilation is shown compared to experimental data. A step is visible around $3-4$ GeV and it is caused by the triggering of the bottom quark sector in the process. 
-\fig[0.8]{introduction/e+e-tohadrons.pdf}{Ratio of the experimental cross section of $e^+e^-\rightarrow \text{hadrons}$ and $e^+e^-\rightarrow \mu^+\mu^-$ as collected by the Particle Data Group \cite{_c._????}. Naive quark model is the dashed green line and pQCD results are also shown as a solid red line. pQCD appears to agree well to experiment in non resonant regions of the energy spectrum. }{fig:ee_hadrons}
+\fig[0.8]{introduction/e+e-tohadrons.pdf}{Ratio of the experimental cross section of $e^+e^-\rightarrow \text{hadrons}$ and $e^+e^-\rightarrow \mu^+\mu^-$ as collected by the Particle Data Group \cite{dissertori_9._2016}. Naive quark model is the dashed green line and pQCD results are also shown as a solid red line. pQCD appears to agree well to experiment in non resonant regions of the energy spectrum. }{fig:ee_hadrons}
 
 
 \subsubsection{Lattice Methods} 
@@ -241,7 +241,7 @@ To deal with the non-perturbative sector of the strong interaction the most wide
 
 \subsubsection{Effective Field Theories}
 An interesting problem is to link QCD directly with nuclear forces, that are long-range remnants of the strong interaction at a hadron level. The problem is of high interest because there is yet no fundamental theory of nuclear interactions from first principles. The most common approach is to define an Effective Field Theory (EFT), starting from a low energy approximation of chromodynamics, that preserves most of the symmetries of the underlying theory. \\
-Chiral EFT ($\chi EFT$) is one of the most popular of such theories; it starts from considering nucleons as a fundamental $\mathrm{SU}(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective Lagrangian, with nucleons as the fermion fields and pions as Nambu-Goldstone bosons \cite{nambu_dynamical_????} of the theory. Its Lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons \cite{epelbaum_nuclear_2010}:
+Chiral EFT ($\chi EFT$) is one of the most popular of such theories; it starts from considering nucleons as a fundamental $\mathrm{SU}(2)$ group in isospin and describes the interactions between them through the exchange of pions \cite{machleidt_chiral_2016}. It promotes particles that are not fundamental in QCD to the basic blocks of a low-energy effective Lagrangian, with nucleons as the fermion fields and pions as Goldstone bosons \cite{peskin} of the theory. Its Lagrangian is constructed in a systematic manner considering all possible interaction vertices between hadrons \cite{epelbaum_nuclear_2010}:
 \beq
     \Lagr_{\chi EFT} = \Lagr_{\pi\pi} +  \Lagr_{\pi N} + \Lagr_{NN} + ~\text{(three hadron terms)} ~+\dots
 \eeq 
